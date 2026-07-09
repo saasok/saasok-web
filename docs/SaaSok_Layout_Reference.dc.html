@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="design_doc_mode" content="canvas">
+<style>
+  body{margin:0;background:#e8e6df;font-family:'Inter',sans-serif}
+  a{color:#D6B04C}
+  a:hover{color:#b9903c}
+  .dv-turn{padding:40px 44px 56px;border-bottom:1px solid rgba(0,0,0,.08)}
+  .dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 6px}
+  .dv-tid{font:600 11px 'IBM Plex Mono',monospace;padding:3px 8px;background:#0A1330;color:#F3F1E9;border-radius:4px;text-decoration:none}
+  .dv-tname{font:600 15px/1.2 'Fraunces',serif;color:#0A1330}
+  .dv-sub{font:400 12px/1.5 'Inter',sans-serif;color:#5E6A94;margin:0 0 20px;max-width:800px}
+  .dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+  .dv-opt{flex:none;display:flex;flex-direction:column;gap:9px}
+  .dv-oid{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 8px;background:rgba(0,0,0,.08);color:#0A1330;border-radius:5px;text-decoration:none}
+  .dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11.5px/1.3 'Inter',sans-serif;color:rgba(0,0,0,.55)}
+  .dv-card{background:#050914;border:1px solid rgba(255,255,255,.08);box-shadow:0 4px 24px rgba(0,0,0,.25);overflow:hidden}
+  .dv-notes{margin:16px 0 0;font:12px/1.6 'IBM Plex Mono',monospace;color:#5E6A94;max-width:820px;background:rgba(0,0,0,.03);padding:12px 16px;border-radius:6px}
+  .dv-notes b{color:#0A1330}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Layout 1 — Page 5 Widget Zone</span></div>
+  <p class="dv-sub">Bottom of dashboard, below consolidated portfolio (not shown). Four widgets: Market Calendar strip (full width), then Pelosi Trades / Market News / Warsh Speeches in a row.</p>
+  <div class="dv-opts">
+    <div class="dv-opt" id="1a">
+      <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>All four collapsed (resting state)</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box">
+        {{ widgetZoneCollapsed }}
+      </div>
+    </div>
+    <div class="dv-opt" id="1b">
+      <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Market Calendar expanded, others collapsed</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box">
+        {{ widgetZoneExpanded }}
+      </div>
+    </div>
+  </div>
+  <div class="dv-notes">
+    <b>Spacing:</b> 32px outer padding, 24px gap between rows and between the three lower widgets.<br>
+    <b>Calendar strip:</b> collapsed = 36px tall, 10 equal segments, 1px gaps. Expanded adds a 150px info panel below the strip — drops down in place, does not push the row below until it collapses again.<br>
+    <b>Lower row:</b> fixed 3-col grid (1fr 1.6fr 1fr) so News gets the most width. Collapsed = 48px title bar only. Expanded height (not pictured) ≈ 480px (10 rows @ ~40px + header), all three grow independently without overlapping since they're siblings in a grid, not absolutely positioned.<br>
+    <b>Open question:</b> when 2+ widgets are expanded simultaneously, does page scroll grow, or is there a max-height + inner scroll per widget? Recommend inner scroll (matches "scroll indicator" spec) so total page height stays bounded.
+  </div>
+</section>
+
+<section class="dv-turn" id="t2">
+  <div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Layout 2 — Page 6 Asset Grid</span></div>
+  <p class="dv-sub">Left: peer-group mockup for the selected asset. Right: scrollable list of 20 assets, 10 visible. Page-edge arrows navigate to 5 / 7.</p>
+  <div class="dv-opts">
+    <div class="dv-opt" id="2a">
+      <div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Alphabet selected (default / first load)</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box;position:relative">
+        {{ assetGridA }}
+      </div>
+    </div>
+    <div class="dv-opt" id="2b">
+      <div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Tesla selected — center area updates</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box;position:relative">
+        {{ assetGridB }}
+      </div>
+    </div>
+  </div>
+  <div class="dv-notes">
+    <b>Asset card:</b> 120px tall × full column width, 8px gap. Unselected = silver #D7DAE2 fill, dark navy text. Selected = amber #D6B04C fill. List viewport height = 10×120 + 9×8 = 1272px (tall — flag this, may want to shrink card height in code to ~64px so 10 fit in a normal viewport).<br>
+    <b>Scrollbar:</b> thin custom track on the right edge of the list column, thumb = muted #8E9AC2, track = navy #0A1330.<br>
+    <b>Center card:</b> fixed 760×520 area, silver-highlight #EFF1F5 background (only light surface on the dark page), navy text for contrast. "Save results" button = silver fill, amber hover, sits directly under the description block.<br>
+    <b>Open question:</b> should the warning "Select only one asset" always render, or only appear if a user tries to multi-select? Mockup shows it always-on above the center card as a persistent label, not an error state.
+  </div>
+</section>
+
+<section class="dv-turn" id="t3">
+  <div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Layout 3 — Page 7 Correlation Analysis</span></div>
+  <p class="dv-sub">10 assets left, 10 right, empty center stage. Clicking one animates it to center; correlated assets surround it.</p>
+  <div class="dv-opts">
+    <div class="dv-opt" id="3a">
+      <div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Initial state — 10 / empty / 10</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box">
+        {{ correlationA }}
+      </div>
+    </div>
+    <div class="dv-opt" id="3b">
+      <div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Tesla centered, correlated assets with % badges</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box">
+        {{ correlationB }}
+      </div>
+    </div>
+  </div>
+  <div class="dv-notes">
+    <b>Encoding choice:</b> Option A — small % badge (amber text on navy) on each correlated asset box. Rejected B (line thickness) and C (color heat) as harder to read at a glance against a dark background; badge is clearest and cheapest to build. Combine with light connecting lines (1px, muted #5E6A94) purely as a visual tether, not as the % encoding itself.<br>
+    <b>Sizing:</b> side boxes 200×64px, 12px gap, 2-col grid per side (5 rows). Center stage 360×360px, dashed border when empty, solid amber border once occupied.<br>
+    <b>Reset:</b> small red X centered directly above the stage, always visible once a selection is made.<br>
+    <b>Open question:</b> when Tesla moves to center, do the other 19 assets stay visible (dimmed, as mocked) so the user can pick a new one immediately, or do they hide until reset? Dimmed-but-present is mocked here to avoid a jarring layout jump.
+  </div>
+</section>
+
+<section class="dv-turn" id="t4">
+  <div class="dv-thd"><a class="dv-tid" href="#t4">4</a><span class="dv-tname">Layout 4 — Page 9 Scenario Studio</span></div>
+  <p class="dv-sub">Tabs switch 5yr/10yr copy. Portfolio center, 10 scenario cards on the right, one selectable at a time.</p>
+  <div class="dv-opts">
+    <div class="dv-opt" id="4a">
+      <div class="dv-olabel"><a class="dv-oid" href="#4a">4a</a>5-Year tab, no scenario selected</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box">
+        {{ scenarioA }}
+      </div>
+    </div>
+    <div class="dv-opt" id="4b">
+      <div class="dv-olabel"><a class="dv-oid" href="#4b">4b</a>5-Year tab, "AI Productivity Supercycle" selected</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box">
+        {{ scenarioB }}
+      </div>
+    </div>
+    <div class="dv-opt" id="4c">
+      <div class="dv-olabel"><a class="dv-oid" href="#4c">4c</a>10-Year tab, same scenario — copy updates</div>
+      <div class="dv-card" style="width:1440px;padding:32px;box-sizing:border-box">
+        {{ scenarioC }}
+      </div>
+    </div>
+  </div>
+  <div class="dv-notes">
+    <b>Scenario card:</b> ~92px tall, title (Fraunces 15px) + 2-line description (Inter 12px muted), 10px gap between cards, list viewport ≈ 970px (10×92 + 9×10) — fits a 1080px-tall screen alongside tabs.<br>
+    <b>Portfolio highlight:</b> green #4CB88A / red #DD6B57 fills applied directly to each position row's background at ~18% opacity over navy so ivory text stays legible; unaffected positions stay plain (no fill).<br>
+    <b>Reset:</b> single button below the portfolio card, silver fill, clears selection + all highlighting back to 4a's state.<br>
+    <b>Open question:</b> tabs currently only swap scenario-card copy per spec — confirm portfolio highlighting itself doesn't also change between 5yr/10yr for the same scenario (mocked here as identical highlight, different card text only).
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const EXCHANGES = ['NYSE','NASDAQ','LSE','XETRA','EURONEXT','TSE','HKEX','SSE','ASX','OTC PINK'];
+
+const PELOSI_TRADES = [
+  {date:'2026-07-01',action:'Buy',security:'NVDA',amount:'$1.2M'},
+  {date:'2026-06-28',action:'Sell',security:'AAPL',amount:'$450K'},
+  {date:'2026-06-24',action:'Buy',security:'MSFT',amount:'$800K'},
+  {date:'2026-06-20',action:'Buy',security:'GOOGL',amount:'$300K'},
+  {date:'2026-06-15',action:'Sell',security:'META',amount:'$210K'},
+  {date:'2026-06-10',action:'Buy',security:'AVGO',amount:'$1.5M'},
+  {date:'2026-06-05',action:'Sell',security:'TSLA',amount:'$620K'},
+  {date:'2026-05-30',action:'Buy',security:'CRM',amount:'$180K'},
+  {date:'2026-05-22',action:'Buy',security:'PANW',amount:'$95K'},
+  {date:'2026-05-18',action:'Sell',security:'NFLX',amount:'$340K'},
+];
+
+const WARSH_SPEECHES = [
+  {date:'2026-07-03',topic:'Rate path outlook',location:'Jackson Hole'},
+  {date:'2026-06-25',topic:'Balance sheet normalization',location:'Washington, DC'},
+  {date:'2026-06-18',topic:'Labor market signals',location:'New York'},
+  {date:'2026-06-09',topic:'Inflation expectations',location:'Chicago'},
+  {date:'2026-05-29',topic:'Financial stability review',location:'Washington, DC'},
+  {date:'2026-05-20',topic:'Global policy coordination',location:'London'},
+  {date:'2026-05-12',topic:'Credit conditions',location:'Boston'},
+  {date:'2026-05-02',topic:'Housing & rates',location:'San Francisco'},
+  {date:'2026-04-24',topic:'Q&A on dual mandate',location:'Washington, DC'},
+  {date:'2026-04-15',topic:'Fed independence',location:'Dallas'},
+];
+
+const NEWS_ITEMS = [
+  {headline:'Chipmakers rally on AI capex guidance', desc:'Semiconductor names moved higher after two major cloud providers raised capital expenditure forecasts for next year.', source:'Reuters', date:'Jul 8'},
+  {headline:'Fed signals patience on next cut', desc:'Minutes from the latest meeting show policymakers split on timing, with several favoring one more hold.', source:'Bloomberg', date:'Jul 7'},
+  {headline:'Crypto custody rules finalized', desc:'Regulators published final guidance for institutional custody, removing a key overhang for exchanges.', source:'WSJ', date:'Jul 6'},
+];
+
+const ASSETS = ['Alphabet Inc. Class A','Amazon.com Inc.','Apple Inc.','BlackRock','Booking Holdings','Broadcom','BYD Company Ltd. ADR','Coinbase','Mastercard','Microsoft','Netflix','NVIDIA Corp.','Palo Alto Networks Inc.','Palantir Technologies Inc.','Reddit Inc.','RTX Corp.','Strategy Inc.','Taiwan Semiconductor Manufacturing Co. (TSMC)','Tesla Inc.','Visa'];
+
+const CORR_LEFT = ['AAPL','MSFT','AMZN','GOOGL','META','AVGO','CRM','ORCL','ADBE','QCOM'];
+const CORR_RIGHT = ['NVDA','TSLA','PANW','PLTR','RDDT','RTX','MSTR','TSM','V','MA'];
+const CORRELATED = [
+  {ticker:'PANW', pct:87, x:-150, y:-120},
+  {ticker:'NVDA', pct:81, x:150, y:-120},
+  {ticker:'PLTR', pct:74, x:-190, y:20},
+  {ticker:'RDDT', pct:69, x:190, y:20},
+  {ticker:'AVGO', pct:63, x:-110, y:150},
+  {ticker:'QCOM', pct:58, x:110, y:150},
+];
+
+const SCENARIOS = [
+  {title:'AI Productivity Supercycle', d5:'Enterprise AI adoption compounds faster than expected, lifting margins across software and semis.', d10:'A decade of sustained productivity gains reshapes labor markets and corporate margins economy-wide.'},
+  {title:'Fed Rate Cut Cycle', d5:'Front-loaded cuts ease financing costs and support equity multiples.', d10:'A full easing cycle plays out, with rates settling near a new neutral by year ten.'},
+  {title:'Inflation Return / Stagflation', d5:'Sticky prices force the Fed to pause cuts, pressuring growth names.', d10:'A structurally higher inflation regime persists, compressing long-duration asset valuations.'},
+  {title:'US-China Geopolitical', d5:'Tariff escalation disrupts supply chains for hardware and semis.', d10:'Prolonged decoupling reshapes global manufacturing footprints over the decade.'},
+  {title:'Crypto Legalization Mainstream', d5:'Clear federal rules unlock institutional allocation to digital assets.', d10:'Digital assets become a standard portfolio sleeve alongside equities and bonds.'},
+  {title:'Global Recession', d5:'A demand shock hits cyclicals and credit-sensitive names hardest.', d10:'A slower-growth decade follows, with defensives outperforming cyclicals broadly.'},
+  {title:'Big Tech Antitrust', d5:'Breakup rulings pressure platform economics at the largest tech names.', d10:'A restructured tech landscape emerges with new competitive dynamics by year ten.'},
+  {title:'EV Price War', d5:'Margin compression hits EV makers as price cuts spread globally.', d10:'Consolidation leaves fewer, larger EV players with stabilized economics.'},
+  {title:'Quantum Computing Breakthrough', d5:'Early commercial wins lift speculative interest in quantum-adjacent names.', d10:'Quantum advantage reaches production use cases across select industries.'},
+  {title:'Climate Transition Acceleration', d5:'Policy support accelerates capex into renewables and grid infrastructure.', d10:'A decade-long capital reallocation favors low-carbon infrastructure broadly.'},
+];
+
+const PORTFOLIO = [
+  {ticker:'NVDA', name:'NVIDIA Corp.'},
+  {ticker:'MSFT', name:'Microsoft'},
+  {ticker:'AAPL', name:'Apple Inc.'},
+  {ticker:'XOM', name:'Exxon Mobil'},
+  {ticker:'JPM', name:'JPMorgan Chase'},
+  {ticker:'PG', name:'Procter & Gamble'},
+  {ticker:'TSLA', name:'Tesla Inc.'},
+  {ticker:'KO', name:'Coca-Cola'},
+];
+const AI_IMPACT = {NVDA:'green', MSFT:'green', AAPL:'gray', XOM:'red', JPM:'gray', PG:'red', TSLA:'gray', KO:'gray'};
+
+const C = {
+  bgNavy:'#0A1330', ivory:'#F3F1E9', amber:'#D6B04C', silver:'#D7DAE2',
+  silverHi:'#EFF1F5', silverActive:'#B9C0D2', red:'#DD6B57', green:'#4CB88A',
+  muted:'#8E9AC2', mutedDim:'#5E6A94',
+};
+
+function h(tag, style, children, extra) {
+  return React.createElement(tag, Object.assign({style}, extra || {}), children);
+}
+
+class Component extends DCLogic {
+
+  buildCalendarStrip() {
+    return h('div', {display:'flex', gap:'2px', width:'100%'},
+      EXCHANGES.map((ex, i) => h('div', {
+        flex:'1', height:'36px', background:C.silver, color:C.bgNavy,
+        display:'flex', alignItems:'center', justifyContent:'center',
+        fontFamily:"'IBM Plex Mono',monospace", fontSize:'11px', fontWeight:500,
+        letterSpacing:'0.02em', boxSizing:'border-box'
+      }, ex, {key:i}))
+    );
+  }
+
+  widgetTitleBar(title, expanded) {
+    return h('div', {
+      display:'flex', alignItems:'center', justifyContent:'space-between',
+      height:'48px', padding:'0 16px', background:C.bgNavy, boxSizing:'border-box',
+      borderBottom: expanded ? `1px solid ${C.mutedDim}` : 'none'
+    }, [
+      h('span', {fontFamily:"'Fraunces',serif", fontWeight:600, fontSize:'15px', color:C.ivory}, title, {key:'t'}),
+      h('span', {
+        width:'20px', height:'20px', borderRadius:'50%', background:'rgba(221,107,87,0.15)',
+        color:C.red, display:'flex', alignItems:'center', justifyContent:'center',
+        fontSize:'12px', fontFamily:"'IBM Plex Mono',monospace", cursor:'pointer'
+      }, '\u00d7', {key:'x'})
+    ]);
+  }
+
+  renderVals() {
+
+    // ---- Layout 1 ----
+    const calendarPanel = h('div', {
+      display:'grid', gridTemplateColumns:'repeat(6, 1fr)', gap:'0px',
+      background:C.silverHi, padding:'16px 20px', marginTop:'0'
+    }, [
+      ['Exchange','NYSE'], ['Trading Hours','09:30–16:00 ET'], ['Pre-Market','04:00–09:30 ET'],
+      ['After-Market','16:00–20:00 ET'], ['Days Off','Sat, Sun'], ['Next Holiday','Jul 24 — Half Day']
+    ].map((pair, i) => h('div', {padding:'8px 12px', borderRight: i<5 ? `1px solid ${C.silverActive}` : 'none'}, [
+      h('div', {fontFamily:"'IBM Plex Mono',monospace", fontSize:'10px', color:C.mutedDim, marginBottom:'4px'}, pair[0], {key:'l'}),
+      h('div', {fontFamily:"'Inter',sans-serif", fontSize:'13px', color:C.bgNavy, fontWeight:500}, pair[1], {key:'v'})
+    ], {key:i})));
+
+    const lowerRow = (calendarExpanded) => h('div', {
+      display:'grid', gridTemplateColumns:'1fr 1.6fr 1fr', gap:'24px', marginTop:'24px'
+    }, [
+      h('div', {background:C.bgNavy, border:`1px solid ${C.mutedDim}`}, this.widgetTitleBar('Nancy Pelosi Trades', false), {key:'p'}),
+      h('div', {background:C.bgNavy, border:`1px solid ${C.mutedDim}`}, this.widgetTitleBar('Market News Feed', false), {key:'n'}),
+      h('div', {background:C.bgNavy, border:`1px solid ${C.mutedDim}`}, this.widgetTitleBar('Kevin Warsh Speeches', false), {key:'w'}),
+    ]);
+
+    const widgetZoneCollapsed = h('div', {}, [
+      h('div', {background:'transparent'}, this.buildCalendarStrip(), {key:'cal'}),
+      lowerRow(false, {key:'row'})
+    ]);
+
+    const pelosiRows = (rows) => h('div', {background:C.silverHi}, [
+      h('div', {display:'grid', gridTemplateColumns:'1fr 0.7fr 0.8fr 0.8fr', padding:'6px 16px', background:C.silverActive, fontFamily:"'IBM Plex Mono',monospace", fontSize:'10px', color:C.bgNavy}, ['Date','Action','Security','Amount'].map((t,i)=>h('span',{},t,{key:i})), {key:'h'}),
+      ...rows.map((r,i) => h('div', {display:'grid', gridTemplateColumns:'1fr 0.7fr 0.8fr 0.8fr', padding:'8px 16px', borderTop:`1px solid ${C.silverActive}`, fontFamily:"'Inter',sans-serif", fontSize:'12px', color:C.bgNavy}, [
+        h('span', {}, r.date, {key:'d'}),
+        h('span', {color: r.action==='Buy' ? '#2f8a63' : C.red, fontWeight:500}, r.action, {key:'a'}),
+        h('span', {fontFamily:"'IBM Plex Mono',monospace"}, r.security, {key:'s'}),
+        h('span', {color: r.action==='Buy' ? '#2f8a63' : C.red}, r.amount, {key:'m'})
+      ], {key:i}))
+    ]);
+
+    const warshRows = (rows) => h('div', {background:C.silverHi}, [
+      h('div', {display:'grid', gridTemplateColumns:'0.8fr 1.4fr 1fr', padding:'6px 16px', background:C.silverActive, fontFamily:"'IBM Plex Mono',monospace", fontSize:'10px', color:C.bgNavy}, ['Date','Topic','Location'].map((t,i)=>h('span',{},t,{key:i})), {key:'h'}),
+      ...rows.map((r,i) => h('div', {display:'grid', gridTemplateColumns:'0.8fr 1.4fr 1fr', padding:'8px 16px', borderTop:`1px solid ${C.silverActive}`, fontFamily:"'Inter',sans-serif", fontSize:'12px', color:C.bgNavy}, [
+        h('span', {}, r.date, {key:'d'}),
+        h('span', {}, r.topic, {key:'t'}),
+        h('span', {color:C.mutedDim}, r.location, {key:'l'})
+      ], {key:i}))
+    ]);
+
+    const newsRows = (items) => h('div', {background:C.silverHi, padding:'8px 12px'}, items.map((n,i) => h('div', {display:'flex', gap:'12px', padding:'10px 4px', borderTop: i>0 ? `1px solid ${C.silverActive}` : 'none'}, [
+      h('div', {width:'44px', height:'44px', background:C.silverActive, flex:'none'}, null, {key:'img'}),
+      h('div', {}, [
+        h('div', {fontWeight:600, fontSize:'13px', color:C.bgNavy, fontFamily:"'Inter',sans-serif"}, n.headline, {key:'h'}),
+        h('div', {fontSize:'11.5px', color:C.mutedDim, margin:'3px 0', fontFamily:"'Inter',sans-serif"}, n.desc, {key:'d'}),
+        h('div', {fontSize:'10px', color:C.mutedDim, fontFamily:"'IBM Plex Mono',monospace"}, `${n.source} · ${n.date}`, {key:'s'})
+      ], {key:'b'})
+    ], {key:i})));
+
+    const widgetZoneExpanded = h('div', {}, [
+      h('div', {}, [this.buildCalendarStrip(), calendarPanel], {key:'cal'}),
+      h('div', {display:'grid', gridTemplateColumns:'1fr 1.6fr 1fr', gap:'24px', marginTop:'24px', alignItems:'start'}, [
+        h('div', {background:C.bgNavy, border:`1px solid ${C.mutedDim}`}, [this.widgetTitleBar('Nancy Pelosi Trades', false)], {key:'p'}),
+        h('div', {background:C.bgNavy, border:`1px solid ${C.mutedDim}`}, [this.widgetTitleBar('Market News Feed', false)], {key:'n'}),
+        h('div', {background:C.bgNavy, border:`1px solid ${C.mutedDim}`}, [this.widgetTitleBar('Kevin Warsh Speeches', false)], {key:'w'}),
+      ], {key:'row'})
+    ]);
+
+    // ---- Layout 2 ----
+    const assetList = (selectedName) => h('div', {display:'flex', flexDirection:'column', gap:'8px', height:'640px', overflowY:'auto', paddingRight:'8px'},
+      ASSETS.map((name, i) => h('div', {
+        height:'56px', display:'flex', alignItems:'center', padding:'0 16px', flex:'none',
+        background: name===selectedName ? C.amber : C.silver,
+        color: C.bgNavy, fontFamily:"'Inter',sans-serif", fontSize:'13px', fontWeight: name===selectedName ? 600 : 400,
+        boxSizing:'border-box'
+      }, name, {key:i}))
+    );
+
+    const peerCard = (name, cap, size, positioning) => h('div', {background:C.silverHi, padding:'28px', width:'100%', boxSizing:'border-box'}, [
+      h('div', {fontFamily:"'Fraunces',serif", fontWeight:600, fontSize:'22px', color:C.bgNavy, marginBottom:'16px'}, name, {key:'n'}),
+      h('div', {display:'flex', gap:'32px', marginBottom:'20px'}, [
+        h('div', {}, [h('div',{fontSize:'10px',color:C.mutedDim,fontFamily:"'IBM Plex Mono',monospace"},'MARKET CAP',{key:'l'}), h('div',{fontSize:'16px',color:C.bgNavy,fontWeight:600,fontFamily:"'IBM Plex Mono',monospace"},cap,{key:'v'})], {key:'a'}),
+        h('div', {}, [h('div',{fontSize:'10px',color:C.mutedDim,fontFamily:"'IBM Plex Mono',monospace"},'SIZE CATEGORY',{key:'l'}), h('div',{fontSize:'16px',color:C.bgNavy,fontWeight:600,fontFamily:"'IBM Plex Mono',monospace"},size,{key:'v'})], {key:'b'})
+      ], {key:'stats'}),
+      h('div', {fontSize:'13px', color:C.bgNavy, lineHeight:1.6, marginBottom:'24px', fontFamily:"'Inter',sans-serif"}, positioning, {key:'p'}),
+      h('div', {display:'inline-block', padding:'12px 20px', background:C.silver, color:C.bgNavy, fontFamily:"'Inter',sans-serif", fontSize:'13px', fontWeight:600, cursor:'pointer'}, 'Save results of analysis', {key:'btn'})
+    ]);
+
+    const assetGridWrap = (selectedName, cap, size, positioning) => h('div', {display:'grid', gridTemplateColumns:'1fr 460px', gap:'32px'}, [
+      h('div', {}, [
+        h('div', {fontFamily:"'IBM Plex Mono',monospace", fontSize:'11px', color:C.amber, marginBottom:'12px'}, 'Select only one asset', {key:'warn'}),
+        peerCard(selectedName, cap, size, positioning)
+      ], {key:'left'}),
+      assetList(selectedName, {key:'right'})
+    ]);
+
+    const assetGridA = assetGridWrap('Alphabet Inc. Class A', '$2.1T', 'Mega-cap', 'Trades broadly in line with the mega-cap internet peer group; lower beta than pure-play adtech names, higher than diversified indices.');
+    const assetGridB = assetGridWrap('Tesla Inc.', '$780B', 'Large-cap', 'Higher volatility than the mega-cap peer set; correlates more closely with high-growth industrials than with traditional automakers.');
+
+    // ---- Layout 3 ----
+    const corrBox = (ticker, dim) => h('div', {
+      height:'64px', background: dim ? 'rgba(215,218,226,0.35)' : C.silver, color:C.bgNavy,
+      display:'flex', alignItems:'center', justifyContent:'center',
+      fontFamily:"'IBM Plex Mono',monospace", fontSize:'13px', fontWeight:500
+    }, ticker);
+
+    const sideGrid = (tickers, dim) => h('div', {display:'grid', gridTemplateColumns:'1fr 1fr', gap:'12px', width:'420px'},
+      tickers.map((t,i) => React.createElement(React.Fragment, {key:i}, corrBox(t, dim)))
+    );
+
+    const correlationA = h('div', {display:'flex', justifyContent:'space-between', alignItems:'center', minHeight:'400px'}, [
+      sideGrid(CORR_LEFT, false, {key:'l'}),
+      h('div', {width:'360px', height:'360px', border:`2px dashed ${C.mutedDim}`, display:'flex', alignItems:'center', justifyContent:'center', color:C.mutedDim, fontFamily:"'Inter',sans-serif", fontSize:'13px'}, 'Select an asset', {key:'c'}),
+      sideGrid(CORR_RIGHT, false, {key:'r'})
+    ]);
+
+    const correlationB = h('div', {display:'flex', justifyContent:'space-between', alignItems:'center', minHeight:'400px'}, [
+      sideGrid(CORR_LEFT, true, {key:'l'}),
+      h('div', {position:'relative', width:'360px', height:'360px'}, [
+        h('div', {position:'absolute', top:'-28px', left:'50%', transform:'translateX(-50%)', width:'18px', height:'18px', borderRadius:'50%', background:'rgba(221,107,87,0.15)', color:C.red, display:'flex', alignItems:'center', justifyContent:'center', fontSize:'11px', fontFamily:"'IBM Plex Mono',monospace", cursor:'pointer'}, '\u00d7', {key:'reset'}),
+        h('div', {position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'140px', height:'64px', background:C.amber, color:C.bgNavy, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'IBM Plex Mono',monospace", fontWeight:600, fontSize:'14px', border:`2px solid ${C.amber}`}, 'TSLA', {key:'center'}),
+        ...CORRELATED.map((c,i) => h('div', {
+          position:'absolute', top:`calc(50% + ${c.y}px)`, left:`calc(50% + ${c.x}px)`, transform:'translate(-50%,-50%)',
+          width:'96px', height:'52px', background:C.silver, color:C.bgNavy, display:'flex', flexDirection:'column',
+          alignItems:'center', justifyContent:'center', fontFamily:"'IBM Plex Mono',monospace"
+        }, [
+          h('span', {fontSize:'12px', fontWeight:600}, c.ticker, {key:'t'}),
+          h('span', {fontSize:'11px', color:'#2f6b4f'}, `${c.pct}%`, {key:'p'})
+        ], {key:i}))
+      ], {key:'c'}),
+      sideGrid(CORR_RIGHT, true, {key:'r'})
+    ]);
+
+    // ---- Layout 4 ----
+    const tabs = (active) => h('div', {display:'flex', gap:'2px', marginBottom:'20px'}, ['5 Years','10 Years'].map((t,i) => h('div', {
+      padding:'10px 20px', fontFamily:"'Inter',sans-serif", fontSize:'13px', fontWeight:600,
+      background: t===active ? C.amber : 'transparent', color: t===active ? C.bgNavy : C.muted,
+      border: t===active ? 'none' : `1px solid ${C.mutedDim}`, cursor:'pointer'
+    }, t, {key:i})));
+
+    const portfolioCard = (impactMap) => h('div', {background:'rgba(255,255,255,0.03)', border:`1px solid ${C.mutedDim}`, padding:'20px', width:'680px', boxSizing:'border-box'}, [
+      h('div', {fontFamily:"'Fraunces',serif", fontWeight:600, fontSize:'16px', color:C.ivory, marginBottom:'14px'}, 'Consolidated Portfolio', {key:'t'}),
+      h('div', {display:'flex', flexDirection:'column', gap:'6px'}, PORTFOLIO.map((p,i) => {
+        const impact = impactMap ? impactMap[p.ticker] : null;
+        const bg = impact==='green' ? 'rgba(76,184,138,0.22)' : impact==='red' ? 'rgba(221,107,87,0.22)' : 'transparent';
+        return h('div', {display:'flex', justifyContent:'space-between', padding:'10px 14px', background:bg}, [
+          h('span', {fontFamily:"'IBM Plex Mono',monospace", fontSize:'12px', color:C.ivory, fontWeight:600}, p.ticker, {key:'tk'}),
+          h('span', {fontFamily:"'Inter',sans-serif", fontSize:'12px', color:C.muted}, p.name, {key:'nm'})
+        ], {key:i});
+      }), {key:'rows'}),
+      h('div', {marginTop:'16px', display:'inline-block', padding:'10px 18px', background:C.silver, color:C.bgNavy, fontFamily:"'Inter',sans-serif", fontSize:'12px', fontWeight:600, cursor:'pointer'}, 'Reset', {key:'reset'})
+    ]);
+
+    const scenarioList = (activeIdx, horizonKey) => h('div', {display:'flex', flexDirection:'column', gap:'10px', width:'440px', maxHeight:'520px', overflowY:'auto'},
+      SCENARIOS.map((s,i) => h('div', {
+        padding:'14px 16px', background: i===activeIdx ? C.amber : 'rgba(215,218,226,0.08)',
+        border: i===activeIdx ? 'none' : `1px solid ${C.mutedDim}`
+      }, [
+        h('div', {fontFamily:"'Fraunces',serif", fontWeight:600, fontSize:'14px', color: i===activeIdx ? C.bgNavy : C.ivory, marginBottom:'4px'}, s.title, {key:'t'}),
+        h('div', {fontFamily:"'Inter',sans-serif", fontSize:'11.5px', color: i===activeIdx ? '#3a2f0f' : C.muted, lineHeight:1.4}, horizonKey==='5' ? s.d5 : s.d10, {key:'d'})
+      ], {key:i}))
+    );
+
+    const scenarioWrap = (activeHorizon, activeIdx) => h('div', {}, [
+      tabs(activeHorizon==='5' ? '5 Years' : '10 Years', {key:'tabs'}),
+      h('div', {display:'grid', gridTemplateColumns:'680px 440px', gap:'32px'}, [
+        portfolioCard(activeIdx!==null ? AI_IMPACT : null, {key:'p'}),
+        scenarioList(activeIdx, activeHorizon, {key:'s'})
+      ], {key:'grid'})
+    ]);
+
+    return {
+      widgetZoneCollapsed, widgetZoneExpanded,
+      assetGridA, assetGridB,
+      correlationA, correlationB,
+      scenarioA: scenarioWrap('5', null),
+      scenarioB: scenarioWrap('5', 0),
+      scenarioC: scenarioWrap('10', 0),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
