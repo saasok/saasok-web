@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SaaSok — interactive mockup</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg-deep:#050914;
+  --bg-navy:#0A1330;
+  --bg-navy-2:#0F1B42;
+  --panel:rgba(255,255,255,0.045);
+  --panel-border:rgba(255,255,255,0.09);
+  --ivory:#F3F1E9;
+  --muted:#8E9AC2;
+  --muted-dim:#5E6A94;
+  --silver:#D7DAE2;
+  --silver-hi:#EFF1F5;
+  --silver-active:#B9C0D2;
+  --amber:#D6B04C;
+  --amber-dim:#8A793F;
+  --green:#4CB88A;
+  --red:#DD6B57;
+  --line:rgba(255,255,255,0.10);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;background:var(--bg-deep);overflow:hidden;font-family:'Inter',sans-serif;}
+#app{width:100%;height:100vh;min-height:660px;position:relative;color:var(--ivory);
+  background:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(214,176,76,0.07), transparent 60%),
+    radial-gradient(ellipse 1200px 800px at 50% 110%, var(--bg-navy-2) 0%, var(--bg-deep) 70%);
+}
+
+.page{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:36px 40px;opacity:0;transition:opacity .55s ease;}
+.page.active{display:flex;opacity:1;}
+
+/* brand mark, used on every inner page */
+.top-brand{position:absolute;top:20px;left:24px;display:flex;align-items:center;gap:9px;}
+.top-brand svg{width:16px;height:16px;}
+.top-brand .word{font-family:'Fraunces',serif;font-weight:600;font-size:15px;letter-spacing:.01em;}
+.top-brand .word em{font-style:italic;color:var(--muted);font-weight:500;}
+
+.logo-wrap{display:flex;flex-direction:column;align-items:center;gap:22px;}
+.brandmark{width:46px;height:46px;opacity:0;transform:scale(.9);transition:all .8s cubic-bezier(.2,.8,.2,1);}
+.brandmark.show{opacity:1;transform:scale(1);}
+.logo{font-family:'Fraunces',serif;font-weight:600;font-size:34px;letter-spacing:.01em;opacity:0;transform:translateY(8px);transition:all .8s ease;}
+.logo.show{opacity:1;transform:translateY(0);}
+.logo em{font-style:italic;color:var(--muted);font-weight:500;}
+.tagline{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:25px;text-align:center;color:var(--ivory);opacity:0;transform:translateY(14px);transition:all 1s cubic-bezier(.2,.8,.2,1);}
+.tagline.show{opacity:1;transform:translateY(0);}
+
+.disclaimer{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:9px;line-height:1.5;color:var(--muted-dim);padding:0 70px;font-family:'Inter';letter-spacing:.01em;}
+
+.q-eyebrow{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-dim);margin-bottom:10px;}
+.q-title{font-family:'Fraunces',serif;font-weight:600;font-size:24px;text-align:center;margin-bottom:36px;max-width:560px;line-height:1.3;}
+.q-title small{display:block;font-family:'Inter';font-size:12px;color:var(--muted);font-weight:400;margin-top:8px;letter-spacing:.01em;}
+
+.grid-6{display:grid;grid-template-columns:repeat(3,152px);gap:14px;margin-bottom:36px;}
+.grid-3{display:flex;gap:16px;margin-bottom:36px;flex-wrap:wrap;justify-content:center;max-width:640px;}
+
+.opt-box{border-radius:9px;padding:20px 14px;text-align:center;cursor:pointer;user-select:none;font-family:'Inter';font-weight:600;font-size:13.5px;color:var(--ivory);border:1.5px solid rgba(255,255,255,0.08);transition:all .18s ease;display:flex;align-items:center;justify-content:center;min-height:68px;position:relative;letter-spacing:.01em;}
+.opt-box:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.22);}
+.opt-box.selected{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber) inset, 0 6px 18px rgba(214,176,76,0.18);}
+.opt-box.selected::after{content:'✓';position:absolute;top:6px;right:8px;font-size:10px;color:var(--amber);}
+.opt-box.wide{width:190px;min-height:64px;font-size:13px;}
+.opt-box.risk{width:180px;flex-direction:column;gap:5px;}
+.opt-box.risk small{font-weight:400;font-size:11px;opacity:.8;font-family:'IBM Plex Mono';}
+
+.b-ibkr{background:linear-gradient(160deg,#C23B22,#9E2E19);} .b-saxo{background:linear-gradient(160deg,#122A52,#0A1A36);}
+.b-wio{background:linear-gradient(160deg,#00A19A,#017871);} .b-xtb{background:linear-gradient(160deg,#0057B7,#003E85);}
+.b-swq{background:linear-gradient(160deg,#E30613,#A80510);} .b-exante{background:linear-gradient(160deg,#1c1c1c,#0a0a0a);}
+
+.next-btn{background:var(--silver);color:#111;font-family:'Inter';font-weight:600;font-size:13.5px;padding:13px 36px;border-radius:7px;border:none;cursor:pointer;transition:all .18s;letter-spacing:.01em;}
+.next-btn:hover:not(:disabled){background:var(--silver-hi);transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.25);}
+.next-btn:disabled{opacity:.3;cursor:not-allowed;}
+
+.loading-wrap{display:flex;flex-direction:column;align-items:center;gap:24px;}
+.spinner{width:30px;height:30px;border-radius:50%;border:2.5px solid rgba(255,255,255,.12);border-top-color:var(--amber);animation:spin .9s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-family:'IBM Plex Mono';font-size:13px;color:var(--muted);letter-spacing:.02em;}
+
+/* ---- Page 5 dashboard ---- */
+.dash-page{justify-content:flex-start;padding-top:58px;}
+.dash-eyebrow{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-dim);margin-bottom:4px;}
+.dash-title{font-family:'Fraunces',serif;font-weight:600;font-size:17px;color:var(--ivory);margin-bottom:14px;}
+.dash-main{display:flex;gap:22px;align-items:flex-start;justify-content:center;width:100%;max-width:1000px;}
+
+.portfolio-card{background:var(--panel);border:1px solid var(--panel-border);border-radius:14px;padding:18px 20px;width:330px;backdrop-filter:blur(6px);}
+.portfolio-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:14px;margin:0 0 3px;color:var(--ivory);}
+.portfolio-card .total{font-family:'IBM Plex Mono';font-size:24px;font-weight:600;margin-bottom:12px;color:var(--amber);}
+.pos-row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:11px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.pos-row .sym{color:var(--ivory);font-weight:600;}
+.pos-row .typ{color:var(--muted-dim);font-family:'Inter';font-size:10.5px;}
+.pos-row.loss .sym::after{content:" ●";color:var(--red);font-size:8px;vertical-align:middle;}
+
+.pie-card{width:198px;display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--panel-border);border-radius:14px;padding:16px;}
+.pie-card .cap{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--muted);letter-spacing:.03em;}
+.legend{font-size:10.5px;display:flex;flex-direction:column;gap:4px;width:100%;font-family:'Inter';}
+.legend .li{display:flex;align-items:center;gap:6px;}
+.legend .sw{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+
+.fee-card{width:212px;background:var(--panel);border:1px solid var(--panel-border);border-radius:14px;padding:16px 18px;}
+.fee-card h4{font-family:'Fraunces',serif;font-weight:600;font-size:13px;margin:0 0 10px;color:var(--ivory);}
+.fee-line{font-family:'IBM Plex Mono';font-size:10.5px;display:flex;justify-content:space-between;margin-bottom:7px;color:var(--muted);}
+.fee-line b{color:var(--ivory);font-weight:600;}
+.fee-note{border-top:1px solid var(--line);margin-top:8px;padding-top:9px;font-size:10px;color:var(--muted-dim);font-family:'Inter';line-height:1.5;}
+
+/* monobrow: market calendar */
+.calendar-wrap{position:relative;width:94%;max-width:940px;margin:24px auto 0;transform:translateY(-40px);opacity:0;transition:all .7s cubic-bezier(.2,.8,.2,1);}
+.calendar-wrap.reveal{transform:translateY(0);opacity:1;}
+.cal-close{position:absolute;top:100%;right:0;margin-top:4px;color:var(--red);font-size:11px;font-weight:700;cursor:pointer;background:rgba(0,0,0,.25);width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;line-height:1;}
+.cal-close.show{display:flex;}
+.calendar-strip{display:flex;width:100%;border-radius:7px;overflow:visible;box-shadow:0 10px 26px rgba(0,0,0,.3);}
+.exch{flex:1;background:var(--silver);color:#151515;text-align:center;font-family:'IBM Plex Mono';font-size:10px;font-weight:600;padding:10px 2px;cursor:pointer;border-right:1px solid rgba(0,0,0,0.08);position:relative;letter-spacing:.01em;transition:background .15s;}
+.exch:last-child{border-right:none;}
+.exch:first-child{border-radius:7px 0 0 7px;}
+.exch:last-child{border-radius:0 7px 7px 0;}
+.exch:hover{background:var(--silver-hi);}
+.exch.picked{background:var(--silver-active);}
+.exch-panel{position:absolute;top:calc(100% + 0px);left:0;background:#F6F6F8;color:#161616;font-size:10.5px;padding:0 12px;border-radius:0 0 9px 9px;width:196px;box-shadow:0 14px 28px rgba(0,0,0,.4);line-height:1.7;z-index:6;max-height:0;overflow:hidden;opacity:0;transition:max-height .3s ease, opacity .25s ease, padding .3s ease;font-family:'Inter';}
+.exch-panel.open{max-height:220px;opacity:1;padding:12px 12px;}
+.exch-panel b{display:block;font-size:12px;margin-bottom:4px;font-family:'Fraunces',serif;font-weight:600;}
+
+/* bottom widgets */
+.widgets-zone{position:relative;width:97%;max-width:980px;height:225px;margin-top:22px;}
+.widget{position:absolute;background:var(--silver);color:#151515;border-radius:10px;overflow:hidden;transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s ease, box-shadow .2s;cursor:pointer;font-family:'Inter';opacity:0;}
+.widget.reveal{opacity:1;}
+.widget-head{padding:11px 14px;font-family:'Fraunces',serif;font-weight:600;font-size:12.5px;display:flex;justify-content:space-between;align-items:center;letter-spacing:.01em;}
+.widget-body{display:none;max-height:0;overflow-y:auto;background:#fff;transition:max-height .3s ease;}
+.widget.open .widget-body{display:block;max-height:186px;}
+.widget.open{box-shadow:0 16px 34px rgba(0,0,0,.42);}
+.wclose{color:var(--red);font-weight:700;cursor:pointer;padding:0 2px;font-size:12px;}
+.scroll-hint{position:sticky;top:0;background:#fff;text-align:right;font-size:9px;color:#999;padding:2px 8px;border-bottom:1px solid #eee;font-family:'IBM Plex Mono';}
+
+#wPelosi{left:0;bottom:0;width:280px;transform:translateX(-60px);}
+#wPelosi.reveal{transform:translateX(0);}
+#wWarsh{right:0;bottom:0;width:280px;transform:translateX(60px);}
+#wWarsh.reveal{transform:translateX(0);}
+#wNews{left:50%;bottom:0;width:330px;margin-left:-165px;transform:translateY(50px);}
+#wNews.reveal{transform:translateY(0);}
+
+.pelosi-row,.warsh-row{display:flex;font-family:'IBM Plex Mono';font-size:10px;padding:7px 10px;border-bottom:1px solid #eee;gap:6px;align-items:center;}
+.pelosi-row .tag{font-family:'Inter';font-weight:700;font-size:9px;padding:2px 6px;border-radius:10px;color:#fff;}
+.pelosi-row .tag.buy{background:var(--green);}
+.pelosi-row .tag.sell{background:var(--red);}
+.pelosi-row .amt{margin-left:auto;color:#555;}
+.warsh-row{flex-direction:column;align-items:flex-start;gap:2px;}
+.warsh-row .d{font-weight:600;}
+.warsh-row .loc{color:#888;font-family:'Inter';font-size:9.5px;}
+
+.news-row{display:flex;flex-direction:column;gap:2px;font-family:'Inter';font-size:10px;padding:9px 12px;border-bottom:1px solid #eee;}
+.news-row b{font-size:10.5px;font-family:'Fraunces',serif;}
+.news-row span{color:#777;font-size:9.5px;font-family:'IBM Plex Mono';}
+
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:var(--silver);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#151515;font-size:15px;font-weight:700;transition:all .18s;box-shadow:0 6px 16px rgba(0,0,0,.3);}
+.arrow:hover{background:var(--silver-hi);transform:translateY(-50%) scale(1.06);}
+.arrow.left{left:16px;}
+.arrow.right{right:16px;}
+
+.scope-note{max-width:520px;text-align:center;font-size:13px;color:var(--muted);line-height:1.65;}
+.scope-note h2{font-family:'Fraunces',serif;color:var(--ivory);font-size:21px;margin-bottom:16px;font-weight:600;}
+.scope-note .pill{display:inline-block;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:20px;padding:4px 13px;font-size:11px;margin:3px;font-family:'IBM Plex Mono';color:var(--ivory);}
+
+/* ---- Page 6: Competitive Asset View ---- */
+.p6-warn{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--amber-dim);text-align:center;margin-bottom:14px;letter-spacing:.02em;}
+.p6-main{display:flex;gap:20px;width:100%;max-width:960px;justify-content:center;align-items:flex-start;}
+.asset-mockup{width:520px;background:var(--panel);border:1px solid var(--panel-border);border-radius:14px;padding:22px 26px;min-height:300px;}
+.asset-mockup .tk{font-family:'IBM Plex Mono';font-size:11px;color:var(--amber);letter-spacing:.06em;}
+.asset-mockup h3{font-family:'Fraunces',serif;font-weight:600;font-size:20px;margin:2px 0 2px;}
+.asset-mockup .cap{font-family:'IBM Plex Mono';font-size:13px;color:var(--muted);margin-bottom:16px;}
+.peer-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:12px;}
+.peer-row .pname{font-weight:600;}
+.peer-row .pcap{font-family:'IBM Plex Mono';color:var(--amber);}
+.peer-row .pregion{color:var(--muted-dim);font-size:10.5px;max-width:230px;text-align:right;}
+.asset-list{width:150px;background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;max-height:320px;overflow-y:auto;}
+.asset-item{padding:10px 14px;font-family:'IBM Plex Mono';font-size:11.5px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.05);transition:background .15s;}
+.asset-item:hover{background:rgba(255,255,255,.05);}
+.asset-item.active{background:rgba(214,176,76,0.14);color:var(--amber);}
+.save-btn{margin-top:20px;background:var(--silver);color:#111;font-family:'Inter';font-weight:600;font-size:12.5px;padding:11px 26px;border-radius:7px;border:none;cursor:pointer;}
+.save-btn:hover{background:var(--silver-hi);}
+
+/* ---- Page 7: Correlation Analysis ---- */
+.corr-stage{position:relative;width:100%;max-width:960px;height:430px;}
+.corr-frame{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:230px;height:230px;border:1.5px solid var(--panel-border);border-radius:16px;background:rgba(255,255,255,0.02);}
+.corr-reset{position:absolute;top:calc(50% - 115px - 26px);left:50%;transform:translateX(-50%);color:var(--red);font-size:12px;font-weight:700;cursor:pointer;background:rgba(0,0,0,.3);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.corr-node{position:absolute;font-family:'IBM Plex Mono';font-size:10.5px;font-weight:600;background:var(--silver);color:#151515;padding:7px 10px;border-radius:6px;cursor:pointer;transition:all .45s cubic-bezier(.2,.8,.2,1);text-align:center;white-space:nowrap;}
+.corr-node:hover{background:var(--silver-hi);}
+.corr-node.center{background:var(--amber);color:#1a1400;font-weight:700;padding:10px 14px;font-size:12px;}
+.corr-node .pct{display:block;font-size:9px;color:var(--muted-dim);font-family:'Inter';margin-top:2px;}
+
+/* ---- Page 8: Tax Insights ---- */
+.p8-footnote{font-family:'Inter';font-size:9.5px;color:var(--amber-dim);text-align:center;max-width:560px;margin-bottom:10px;line-height:1.5;}
+.residency-modal{background:var(--panel);border:1px solid var(--panel-border);border-radius:14px;padding:22px 26px;text-align:center;backdrop-filter:blur(6px);}
+.residency-modal p{font-family:'Fraunces',serif;font-size:15px;margin:0 0 14px;}
+.res-opts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:360px;}
+.res-opt{background:var(--silver);color:#111;font-family:'IBM Plex Mono';font-size:11px;font-weight:600;padding:8px 14px;border-radius:6px;cursor:pointer;}
+.res-opt:hover{background:var(--silver-hi);}
+.tax-blocks{display:flex;gap:16px;width:100%;max-width:960px;justify-content:center;flex-wrap:wrap;}
+.tax-block{width:290px;background:var(--panel);border:1px solid var(--panel-border);border-radius:14px;padding:16px 18px;position:relative;}
+.tax-block h4{font-family:'Fraunces',serif;font-weight:600;font-size:13.5px;margin:0 0 10px;}
+.tax-close{position:absolute;top:10px;right:12px;color:var(--red);font-weight:700;cursor:pointer;font-size:12px;}
+.tloss-row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:11px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;}
+.tloss-row.loss{color:var(--red);}
+.tloss-tip{font-size:9.5px;color:var(--muted);font-family:'Inter';margin-top:4px;display:none;line-height:1.4;}
+.tloss-row.open + .tloss-tip{display:block;}
+.calc-input{width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--panel-border);background:rgba(255,255,255,0.05);color:var(--ivory);font-family:'IBM Plex Mono';font-size:12px;margin-bottom:10px;}
+.calc-result{font-family:'IBM Plex Mono';font-size:12px;color:var(--amber);}
+.tactic-txt{font-size:11px;color:var(--muted);line-height:1.55;font-family:'Inter';}
+.tab-mini{display:flex;gap:6px;margin-bottom:10px;}
+.tab-mini span{font-family:'IBM Plex Mono';font-size:10px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,0.06);cursor:pointer;}
+.tab-mini span.active{background:var(--amber);color:#1a1400;}
+
+/* ---- Page 9: Situational Studio ---- */
+.p9-body{display:flex;gap:18px;width:100%;max-width:1020px;align-items:flex-start;justify-content:center;}
+.horizon-col{width:230px;display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto;}
+.horizon-tabs{display:flex;gap:6px;margin-bottom:8px;}
+.htab{flex:1;text-align:center;font-family:'IBM Plex Mono';font-size:11px;padding:7px;border-radius:6px;background:rgba(255,255,255,.06);cursor:pointer;}
+.htab.active{background:var(--amber);color:#1a1400;font-weight:700;}
+.scen-card{background:var(--panel);border:1px solid var(--panel-border);border-radius:9px;padding:9px 11px;cursor:pointer;font-size:11px;transition:all .15s;}
+.scen-card:hover{border-color:var(--amber-dim);}
+.scen-card.active{border-color:var(--amber);background:rgba(214,176,76,0.1);}
+.scen-card b{font-family:'Fraunces',serif;font-size:11.5px;display:block;margin-bottom:2px;}
+.scen-card span{color:var(--muted-dim);font-size:9.5px;}
+.p9-center{width:340px;}
+.p9-detail{width:230px;background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:14px 16px;font-size:11px;color:var(--muted);line-height:1.6;max-height:420px;overflow-y:auto;}
+.p9-detail h4{font-family:'Fraunces',serif;color:var(--ivory);font-size:13px;margin:0 0 8px;}
+.reset-btn{margin-top:12px;background:rgba(255,255,255,.08);border:1px solid var(--panel-border);color:var(--ivory);font-family:'Inter';font-size:11px;padding:8px 18px;border-radius:6px;cursor:pointer;width:100%;}
+.reset-btn:hover{background:rgba(255,255,255,.14);}
+.pos-row.g-up .sym{color:var(--green);}
+.pos-row.g-down .sym{color:var(--red);}
+.pos-row.g-flat .sym{color:var(--muted);}
+
+/* ---- Page 10: closing ---- */
+.closing-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;transition:all 1.4s ease;}
+.closing-wrap.collapse{transform:scale(.85);opacity:0;}
+.closing-line{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--muted);opacity:0;transition:opacity 1.2s ease;text-align:center;max-width:340px;}
+.closing-line.show{opacity:1;}
+.restart-btn{margin-top:10px;background:transparent;border:1px solid var(--panel-border);color:var(--muted);font-family:'IBM Plex Mono';font-size:10.5px;padding:8px 16px;border-radius:20px;cursor:pointer;opacity:0;transition:opacity 1s ease;}
+.restart-btn.show{opacity:1;}
+.restart-btn:hover{border-color:var(--amber-dim);color:var(--ivory);}
+
+.progress-dots{position:absolute;bottom:16px;right:22px;display:flex;gap:6px;z-index:20;}
+.progress-dots .dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.18);transition:all .25s;}
+.progress-dots .dot.active{background:var(--amber);width:14px;border-radius:3px;}
+
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="progress-dots" id="progressDots"></div>
+
+  <!-- PAGE 1 : COVER -->
+  <div class="page active" id="page1">
+    <div class="logo-wrap">
+      <div class="tagline" id="tagline">Get your edge up by SaaSok</div>
+      <svg class="brandmark" id="brandmark" viewBox="0 0 48 48" fill="none">
+        <rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="1.4"/>
+        <path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="38" cy="12" r="2.4" fill="#D6B04C"/>
+      </svg>
+      <div class="logo" id="logo">SaaS<em>ok</em></div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: BROKERS -->
+  <div class="page" id="page2">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="q-eyebrow">Step 1 of 3</div>
+    <div class="q-title">Which broker/s do you use?<small>Pick 1–3</small></div>
+    <div class="grid-6">
+      <div class="opt-box b-ibkr" data-broker="INTERACTIVE BROKERS (IBKR)">IBKR</div>
+      <div class="opt-box b-saxo" data-broker="SAXO">Saxo Bank</div>
+      <div class="opt-box b-wio" data-broker="WIO">Wio</div>
+      <div class="opt-box b-xtb" data-broker="XTB">XTB</div>
+      <div class="opt-box b-swq" data-broker="SWISSQUOTE">Swissquote</div>
+      <div class="opt-box b-exante" data-broker="EXANTE">Exante</div>
+    </div>
+    <button class="next-btn" id="next2" disabled>Next page</button>
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+  </div>
+
+  <!-- PAGE 3: RISK -->
+  <div class="page" id="page3">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="q-eyebrow">Step 2 of 3</div>
+    <div class="q-title">What is your portfolio risk level?</div>
+    <div class="grid-3">
+      <div class="opt-box risk" style="background:linear-gradient(160deg,#2E5C8A,#1F3F63)" data-risk="Conservative">Conservative<small>Bonds + ETFs</small></div>
+      <div class="opt-box risk" style="background:linear-gradient(160deg,#3B6E52,#284A38)" data-risk="Moderate">Moderate<small>Stocks + Funds + FX</small></div>
+      <div class="opt-box risk" style="background:linear-gradient(160deg,#8A4A3B,#602F24)" data-risk="Aggressive">Aggressive<small>Stocks + Futures + Options</small></div>
+    </div>
+    <button class="next-btn" id="next3" disabled>Next page</button>
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+  </div>
+
+  <!-- PAGE 4: YEARS -->
+  <div class="page" id="page4">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="q-eyebrow">Step 3 of 3</div>
+    <div class="q-title">How many years do you work with brokerage?</div>
+    <div class="grid-3">
+      <div class="opt-box wide" style="background:linear-gradient(160deg,#3A3F63,#282C46)" data-years="1-4">1–4 years</div>
+      <div class="opt-box wide" style="background:linear-gradient(160deg,#3A3F63,#282C46)" data-years="5-9">5–9 years</div>
+      <div class="opt-box wide" style="background:linear-gradient(160deg,#3A3F63,#282C46)" data-years="10+">10+ years</div>
+    </div>
+    <button class="next-btn" id="next4" disabled>Consolidate your portfolio</button>
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+  </div>
+
+  <!-- PAGE 4b: LOADING -->
+  <div class="page" id="pageLoad">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      <div class="loading-text">LOADING YOUR DEMO PORTFOLIO…</div>
+    </div>
+  </div>
+
+  <!-- PAGE 5: DASHBOARD -->
+  <div class="page dash-page" id="page5">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="dash-eyebrow" id="dashSubtitle">Conservative profile · 1–4 years experience</div>
+    <div class="dash-title">Unified Portfolio Dashboard</div>
+    <div class="dash-main">
+      <div class="portfolio-card">
+        <h3 id="pfBrokerLabel">Consolidated portfolio</h3>
+        <div class="total" id="pfTotal">$0</div>
+        <div id="pfPositions"></div>
+      </div>
+      <div class="pie-card">
+        <svg width="140" height="140" viewBox="0 0 150 150" id="pieSvg"></svg>
+        <div class="cap">BY SECTOR</div>
+        <div class="legend" id="pieLegend"></div>
+      </div>
+      <div class="fee-card">
+        <h4>Fee & Cost Optimization</h4>
+        <div class="fee-line"><span>Brokerage commissions</span><b>$412</b></div>
+        <div class="fee-line"><span>FX spread cost</span><b>$186</b></div>
+        <div class="fee-line"><span>Custody / hidden fees</span><b>$95</b></div>
+        <div class="fee-line"><span>Execution slippage</span><b>$63</b></div>
+        <div class="fee-note">Tracks what you really pay when you trade — illustrative demo figures.</div>
+      </div>
+    </div>
+
+    <div class="calendar-wrap" id="calWrap">
+      <div class="calendar-strip" id="calStrip"></div>
+      <div class="cal-close" id="calClose">✕</div>
+    </div>
+
+    <div class="widgets-zone" id="widgetsZone">
+      <div class="widget" id="wPelosi">
+        <div class="widget-head">Nancy Pelosi Trades <span class="wclose">✕</span></div>
+        <div class="widget-body" id="pelosiBody"></div>
+      </div>
+      <div class="widget" id="wNews">
+        <div class="widget-head">Market News Feed <span class="wclose">✕</span></div>
+        <div class="widget-body" id="newsBody"></div>
+      </div>
+      <div class="widget" id="wWarsh">
+        <div class="widget-head">Kevin Warsh speeches <span class="wclose">✕</span></div>
+        <div class="widget-body" id="warshBody"></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+    <div class="arrow right" id="toPage6">›</div>
+  </div>
+
+  <!-- PAGE 6: COMPETITIVE ASSET VIEW -->
+  <div class="page" id="page6">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="dash-eyebrow">Page 6</div>
+    <div class="dash-title">Competitive Asset View</div>
+    <div class="p6-warn">Pick one of the 20 assets — unlimited attempts</div>
+    <div class="p6-main">
+      <div class="asset-mockup" id="assetMockup"></div>
+      <div class="asset-list" id="assetList"></div>
+    </div>
+    <button class="save-btn" id="saveResults">Save results of analysis</button>
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+    <div class="arrow left" id="p6toP5">‹</div>
+    <div class="arrow right" id="p6toP7">›</div>
+  </div>
+
+  <!-- PAGE 7: CORRELATION ANALYSIS -->
+  <div class="page" id="page7">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="dash-eyebrow">Page 7</div>
+    <div class="dash-title">Correlation Analysis of your investments</div>
+    <div class="corr-stage" id="corrStage">
+      <div class="corr-frame"></div>
+      <div class="corr-reset" id="corrReset" style="display:none;">✕</div>
+    </div>
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+    <div class="arrow left" id="p7toP6">‹</div>
+    <div class="arrow right" id="p7toP8">›</div>
+  </div>
+
+  <!-- PAGE 8: TAX & FEES INSIGHTS -->
+  <div class="page" id="page8">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="dash-eyebrow">Page 8</div>
+    <div class="dash-title" style="margin-bottom:6px;">Tax insights for your portfolio</div>
+    <div class="p8-footnote">Tax and fee figures are illustrative and based on publicly available data as of June 2026; rates and schedules change — always verify with your broker and tax advisor before acting.</div>
+
+    <div id="residencyGate" class="residency-modal">
+      <p>What is your tax residence?</p>
+      <div class="res-opts" id="resOpts">
+        <div class="res-opt" data-r="EU">EU</div>
+        <div class="res-opt" data-r="UK">UK</div>
+        <div class="res-opt" data-r="US">US</div>
+        <div class="res-opt" data-r="UAE">UAE</div>
+        <div class="res-opt" data-r="CH">CH</div>
+        <div class="res-opt" data-r="UA">UA</div>
+      </div>
+    </div>
+
+    <div class="tax-blocks" id="taxBlocks" style="display:none;">
+      <div class="tax-block" id="tblock1">
+        <span class="tax-close">✕</span>
+        <h4>Tax-Loss Opportunities</h4>
+        <div id="tlossList"></div>
+      </div>
+      <div class="tax-block" id="tblock2">
+        <span class="tax-close">✕</span>
+        <h4>Tax Impact Before Trades</h4>
+        <input class="calc-input" id="sellAmount" type="number" placeholder="Hypothetical sale amount, $">
+        <div class="calc-result" id="calcResult">Enter an amount to see the estimated range.</div>
+      </div>
+      <div class="tax-block" id="tblock3">
+        <span class="tax-close">✕</span>
+        <h4>Reduce Unnecessary Tax Costs</h4>
+        <div class="tab-mini" id="feeTabs"></div>
+        <div class="tactic-txt" id="tacticText"></div>
+        <div class="tactic-txt" id="leverText" style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px;"></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+    <div class="arrow left" id="p8toP7">‹</div>
+    <div class="arrow right" id="p8toP9">›</div>
+  </div>
+
+  <!-- PAGE 9: SITUATIONAL STUDIO -->
+  <div class="page" id="page9">
+    <div class="top-brand"><svg viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="2"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="word">SaaS<em>ok</em></span></div>
+    <div class="dash-title" style="margin-bottom:14px;">Situational Studio for your future portfolio</div>
+    <div class="p9-body">
+      <div class="horizon-col">
+        <div class="horizon-tabs">
+          <div class="htab active" data-h="5">5 Years</div>
+          <div class="htab" data-h="10">10 Years</div>
+        </div>
+        <div id="scenList"></div>
+      </div>
+      <div class="p9-center">
+        <div class="portfolio-card" style="width:100%;">
+          <h3 id="p9BrokerLabel">Consolidated portfolio</h3>
+          <div class="total" id="p9Total">$0</div>
+          <div id="p9Positions"></div>
+        </div>
+        <button class="reset-btn" id="scenReset">Reset</button>
+      </div>
+      <div class="p9-detail" id="p9Detail">
+        <h4>Pick a scenario</h4>
+        <p>Select a card on the left to preview how this scenario could evolve over the chosen horizon.</p>
+      </div>
+    </div>
+    <div class="disclaimer">SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.</div>
+    <div class="arrow left" id="p9toP8">‹</div>
+    <div class="arrow right" id="p9toP10">›</div>
+  </div>
+
+  <!-- PAGE 10: CLOSING -->
+  <div class="page" id="page10">
+    <div class="closing-wrap" id="closingWrap">
+      <svg width="46" height="46" viewBox="0 0 48 48" fill="none"><rect x="1" y="1" width="46" height="46" rx="10" stroke="#D6B04C" stroke-width="1.4"/><path d="M10 30 L18 20 L26 26 L38 12" stroke="#F3F1E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="12" r="2.4" fill="#D6B04C"/></svg>
+      <div class="logo show">SaaS<em>ok</em></div>
+      <div class="tagline show" style="font-size:20px;">Now you are edged up by SaaSok!</div>
+      <div class="closing-line" id="closingThanks">Thank you for participating in our research! Every response makes SaaSok better.</div>
+      <button class="restart-btn" id="restartDemo">Restart demo</button>
+    </div>
+    <div class="arrow left" id="p10toP9">‹</div>
+  </div>
+
+</div>
+
+<script>
+const PF = {"INTERACTIVE BROKERS (IBKR)":{"Conservative":{"total":599750.27,"positions":[{"s":"TLT","t":"Bonds ETF","v":91694.68},{"s":"LQD","t":"IG Bonds ETF","v":136294.2},{"s":"SPY","t":"ETF","v":123170.85},{"s":"QQQ","t":"ETF","v":76851.54},{"s":"Cash","t":"USD","v":171739}]},"Moderate":{"total":571738.3,"positions":[{"s":"NVDA","t":"Stock","v":22971.2},{"s":"MSFT","t":"Stock","v":31250.25},{"s":"AAPL","t":"Stock","v":52247.8},{"s":"AMZN","t":"Stock","v":18944.31},{"s":"GOOGL","t":"Stock","v":45329.19},{"s":"AVGO","t":"Stock","v":52459.28},{"s":"TSM","t":"Stock","v":37365.3},{"s":"TSLA","t":"Stock","v":27370},{"s":"SPY","t":"ETF","v":50890.95},{"s":"QQQ","t":"ETF","v":45828.9},{"s":"PANW","t":"Stock","v":15234.8},{"s":"XAUUSD","t":"FX","v":60590.32},{"s":"Cash","t":"USD","v":111256}]},"Aggressive":{"total":"15 December 2028","positions":[{"s":"NVDA","t":"Stock","v":16408},{"s":"TSLA","t":"Stock","v":50830},{"s":"PLTR","t":"Stock","v":16670.19},{"s":"COIN","t":"Stock","v":25450.8},{"s":"RDDT","t":"Stock","v":23762.65},{"s":"MSTR","t":"Stock","v":12887.08},{"s":"MSFT","t":"Stock","v":74167.26},{"s":"AAPL","t":"Stock","v":36880.8},{"s":"GOOGL","t":"Stock","v":14004.14},{"s":"SPY","t":"ETF","v":93668.85},{"s":"QQQ","t":"ETF","v":84607.2},{"s":"ES Futures","t":"Futures","v":16233.5},{"s":"NQ Futures","t":"Futures","v":31579.25},{"s":"NVDA 200 Call","t":"Options","v":34585},{"s":"MSTR 120 Call","t":"Options","v":20031},{"s":"TSLA 370 Put","t":"Options","v":37480},{"s":"Cash","t":"USD","v":72547}]}},"SWISSQUOTE":{"Conservative":{"total":672681.95,"positions":[{"s":"AGG","t":"Bonds ETF","v":113877.2},{"s":"TLT","t":"Treasury ETF","v":109727.4},{"s":"LQD","t":"IG Bonds ETF","v":73014.75},{"s":"SPY","t":"ETF","v":88506},{"s":"QQQ","t":"ETF","v":77556.6},{"s":"Cash","t":"USD","v":210000}]},"Moderate":{"total":1268488.26,"positions":[{"s":"NVDA","t":"Stock","v":62555.5},{"s":"MSFT","t":"Stock","v":83334},{"s":"AAPL","t":"Stock","v":58394.6},{"s":"AMZN","t":"Stock","v":49206},{"s":"GOOGL","t":"Stock","v":57490.68},{"s":"AVGO","t":"Stock","v":138862.8},{"s":"TSM","t":"Stock","v":132854.4},{"s":"TSLA","t":"Stock","v":105570},{"s":"SPY","t":"ETF","v":95881.5},{"s":"QQQ","t":"ETF","v":84607.2},{"s":"MSCI World","t":"ETF","v":18968},{"s":"XAUUSD","t":"FX Spot","v":69246.08},{"s":"XAGUSD","t":"FX Spot","v":11517.5},{"s":"Cash","t":"USD","v":300000}]},"Aggressive":{"total":"15 December 2028","positions":[{"s":"NVDA","t":"Stock","v":16408},{"s":"TSLA","t":"Stock","v":48093},{"s":"MSFT","t":"Stock","v":54167.1},{"s":"AAPL","t":"Stock","v":52247.8},{"s":"GOOGL","t":"Stock","v":47540.37},{"s":"COIN","t":"Stock","v":15849.6},{"s":"PLTR","t":"Stock","v":17618.9},{"s":"RDDT","t":"Stock","v":20814},{"s":"MSTR","t":"Stock","v":8189.92},{"s":"SPY","t":"ETF","v":50890.95},{"s":"QQQ","t":"ETF","v":56404.8},{"s":"MSCI World","t":"ETF","v":33194},{"s":"ES Futures","t":"Futures","v":40583.75},{"s":"NQ Futures","t":"Futures","v":63158.5},{"s":"AMZN 200 Call","t":"Options","v":28341},{"s":"RDDT 180 Call","t":"Options","v":30200},{"s":"AVGO 420 Call","t":"Options","v":64750},{"s":"PANW 250 Put","t":"Options","v":12364},{"s":"Cash","t":"USD","v":65000}]}},"EXANTE":{"Conservative":{"total":1044926.7,"positions":[{"s":"AGG","t":"Bonds ETF","v":116822.3},{"s":"TLT","t":"Treasury ETF","v":111428.6},{"s":"LQD","t":"IG Bonds ETF","v":162255},{"s":"SPY","t":"ETF","v":147510},{"s":"QQQ","t":"ETF","v":126910.8},{"s":"Cash","t":"USD","v":380000}]},"Moderate":{"total":945756.52,"positions":[{"s":"NVDA","t":"Stock","v":47173},{"s":"MSFT","t":"Stock","v":58333.8},{"s":"AAPL","t":"Stock","v":61468},{"s":"AMZN","t":"Stock","v":44285.4},{"s":"GOOGL","t":"Stock","v":66335.4},{"s":"AVGO","t":"Stock","v":50144.9},{"s":"TSM","t":"Stock","v":58123.8},{"s":"TSLA","t":"Stock","v":50830},{"s":"SPY","t":"ETF","v":88506},{"s":"QQQ","t":"ETF","v":77556.6},{"s":"MSCI World","t":"ETF","v":18968},{"s":"XAUUSD","t":"FX","v":103869.12},{"s":"XAGUSD","t":"FX","v":10162.5},{"s":"Cash","t":"USD","v":210000}]},"Aggressive":{"total":"15 September 2028","positions":[{"s":"NVDA","t":"Stock","v":26663},{"s":"TSLA","t":"Stock","v":113390},{"s":"MSFT","t":"Stock","v":25000.2},{"s":"AAPL","t":"Stock","v":49174.4},{"s":"GOOGL","t":"Stock","v":62650.1},{"s":"COIN","t":"Stock","v":60960},{"s":"PLTR","t":"Stock","v":50146.1},{"s":"RDDT","t":"Stock","v":55504},{"s":"MSTR","t":"Stock","v":54198},{"s":"SPY","t":"ETF","v":73755},{"s":"QQQ","t":"ETF","v":91657.8},{"s":"MSCI World","t":"ETF","v":14226},{"s":"ES Futures","t":"Futures","v":24350.25},{"s":"NQ Futures","t":"Futures","v":63158.5},{"s":"PANW 300 Call","t":"Options","v":44375},{"s":"TSM 430 Call","t":"Options","v":69750},{"s":"META 600 Call ","t":"Options","v":51585},{"s":"RDDT 175 Call","t":"Options","v":46200},{"s":"Cash","t":"USD","v":130000}]}},"SAXO":{"Conservative":{"total":828907.26,"positions":[{"s":"TLT","t":"Bonds","v":167142.9},{"s":"LQD","t":"Bonds","v":173396.51},{"s":"SPY","t":"ETF","v":167423.85},{"s":"MSCI World","t":"ETF","v":56904},{"s":"Cash","t":"USD","v":264040}]},"Moderate":{"total":678734,"positions":[{"s":"NVDA","t":"Stock","v":20510},{"s":"MSFT","t":"Stock","v":83750.67},{"s":"AAPL","t":"Stock","v":43027.6},{"s":"GOOGL","t":"Stock","v":45329.19},{"s":"AMZN","t":"Stock","v":54126.6},{"s":"TSM","t":"Stock","v":53972.1},{"s":"TSLA","t":"Stock","v":50439},{"s":"SPY","t":"ETF","v":59004},{"s":"QQQ","t":"ETF","v":35253},{"s":"XAUUSD","t":"FX","v":77901.84},{"s":"XAGUSD","t":"FX","v":5420},{"s":"Cash","t":"USD","v":150000}]},"Aggressive":{"total":"15 December 2028","positions":[{"s":"NVDA","t":"Stock","v":26663},{"s":"TSLA","t":"Stock","v":35190},{"s":"PLTR","t":"Stock","v":18974.2},{"s":"COIN","t":"Stock","v":45720},{"s":"RDDT","t":"Stock","v":39893.5},{"s":"MSFT","t":"Stock","v":75000.6},{"s":"AAPL","t":"Stock","v":49174.4},{"s":"SPY","t":"ETF","v":59004},{"s":"QQQ","t":"ETF","v":63455.4},{"s":"ES Futures","t":"Futures","v":32467},{"s":"NQ Futures","t":"Futures","v":63158.5},{"s":"RDDT 150 Put","t":"Options","v":29850},{"s":"GOOGL 370 Call","t":"Options","v":31425},{"s":"AMZN 210 Call","t":"Options","v":35420},{"s":"AVGO 400 Call","t":"Options","v":81192},{"s":"Cash","t":"USD","v":100900}]}},"XTB":{"Conservative":{"total":547157.18,"positions":[{"s":"AGG","t":"Bonds ETF","v":117804},{"s":"TLT","t":"Treasury ETF","v":68048},{"s":"LQD","t":"IG Bonds ETF","v":77882.4},{"s":"SPY","t":"ETF","v":59004},{"s":"QQQ","t":"ETF","v":44418.78},{"s":"Cash","t":"USD","v":180000}]},"Moderate":{"total":666959.77,"positions":[{"s":"NVDA","t":"Stock","v":26663},{"s":"MSFT","t":"Stock","v":58333.8},{"s":"AAPL","t":"Stock","v":42412.92},{"s":"AMZN","t":"Stock","v":29523.6},{"s":"GOOGL","t":"Stock","v":44223.6},{"s":"AVGO","t":"Stock","v":40501.65},{"s":"TSM","t":"Stock","v":37365.3},{"s":"TSLA","t":"Stock","v":27370},{"s":"SPY","t":"ETF","v":44253},{"s":"QQQ","t":"ETF","v":35253},{"s":"MSCI World","t":"ETF","v":14226},{"s":"XAUUSD","t":"FX Spot","v":129836.4},{"s":"XAGUSD","t":"FX Spot","v":6097.5},{"s":"Cash","t":"USD","v":130900}]},"Aggressive":{"total":"15 December 2028","positions":[{"s":"NVDA","t":"Stock","v":25227.3},{"s":"TSLA","t":"Stock","v":77418},{"s":"MSFT","t":"Stock","v":22916.85},{"s":"AAPL","t":"Stock","v":49174.4},{"s":"GOOGL","t":"Stock","v":62650.1},{"s":"COIN","t":"Stock","v":47244},{"s":"PLTR","t":"Stock","v":43369.6},{"s":"RDDT","t":"Stock","v":41628},{"s":"MSTR","t":"Stock","v":54198},{"s":"SPY","t":"ETF","v":73755},{"s":"QQQ","t":"ETF","v":69095.88},{"s":"MSCI World","t":"ETF","v":23710},{"s":"ES Futures","t":"Futures","v":32467},{"s":"NQ Futures","t":"Futures","v":63158.5},{"s":"PLTR 120 Call","t":"Options","v":17880},{"s":"TSM. 470 Call","t":"Options","v":50600},{"s":"AMZN 260 Call","t":"Options","v":39552},{"s":"MSFT 400 Put","t":"Options","v":12274},{"s":"Cash","t":"USD","v":80000}]}},"WIO":{"Conservative":{"total":493915.46,"positions":[{"s":"AGG","t":"Bonds ETF","v":97188.3},{"s":"TLT","t":"Treasury ETF","v":92715.4},{"s":"LQD","t":"IG Bonds ETF","v":84372.6},{"s":"SPY","t":"ETF","v":59004},{"s":"QQQ","t":"ETF","v":60635.16},{"s":"Cash","t":"USD","v":100000}]},"Moderate":{"total":1415720.35,"positions":[{"s":"NVDA","t":"Stock","v":79989},{"s":"MSFT","t":"Stock","v":191668.2},{"s":"AAPL","t":"Stock","v":144449.8},{"s":"AMZN","t":"Stock","v":88570.8},{"s":"GOOGL","t":"Stock","v":110190.47},{"s":"AVGO","t":"Stock","v":185150.4},{"s":"TSM","t":"Stock","v":58123.8},{"s":"TSLA","t":"Stock","v":50830},{"s":"SPY","t":"ETF","v":51628.5},{"s":"QQQ","t":"ETF","v":56404.8},{"s":"MSCI World","t":"ETF","v":14226},{"s":"XAUUSD","t":"FX","v":69246.08},{"s":"XAGUSD","t":"FX","v":4742.5},{"s":"Cash","t":"USD","v":310500}]},"Aggressive":{"total":"15 December 2028","positions":[{"s":"NVDA","t":"Stock","v":26663},{"s":"TSLA","t":"Stock","v":50830},{"s":"MSFT","t":"Stock","v":51250.41},{"s":"AAPL","t":"Stock","v":51325.78},{"s":"GOOGL","t":"Stock","v":50488.61},{"s":"COIN","t":"Stock","v":16306.8},{"s":"PLTR","t":"Stock","v":21955.86},{"s":"RDDT","t":"Stock","v":19079.5},{"s":"MSTR","t":"Stock","v":9635.2},{"s":"SPY","t":"ETF","v":88506},{"s":"QQQ","t":"ETF","v":84607.2},{"s":"MSCI World","t":"ETF","v":28452},{"s":"ES Futures","t":"Futures","v":56817.25},{"s":"NQ Futures","t":"Futures","v":63158.5},{"s":"PLTR 115 Put","t":"Options","v":14885},{"s":"GOOGL 350 Call","t":"Options","v":33900},{"s":"META 590 Put","t":"Options","v":47440},{"s":"MSFT 420 Call","t":"Options","v":61602},{"s":"Cash","t":"USD","v":75000}]}}};
+
+const PAGE_ORDER = ['page1','page2','page3','page4','pageLoad','page5','page6','page7','page8','page9','page10'];
+const PAGE_NUMBER = {page2:2,page3:3,page4:4,page5:5,page6:6,page7:7,page8:8,page9:9,page10:10};
+const dotsEl = document.getElementById('progressDots');
+for(let i=2;i<=10;i++){ const d=document.createElement('div'); d.className='dot'; d.dataset.n=i; dotsEl.appendChild(d); }
+function updateDots(id){
+  const n = PAGE_NUMBER[id];
+  dotsEl.style.display = n ? 'flex' : 'none';
+  dotsEl.querySelectorAll('.dot').forEach(d=>d.classList.toggle('active', Number(d.dataset.n)===n));
+}
+
+const state = { brokers: [], risk: null, years: null };
+
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  updateDots(id);
+}
+
+// PAGE 1 -> auto advance
+setTimeout(()=>document.getElementById('tagline').classList.add('show'), 250);
+setTimeout(()=>document.getElementById('brandmark').classList.add('show'), 900);
+setTimeout(()=>document.getElementById('logo').classList.add('show'), 1150);
+setTimeout(()=>go('page2'), 3800);
+
+// PAGE 2: brokers
+document.querySelectorAll('#page2 .opt-box').forEach(box=>{
+  box.addEventListener('click', ()=>{
+    const b = box.dataset.broker;
+    const idx = state.brokers.indexOf(b);
+    if(idx>-1){ state.brokers.splice(idx,1); box.classList.remove('selected'); }
+    else{
+      if(state.brokers.length>=3) return;
+      state.brokers.push(b); box.classList.add('selected');
+    }
+    document.getElementById('next2').disabled = state.brokers.length===0;
+  });
+});
+document.getElementById('next2').addEventListener('click', ()=>go('page3'));
+
+// PAGE 3: risk
+document.querySelectorAll('#page3 .opt-box').forEach(box=>{
+  box.addEventListener('click', ()=>{
+    document.querySelectorAll('#page3 .opt-box').forEach(b=>b.classList.remove('selected'));
+    box.classList.add('selected');
+    state.risk = box.dataset.risk;
+    document.getElementById('next3').disabled = false;
+  });
+});
+document.getElementById('next3').addEventListener('click', ()=>go('page4'));
+
+// PAGE 4: years
+document.querySelectorAll('#page4 .opt-box').forEach(box=>{
+  box.addEventListener('click', ()=>{
+    document.querySelectorAll('#page4 .opt-box').forEach(b=>b.classList.remove('selected'));
+    box.classList.add('selected');
+    state.years = box.dataset.years;
+    document.getElementById('next4').disabled = false;
+  });
+});
+document.getElementById('next4').addEventListener('click', ()=>{
+  go('pageLoad');
+  setTimeout(()=>{ go('page5'); buildDashboard(); }, 3000);
+});
+
+const STOCK_SECTOR = {
+  NVDA:'Technology', MSFT:'Technology', AAPL:'Technology', AVGO:'Technology', TSM:'Technology', PANW:'Technology', PLTR:'Technology',
+  GOOGL:'Communication Svcs', RDDT:'Communication Svcs', META:'Communication Svcs',
+  AMZN:'Consumer Discretionary', TSLA:'Consumer Discretionary', BYDDY:'Consumer Discretionary', BKNG:'Consumer Discretionary',
+  MA:'Financials', V:'Financials', BLK:'Financials', COIN:'Financials', MSTR:'Financials'
+};
+function getSector(symbol, type){
+  if(type==='USD') return 'Cash';
+  if(/Bond|Treasury/i.test(type)) return 'Fixed Income';
+  if(symbol==='SPY'||symbol==='QQQ'||symbol==='MSCI World') return 'Broad Equity ETF';
+  if(/FX/i.test(type)) return 'Commodities & FX';
+  if(type==='Futures') return 'Equity Index Futures';
+  if(type==='Options'){ const under = symbol.split(' ')[0].replace('.',''); return STOCK_SECTOR[under] || 'Derivatives'; }
+  if(type==='Stock') return STOCK_SECTOR[symbol] || 'Other Equity';
+  return 'Other';
+}
+
+function buildDashboard(){
+  // reset widget reveal state each time dashboard is (re)built
+  document.getElementById('calWrap').classList.remove('reveal');
+  document.getElementById('calClose').classList.remove('show');
+  ['wPelosi','wNews','wWarsh'].forEach(id=>{
+    const w = document.getElementById(id);
+    w.classList.remove('reveal','open');
+    document.querySelectorAll('#'+id+' .exch-panel').forEach(p=>p.classList.remove('open'));
+  });
+
+  const merged = {};
+  let brokerNames = [];
+  state.brokers.forEach(b=>{
+    const entry = PF[b] && PF[b][state.risk];
+    if(!entry) return;
+    brokerNames.push(b.replace(' (IBKR)','').trim());
+    entry.positions.forEach(p=>{
+      const key = p.s;
+      if(!merged[key]) merged[key] = {s:p.s, t:p.t, v:0};
+      merged[key].v += p.v;
+    });
+  });
+  const positions = Object.values(merged).sort((a,b)=>b.v-a.v);
+  const total = positions.reduce((s,p)=>s+p.v,0);
+
+  document.getElementById('pfBrokerLabel').textContent =
+    brokerNames.length>1 ? `Consolidated: ${brokerNames.join(' + ')}` : (brokerNames[0]||'Portfolio');
+  document.getElementById('dashSubtitle').textContent =
+    `${(state.risk||'').toUpperCase()} PROFILE · ${state.years} YEARS EXPERIENCE`;
+  document.getElementById('pfTotal').textContent =
+    '$' + Math.round(total).toLocaleString('en-US');
+
+  const posBox = document.getElementById('pfPositions');
+  posBox.innerHTML='';
+  positions.forEach((p,i)=>{
+    const row = document.createElement('div');
+    row.className='pos-row'+(i===1||i===3?' loss':'');
+    row.innerHTML = `<span class="sym">${p.s}</span><span class="typ">${p.t}</span><span>$${Math.round(p.v).toLocaleString('en-US')}</span>`;
+    posBox.appendChild(row);
+  });
+
+  const byType = {};
+  positions.forEach(p=>{ const sec = getSector(p.s,p.t); byType[sec] = (byType[sec]||0) + p.v; });
+  const colors = ['#D6B04C','#7C9BC4','#4CB88A','#DD6B57','#C08FE0','#5AB8C4','#8FA0C7','#B98D5E'];
+  const types = Object.keys(byType);
+  let acc = 0;
+  const cx=75, cy=75, r=62;
+  let svg = '';
+  types.forEach((t,i)=>{
+    const start = acc/total*2*Math.PI - Math.PI/2;
+    acc += byType[t];
+    const end = acc/total*2*Math.PI - Math.PI/2;
+    const x1 = cx + r*Math.cos(start), y1 = cy + r*Math.sin(start);
+    const x2 = cx + r*Math.cos(end), y2 = cy + r*Math.sin(end);
+    const large = (end-start) > Math.PI ? 1 : 0;
+    svg += `<path d="M${cx},${cy} L${x1.toFixed(2)},${y1.toFixed(2)} A${r},${r} 0 ${large} 1 ${x2.toFixed(2)},${y2.toFixed(2)} Z" fill="${colors[i%colors.length]}" stroke="#0A1330" stroke-width="2"/>`;
+  });
+  svg += `<circle cx="${cx}" cy="${cy}" r="32" fill="#0A1330"/>`;
+  document.getElementById('pieSvg').innerHTML = svg;
+  const legend = document.getElementById('pieLegend');
+  legend.innerHTML = types.map((t,i)=>`<div class="li"><span class="sw" style="background:${colors[i%colors.length]}"></span>${t} — ${Math.round(byType[t]/total*100)}%</div>`).join('');
+
+  // staggered widget reveal, ~7s after the portfolio mockup appears, per TZ
+  setTimeout(()=>{ document.getElementById('calWrap').classList.add('reveal'); document.getElementById('calClose').classList.add('show'); }, 7000);
+  setTimeout(()=>document.getElementById('wPelosi').classList.add('reveal'), 7500);
+  setTimeout(()=>document.getElementById('wWarsh').classList.add('reveal'), 8000);
+  setTimeout(()=>document.getElementById('wNews').classList.add('reveal'), 8500);
+}
+
+// ---- Market Calendar (monobrow) ----
+const exchanges = [
+ {n:'NYSE',hrs:'9:30–16:00 ET',pre:'4:00–9:30 ET',aft:'16:00–20:00 ET',off:'Sat, Sun',hol:'Thanksgiving, Christmas',urg:'Closed for state funeral, Apr 2025'},
+ {n:'NASDAQ',hrs:'9:30–16:00 ET',pre:'4:00–9:30 ET',aft:'16:00–20:00 ET',off:'Sat, Sun',hol:'Independence Day, New Year',urg:'—'},
+ {n:'LSE',hrs:'8:00–16:30 GMT',pre:'—',aft:'16:40–17:15 GMT',off:'Sat, Sun',hol:'Boxing Day, Good Friday',urg:'—'},
+ {n:'XETRA',hrs:'9:00–17:30 CET',pre:'8:00–9:00 CET',aft:'—',off:'Sat, Sun',hol:'Reunification Day',urg:'—'},
+ {n:'EURONEXT',hrs:'9:00–17:30 CET',pre:'7:15–9:00 CET',aft:'—',off:'Sat, Sun',hol:'Bastille Day',urg:'—'},
+ {n:'TSE',hrs:'9:00–15:00 JST',pre:'—',aft:'—',off:'Sat, Sun',hol:'Golden Week',urg:'—'},
+ {n:'HKEX',hrs:'9:30–16:00 HKT',pre:'—',aft:'—',off:'Sat, Sun',hol:'Lunar New Year',urg:'Typhoon signal closures'},
+ {n:'SSE',hrs:'9:30–15:00 CST',pre:'—',aft:'—',off:'Sat, Sun',hol:'Golden Week',urg:'—'},
+ {n:'ASX',hrs:'10:00–16:00 AEST',pre:'7:00–10:00 AEST',aft:'—',off:'Sat, Sun',hol:'ANZAC Day',urg:'—'},
+ {n:'OTC Pink',hrs:'9:30–16:00 ET',pre:'—',aft:'—',off:'Sat, Sun',hol:'US federal holidays',urg:'—'}
+];
+const calStrip = document.getElementById('calStrip');
+exchanges.forEach(ex=>{
+  const el = document.createElement('div');
+  el.className='exch';
+  el.innerHTML = `${ex.n}<div class="exch-panel"><b>${ex.n}</b>Trading: ${ex.hrs}<br>Pre-market: ${ex.pre}<br>After-market: ${ex.aft}<br>Days off: ${ex.off}<br>Holidays: ${ex.hol}<br>Urgent: ${ex.urg}</div>`;
+  const panel = el.querySelector('.exch-panel');
+  el.addEventListener('mouseenter', ()=>panel.classList.add('open'));
+  el.addEventListener('mouseleave', ()=>{ if(!el.classList.contains('picked')) panel.classList.remove('open'); });
+  el.addEventListener('click', ()=>{
+    el.classList.toggle('picked');
+    panel.classList.toggle('open', el.classList.contains('picked'));
+  });
+  calStrip.appendChild(el);
+});
+document.getElementById('calClose').addEventListener('click', ()=>{
+  document.querySelectorAll('.exch').forEach(el=>el.classList.remove('picked'));
+  document.querySelectorAll('.exch-panel').forEach(p=>p.classList.remove('open'));
+});
+
+// ---- Nancy Pelosi Trades widget ----
+const pelosiTicks = ['NVDA','MSFT','AVGO','GOOGL','PANW','TSM','AAPL','CRM','AMZN','NFLX','V','MA','TSLA','PLTR','COIN','RDDT','BKNG','BLK','MSTR','RTX'];
+const pelosiAmts = ['$1,000,001–$5,000,000','$500,001–$1,000,000','$250,001–$500,000','$100,001–$250,000','$50,001–$100,000','$15,001–$50,000'];
+const pelosiTrades = [];
+{
+  let d = new Date('2026-06-28');
+  for(let i=0;i<50;i++){
+    pelosiTrades.push({
+      d: d.toISOString().slice(0,10),
+      t: pelosiTicks[i % pelosiTicks.length],
+      a: (i%3===0) ? 'sell' : 'buy',
+      v: pelosiAmts[(i*3) % pelosiAmts.length]
+    });
+    d.setDate(d.getDate() - (3 + (i%4)));
+  }
+}
+document.getElementById('pelosiBody').innerHTML = '<div class="scroll-hint">↕ scroll for more · showing 10 of 50</div>' + pelosiTrades.slice(0,10).map(x=>
+ `<div class="pelosi-row"><span>${x.d}</span><b>${x.t}</b><span class="tag ${x.a}">${x.a==='buy'?'BUY':'SELL'}</span><span class="amt">${x.v}</span></div>`
+).join('') + pelosiTrades.slice(10).map(x=>
+ `<div class="pelosi-row"><span>${x.d}</span><b>${x.t}</b><span class="tag ${x.a}">${x.a==='buy'?'BUY':'SELL'}</span><span class="amt">${x.v}</span></div>`
+).join('');
+
+// ---- Kevin Warsh speeches widget ----
+const warshTalks = [
+ {d:'2026-07-14',topic:'FOMC Press Conference',loc:'Washington, D.C.'},
+ {d:'2026-08-22',topic:'Jackson Hole Symposium remarks',loc:'Jackson Hole, WY'},
+ {d:'2026-09-17',topic:'FOMC Press Conference',loc:'Washington, D.C.'},
+ {d:'2026-10-06',topic:'Economic Club address',loc:'New York, NY'},
+ {d:'2026-11-05',topic:'FOMC Press Conference',loc:'Washington, D.C.'},
+ {d:'2026-12-16',topic:'FOMC Press Conference + SEP',loc:'Washington, D.C.'},
+ {d:'2027-01-28',topic:'FOMC Press Conference',loc:'Washington, D.C.'},
+ {d:'2027-02-11',topic:'Semiannual testimony to Congress',loc:'Washington, D.C.'},
+ {d:'2027-03-18',topic:'FOMC Press Conference',loc:'Washington, D.C.'},
+ {d:'2027-04-29',topic:'FOMC Press Conference',loc:'Washington, D.C.'},
+ {d:'2027-05-12',topic:'Community banking conference remarks',loc:'Chicago, IL'},
+ {d:'2027-06-16',topic:'FOMC Press Conference + SEP',loc:'Washington, D.C.'}
+];
+document.getElementById('warshBody').innerHTML = '<div class="scroll-hint">↕ scroll for more · through mid-2027</div>' + warshTalks.map(x=>
+ `<div class="warsh-row"><span class="d">${x.d} — ${x.topic}</span><span class="loc">${x.loc}</span></div>`
+).join('');
+
+// ---- Market News Feed widget ----
+const newsTemplates = [
+ {t:'AI capex supercycle broadens beyond hyperscalers', s:'Financial Times'},
+ {t:'Fed signals gradual path as Warsh settles into chair', s:'Bloomberg'},
+ {t:'Chip export rules eased for select allied markets', s:'Reuters'},
+ {t:'Mega-cap tech announces multi-billion buyback plan', s:'Bloomberg'},
+ {t:'European regulators open new probe into platform fees', s:'Financial Times'},
+ {t:'EV price war intensifies as new models launch in EU', s:'Reuters'},
+ {t:'Crypto ETF inflows hit multi-month high', s:'CoinDesk'},
+ {t:'Cloud providers report accelerating enterprise demand', s:'Bloomberg'},
+ {t:'Defense budgets revised upward across NATO members', s:'Financial Times'},
+ {t:'Semiconductor capacity expansion announced in Asia', s:'Investopedia'},
+ {t:'Payments networks report resilient cross-border volume', s:'Reuters'},
+ {t:'Data-center power demand pushes utilities to expand grid capacity', s:'Bloomberg'},
+ {t:'Sovereign wealth funds rotate further into private credit', s:'Financial Times'},
+ {t:'Airlines and travel platforms report steady booking momentum', s:'Reuters'},
+ {t:'Antitrust ruling reshapes app-store fee structures', s:'Bloomberg'},
+ {t:'Central banks coordinate stance on digital-asset custody rules', s:'Financial Times'},
+ {t:'Autonomous-driving milestone reported by major automaker', s:'Reuters'},
+ {t:'Government agencies expand adoption of AI data platforms', s:'Bloomberg'},
+ {t:'Currency markets react to shifting rate-cut expectations', s:'Investopedia'},
+ {t:'Cybersecurity spending accelerates after high-profile breach', s:'Financial Times'}
+];
+const news = [];
+{
+  let d = new Date('2026-07-02');
+  for(let i=0;i<50;i++){
+    const tmpl = newsTemplates[i % newsTemplates.length];
+    news.push({t:tmpl.t, s:tmpl.s, d: d.toISOString().slice(0,10)});
+    d.setDate(d.getDate() - (2 + (i%3)));
+  }
+}
+document.getElementById('newsBody').innerHTML = '<div class="scroll-hint">↕ scroll for more · showing 10 of 50</div>' + news.map(x=>
+ `<div class="news-row"><b>${x.t}</b><span>${x.s} · ${x.d}</span></div>`
+).join('');
+
+['wPelosi','wNews','wWarsh'].forEach(id=>{
+  const w = document.getElementById(id);
+  w.querySelector('.widget-head').addEventListener('click', (e)=>{
+    if(e.target.classList.contains('wclose')){ w.classList.remove('open'); return; }
+    w.classList.toggle('open');
+  });
+});
+
+document.getElementById('toPage6').addEventListener('click', ()=>go('page6'));
+
+/* =========================================================
+   PAGE 6 — Competitive Asset View
+   ========================================================= */
+const ASSETS20 = [{"tk":"GOOGL","name":"Alphabet","cap":"$2.2T","comp":"Microsoft $3.1T; Meta $1.5T; Amazon $2.8T; Tencent $0.5T; Baidu $45B","regions":"Microsoft - US, Europe, India, Japan; Meta - US, Europe, India, Latin America; Amazon - US, Europe, India, Japan, Brazil; Tencent - China, Hong Kong, Southeast Asia; Baidu - China","cluster":"megacap"},{"tk":"AMZN","name":"Amazon","cap":"$2.8T","comp":"Alibaba $300B; Walmart $800B; MercadoLibre $140B; JD.com $50B; Shopify $140B","regions":"Alibaba - China, Southeast Asia, Middle East; Walmart - US, Mexico, Canada; MercadoLibre - Latin America; JD.com - China; Shopify - US, Canada, Europe, Australia","cluster":"megacap"},{"tk":"AAPL","name":"Apple","cap":"$4.4T","comp":"Samsung $250B; Xiaomi $180B; Huawei private; Alphabet $2.2T; Microsoft $3.1T","regions":"Samsung - South Korea, US, Europe, India; Xiaomi - China, India, Europe, Latin America; Huawei - China, Middle East, Africa (restricted West); Alphabet - US, Europe, India; Microsoft - US, Europe, India, Japan","cluster":"megacap"},{"tk":"BLK","name":"BlackRock","cap":"$180B","comp":"Vanguard private mutual; State Street $110B; Fidelity private; T. Rowe Price $40B","regions":"Vanguard - US, Europe, Asia; State Street - US, Europe; Fidelity - US, Europe; T. Rowe Price - US, Europe","cluster":"assetmgmt"},{"tk":"BKNG","name":"Booking Holdings","cap":"$180B","comp":"Airbnb $90B; Expedia $25B; Trip.com $50B","regions":"Airbnb - US, Europe, Latin America, Australia; Expedia - US, Europe, Canada; Trip.com - China, Japan, South Korea, Southeast Asia, Europe","cluster":"consumer"},{"tk":"AVGO","name":"Broadcom","cap":"$1.3T","comp":"NVIDIA $4.5T; AMD $250B; Intel $110B; Marvell $80B; Qualcomm $180B","regions":"NVIDIA - US, Taiwan, Israel, Europe; AMD - US, Taiwan, China (manufacturing), Europe; Intel - US, Ireland, Israel; Marvell - US, Israel, Asia; Qualcomm - US, China, Taiwan, South Korea","cluster":"chips"},{"tk":"BYDDY","name":"BYD","cap":"$150B","comp":"Tesla $1.0T; NIO $10B; Li Auto $30B; XPeng $20B; Geely $20B","regions":"Tesla - US, China, Germany, Netherlands, Mexico; NIO - China, Norway, Germany; Li Auto - China; XPeng - China, Europe; Geely - China, Europe, Brazil","cluster":"ev"},{"tk":"COIN","name":"Coinbase","cap":"$90B","comp":"Robinhood $80B; Kraken private; Binance private; CME $100B","regions":"Robinhood - US, UK (expansion); Kraken - US, Europe; Binance - UAE (Dubai), Europe, Asia (global offshore structure); CME - US, Europe, Singapore","cluster":"crypto"},{"tk":"MA","name":"Mastercard","cap":"$500B","comp":"Visa $700B; AmEx $200B; PayPal $80B; Discover $40B","regions":"Visa - US, Europe, Latin America, Asia; AmEx - US, Europe, Japan; PayPal - US, Europe, Latin America; Discover - US","cluster":"payments"},{"tk":"MSFT","name":"Microsoft","cap":"$3.1T","comp":"Alphabet $2.2T; Amazon $2.8T; Oracle $700B; Salesforce $250B; SAP $350B","regions":"Alphabet - US, Europe, India; Amazon - US, Europe, Japan, India; Oracle - US, Europe, Middle East; Salesforce - US, Europe, Japan; SAP - Germany, Europe, US","cluster":"megacap"},{"tk":"NFLX","name":"Netflix","cap":"$600B","comp":"Disney $200B; WBD $30B; Amazon (division); Alphabet (division); Apple (division)","regions":"Disney - US, Europe, Latin America, Asia; Warner Bros Discovery - US, Europe; Amazon - US, Europe, Japan, India; YouTube - global; Apple TV+ - US, Europe, Japan","cluster":"consumer"},{"tk":"NVDA","name":"NVIDIA","cap":"$4.5T","comp":"AMD $250B; Intel $110B; Broadcom $1.3T; Qualcomm $180B","regions":"AMD - US, Taiwan, China, Europe; Intel - US, Ireland, Israel; Broadcom - US, Singapore, Israel; Qualcomm - US, China, South Korea, Taiwan","cluster":"chips"},{"tk":"PANW","name":"Palo Alto Networks","cap":"$150B","comp":"CrowdStrike $130B; Fortinet $80B; Zscaler $40B; Cisco $300B","regions":"CrowdStrike - US, Europe, Israel; Fortinet - US, Europe, Asia; Zscaler - US, Europe, India; Cisco - US, Europe, Latin America, Asia","cluster":"cyber"},{"tk":"PLTR","name":"Palantir","cap":"$350B","comp":"Accenture $200B; Booz Allen $20B; C3.ai $10B; IBM $250B","regions":"Accenture - Ireland, US, India; Booz Allen - US; C3.ai - US, Europe; IBM - US, Europe, India","cluster":"defense"},{"tk":"RDDT","name":"Reddit","cap":"$30B","comp":"Meta $1.5T; X private; Pinterest $20B; Snap $15B","regions":"Meta - US, Europe, India, Latin America; X - US, Europe, Middle East; Pinterest - US, Europe; Snap - US, Europe","cluster":"consumer"},{"tk":"RTX","name":"RTX","cap":"$180B","comp":"Lockheed $150B; Northrop $90B; Boeing $150B; BAE $60B","regions":"Lockheed - US, NATO, Middle East, South Korea; Northrop - US, NATO; Boeing Defense - US, Europe, Asia; BAE Systems - UK, US, Saudi Arabia","cluster":"defense"},{"tk":"MSTR","name":"Strategy","cap":"$120B","comp":"Coinbase $90B; Marathon $10B; Riot $5B; Metaplanet $5B","regions":"Coinbase - US, Europe; Marathon - US; Riot - US; Metaplanet - Japan","cluster":"crypto"},{"tk":"TSM","name":"TSMC","cap":"$1.2T","comp":"Samsung $250B; Intel $110B; GlobalFoundries $30B","regions":"Samsung - South Korea, US; Intel - US, Ireland, Israel; GlobalFoundries - US, Singapore, Germany","cluster":"chips"},{"tk":"TSLA","name":"Tesla","cap":"$1.0T","comp":"BYD $150B; Xiaomi $100B; Li Auto $30B; Rivian $15B; Lucid $10B","regions":"BYD - China, Europe, Latin America; Xiaomi - China; Li Auto - China; Rivian - US; Lucid - US, Saudi Arabia","cluster":"ev"},{"tk":"V","name":"Visa","cap":"$700B","comp":"Mastercard $500B; AmEx $200B; PayPal $80B; Discover $40B","regions":"Mastercard - US, Europe, Asia; AmEx - US, Europe, Japan; PayPal - US, Europe, Latin America; Discover - US","cluster":"payments"}];
+let activeAssetIdx = 0;
+
+function renderAssetMockup(idx){
+  activeAssetIdx = idx;
+  const a = ASSETS20[idx];
+  const peers = a.comp.split(';').map(s=>s.trim()).filter(Boolean);
+  const regionParts = a.regions.split(';').map(s=>s.trim());
+  const mock = document.getElementById('assetMockup');
+  mock.innerHTML = `
+    <div class="tk">${a.tk}</div>
+    <h3>${a.name}</h3>
+    <div class="cap">Market cap ≈ ${a.cap}</div>
+    ${peers.map((p,i)=>{
+      const m = p.match(/^(.*?)\s*(\$[\d.]+[TBM]|private)\s*$/i);
+      const pname = m?m[1]:p, pcap = m?m[2]:'';
+      const regionMatch = regionParts.find(r=>r.startsWith(pname.split(' ')[0]));
+      const regionTxt = regionMatch ? regionMatch.split(' - ')[1] : '';
+      return `<div class="peer-row"><span class="pname">${pname}</span><span class="pcap">${pcap}</span><span class="pregion">${regionTxt||''}</span></div>`;
+    }).join('')}
+  `;
+  document.querySelectorAll('.asset-item').forEach((el,i)=>el.classList.toggle('active', i===idx));
+}
+const assetListEl = document.getElementById('assetList');
+ASSETS20.forEach((a,i)=>{
+  const el = document.createElement('div');
+  el.className='asset-item';
+  el.textContent = a.tk + ' · ' + a.name;
+  el.addEventListener('click', ()=>renderAssetMockup(i));
+  assetListEl.appendChild(el);
+});
+renderAssetMockup(0);
+document.getElementById('saveResults').addEventListener('click', function(){
+  const prev = this.textContent;
+  this.textContent = 'Saved ✓';
+  setTimeout(()=>{ this.textContent = prev; }, 1400);
+});
+document.getElementById('p6toP5').addEventListener('click', ()=>go('page5'));
+document.getElementById('p6toP7').addEventListener('click', ()=>{ go('page7'); buildCorrStage(); });
+
+/* =========================================================
+   PAGE 7 — Correlation Analysis
+   ========================================================= */
+function hashPair(a,b){
+  let s = a+b, h=0;
+  for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) % 1000; }
+  return h;
+}
+const CROSS = {
+  'megacap|chips':62,'chips|megacap':62,
+  'crypto|ev':50,'ev|crypto':50,
+  'megacap|payments':35,'payments|megacap':35,
+  'chips|defense':25,'defense|chips':25,
+  'chips|cyber':28,'cyber|chips':28,
+  'megacap|consumer':32,'consumer|megacap':32,
+  'assetmgmt|payments':28,'payments|assetmgmt':28,
+  'defense|megacap':15,'megacap|defense':15
+};
+function correlationPct(a,b){
+  if(a.tk===b.tk) return 100;
+  const key = a.cluster+'|'+b.cluster;
+  let base;
+  if(a.cluster===b.cluster) base=75;
+  else base = CROSS[key] !== undefined ? CROSS[key] : 12;
+  const jitter = (hashPair(a.tk,b.tk) % 17) - 8;
+  return Math.max(3, Math.min(95, base+jitter));
+}
+function buildCorrStage(){
+  const stage = document.getElementById('corrStage');
+  document.querySelectorAll('.corr-node').forEach(n=>n.remove());
+  document.getElementById('corrReset').style.display='none';
+  const cx = stage.clientWidth/2 || 480, cy = 215;
+  const ring = 340;
+  ASSETS20.forEach((a,i)=>{
+    const angle = (i/ASSETS20.length)*2*Math.PI - Math.PI/2;
+    const x = cx + ring/2*Math.cos(angle);
+    const y = cy + (ring*0.42)*Math.sin(angle);
+    const node = document.createElement('div');
+    node.className='corr-node';
+    node.dataset.tk = a.tk;
+    node.style.left = x+'px'; node.style.top = y+'px';
+    node.style.transform = 'translate(-50%,-50%)';
+    node.textContent = a.tk;
+    node.addEventListener('click', ()=>selectCorrCenter(a.tk));
+    stage.appendChild(node);
+  });
+}
+function selectCorrCenter(tk){
+  const center = ASSETS20.find(a=>a.tk===tk);
+  const stage = document.getElementById('corrStage');
+  const cx = stage.clientWidth/2 || 480, cy = 215;
+  const others = ASSETS20.filter(a=>a.tk!==tk)
+    .map(a=>({a, pct: correlationPct(center,a)}))
+    .sort((x,y)=>y.pct-x.pct);
+  document.querySelectorAll('.corr-node').forEach(node=>{
+    if(node.dataset.tk===tk){
+      node.classList.add('center');
+      node.style.left = cx+'px'; node.style.top = cy+'px';
+      node.innerHTML = tk;
+    } else {
+      const item = others.find(o=>o.a.tk===node.dataset.tk);
+      const radius = Math.max(130, Math.min(230, 232 - item.pct*1.05));
+      const idx = others.indexOf(item);
+      const angle = (idx/others.length)*2*Math.PI;
+      const x = cx + radius*Math.cos(angle);
+      const y = cy + radius*Math.sin(angle)*0.82;
+      node.classList.remove('center');
+      node.style.left = x+'px'; node.style.top = y+'px';
+      node.innerHTML = `${node.dataset.tk}<span class="pct">${item.pct}%</span>`;
+    }
+  });
+  document.getElementById('corrReset').style.display='flex';
+}
+document.getElementById('corrReset').addEventListener('click', buildCorrStage);
+document.getElementById('p7toP6').addEventListener('click', ()=>go('page6'));
+document.getElementById('p7toP8').addEventListener('click', ()=>{ go('page8'); document.querySelectorAll('.tax-block').forEach(b=>b.style.display='flex'); });
+
+/* =========================================================
+   PAGE 8 — Tax & Fees Insights
+   ========================================================= */
+const CGT = {
+  US:[0,23.8], UK:[18,24], EU:[0,31.4], UAE:[0,0], CH:[0,0], UA:[23,23]
+};
+const FEE_TACTICS = {
+ 'INTERACTIVE BROKERS (IBKR)':"IBKR Lite gives $0 commission on US-listed stocks/ETFs. Keep cash above $100,000 NAV for the top interest tier. Trade in the instrument's native currency to minimize the ~0.03% FX conversion fee.",
+ 'SAXO':"Enable stock-lending to waive the 0.15%/yr custody fee (Saxo splits the revenue with you). Keep trades above ~$2,500 so the 0.08% commission clears the flat minimum. Use the UK Stocks & Shares ISA to shelter gains.",
+ 'WIO':"Fund and trade in AED or USD to avoid conversions — Wio's cost sits in an undisclosed FX spread rather than a stated commission. Compare a live quote against another broker before a large trade.",
+ 'XTB':"Stay under €100,000 traded per month to keep 0% commission on real stocks/ETFs. Hold a base-currency account matching your instruments to avoid the 0.5% FX markup.",
+ 'SWISSQUOTE':"Stick to the 'ETF Leaders' list on SIX — capped at CHF 9/trade. Let custody value grow past CHF 150,000 to hit the CHF 50/quarter fee cap instead of paying the tiered rate on a small portfolio.",
+ 'EXANTE':"Keep balance above €5,000 and trade at least once every 6 months to avoid the €50 inactivity fee. Fund via bank wire rather than triggering avoidable processing fees."
+};
+const TAX_LEVERS = {
+ US:"Consider holding positions over 1 year to access 0/15/20% long-term rates instead of ordinary income rates. Tax-loss harvesting can offset gains with losses, plus up to $3,000/year against ordinary income.",
+ UK:"Consider a Stocks & Shares ISA (IBKR, Saxo, XTB offer one here) to shelter up to £20,000/year from CGT and dividend tax. Your £3,000 Annual Exempt Amount doesn't carry forward — use it or lose it.",
+ EU:"Rates vary widely by country of residence — this is the biggest single lever, more than broker choice. UCITS ETFs suited to your country's fund-taxation regime can reduce the effective rate on that holding.",
+ UAE:"No lever needed — 0% for individuals already. The main consideration is confirming genuine UAE tax residency under other countries' rules.",
+ CH:"Meeting the 5 private-investor safe-harbour criteria (hold ≥6 months, limited turnover, no leverage, derivatives for hedging only) keeps the 0% rate on securities gains.",
+ UA:"Standard 23% rate applies broadly (18% personal income tax + 5% military levy) — timing and holding-period choices have limited effect versus other jurisdictions."
+};
+document.querySelectorAll('.res-opt').forEach(opt=>{
+  opt.addEventListener('click', ()=>{
+    const r = opt.dataset.r;
+    document.getElementById('residencyGate').style.display='none';
+    document.getElementById('taxBlocks').style.display='flex';
+    buildTaxBlocks(r);
+  });
+});
+function buildTaxBlocks(residency){
+  // Block 1: reuse consolidated portfolio, flag 2 as "losses"
+  const merged = {};
+  state.brokers.forEach(b=>{
+    const entry = PF[b] && PF[b][state.risk];
+    if(!entry) return;
+    entry.positions.forEach(p=>{
+      if(!merged[p.s]) merged[p.s] = {s:p.s,t:p.t,v:0};
+      merged[p.s].v += p.v;
+    });
+  });
+  const positions = Object.values(merged).sort((a,b)=>b.v-a.v);
+  const tlossBox = document.getElementById('tlossList');
+  tlossBox.innerHTML='';
+  positions.forEach((p,i)=>{
+    const isLoss = (i===1||i===3);
+    const row = document.createElement('div');
+    row.className = 'tloss-row'+(isLoss?' loss':'');
+    row.innerHTML = `<span>${p.s}</span><span>${isLoss? '-'+(4+i)+'.'+(i*3%9)+'%' : '—'}</span>`;
+    tlossBox.appendChild(row);
+    if(isLoss){
+      const tip = document.createElement('div');
+      tip.className='tloss-tip';
+      tip.textContent = 'Selling this position could help offset gains elsewhere. Educational information only — not a recommendation.';
+      tlossBox.appendChild(tip);
+      row.addEventListener('click', ()=>row.classList.toggle('open'));
+    }
+  });
+
+  // Block 2: calculator
+  const input = document.getElementById('sellAmount');
+  const result = document.getElementById('calcResult');
+  const rate = CGT[residency];
+  input.oninput = ()=>{
+    const amt = parseFloat(input.value)||0;
+    result.textContent = amt>0
+      ? `Estimated CGT range (${residency}): $${Math.round(amt*rate[0]/100).toLocaleString('en-US')} – $${Math.round(amt*rate[1]/100).toLocaleString('en-US')} (${rate[0]}–${rate[1]}%)`
+      : 'Enter an amount to see the estimated range.';
+  };
+
+  // Block 3: broker tabs + tax levers
+  const tabs = document.getElementById('feeTabs');
+  tabs.innerHTML='';
+  const brokers = state.brokers.length? state.brokers : ['INTERACTIVE BROKERS (IBKR)'];
+  brokers.forEach((b,i)=>{
+    const tab = document.createElement('span');
+    tab.textContent = b.replace(' (IBKR)','').trim();
+    if(i===0) tab.classList.add('active');
+    tab.addEventListener('click', ()=>{
+      tabs.querySelectorAll('span').forEach(s=>s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tacticText').textContent = FEE_TACTICS[b] || '';
+    });
+    tabs.appendChild(tab);
+  });
+  document.getElementById('tacticText').textContent = FEE_TACTICS[brokers[0]] || '';
+  document.getElementById('leverText').textContent = TAX_LEVERS[residency] || '';
+}
+document.querySelectorAll('.tax-close').forEach(x=>{
+  x.addEventListener('click', ()=>x.closest('.tax-block').style.display='none');
+});
+document.getElementById('p8toP7').addEventListener('click', ()=>go('page7'));
+document.getElementById('p8toP9').addEventListener('click', ()=>{ go('page9'); buildScenarioStudio(); });
+
+/* =========================================================
+   PAGE 9 — Situational Studio
+   ========================================================= */
+const SCENARIOS = [
+ {t:'AI performance supercycle', blurb:'AI-driven productivity gains flow through corporate earnings broadly.',
+  y5:{txt:'Effect broadens across the portfolio as AI productivity gains reach a wide range of businesses.', tags:{AAPL:'g',MA:'g',V:'g',BLK:'g',BKNG:'g',BYDDY:'g',TSLA:'g',NFLX:'g',COIN:'g',PLTR:'g',PANW:'g',TSM:'g',RDDT:'g',RTX:'n',MSTR:'n'}},
+  y10:{txt:'Structural GDP acceleration re-rates the whole portfolio; chips and AI platforms remain the core growth leaders.', tags:{NVDA:'g',AVGO:'g',TSM:'g',PLTR:'g',TSLA:'g',V:'g'}}},
+ {t:'Full Fed easing cycle', blurb:'The Fed completes a full rate-cut cycle as inflation cools.',
+  y5:{txt:'Rates normalize; payments and asset-management names track fundamentals rather than rate expectations, high-beta names get a tailwind.', tags:{MA:'g',V:'g',BLK:'g',PLTR:'g',RDDT:'g',TSLA:'g',MSTR:'g',TSM:'g',RTX:'n'}},
+  y10:{txt:'A new secular rate level is set; valuations reflect real business growth rather than cheap money.', tags:{TSM:'g',V:'g',RTX:'n'}}},
+ {t:'Inflation returns / stagflation', blurb:'Inflation proves sticky, the Fed holds or hikes again, growth is weak.',
+  y5:{txt:'Multiples compress across most of the portfolio; only cash-generative names hold up relatively well.', tags:{AAPL:'g',MA:'g',V:'g',MSFT:'g',RTX:'g',BYDDY:'r',TSLA:'r',BKNG:'r',PLTR:'r',RDDT:'r',MSTR:'r',TSM:'r'}},
+  y10:{txt:'Portfolio re-rated structurally lower unless offset by an AI productivity effect; leveraged crypto-balance-sheet exposure is especially vulnerable.', tags:{RTX:'g',V:'g',MSTR:'r'}}},
+ {t:'US–China geopolitical escalation', blurb:'Rising tension around Taiwan plus a new tariff war.',
+  y5:{txt:'Supply chains re-route; reshoring partly benefits US chip names while Taiwan-based manufacturing is directly exposed.', tags:{AVGO:'g',NVDA:'g',RTX:'g',PLTR:'g',PANW:'g',TSM:'r',BYDDY:'r',TSLA:'r',V:'n',MA:'n',RDDT:'n'}},
+  y10:{txt:'A durably split US/China tech ecosystem forms; defense and AI-government positioning become structural advantages.', tags:{RTX:'g',PLTR:'g',AVGO:'g',NVDA:'g',TSM:'r',BYDDY:'r',TSLA:'r'}}},
+ {t:'Mainstream crypto legalization', blurb:'A comprehensive global framework legitimizes crypto as an asset class.',
+  y5:{txt:'Institutional adoption expands; balance-sheet and infrastructure crypto exposure benefit directly, rest of the portfolio barely touched.', tags:{BLK:'g',COIN:'g',MSTR:'g',V:'g',MA:'g'}},
+  y10:{txt:'Digital assets go mainstream; a light tailwind reaches the wider portfolio through embedded crypto rails in payments and finance.', tags:{BLK:'g',COIN:'g',MSTR:'g',V:'g',MA:'g'}}},
+ {t:'Global recession / credit crisis', blurb:'A synchronized downturn with credit contraction; demand falls broadly.',
+  y5:{txt:'Uneven recovery: strong-balance-sheet names recover fastest, high-beta and leveraged names fall harder than the market.', tags:{AAPL:'g',MSFT:'g',GOOGL:'g',V:'g',BLK:'g',RTX:'n',PLTR:'r',RDDT:'r',TSLA:'r',MSTR:'r',TSM:'r'}},
+  y10:{txt:'If the portfolio avoided forced selling, composition proves resilient long-term, though decade returns trail the base case.', tags:{RTX:'g',V:'g',MSTR:'r',BYDDY:'r',TSLA:'r'}}},
+ {t:'Big Tech antitrust breakup', blurb:'US and EU regulators force large platforms to separate business lines.',
+  y5:{txt:'Regulatory action advances in parts of the market; a sum-of-parts unlock plays out for some platform names.', tags:{GOOGL:'g',AMZN:'g',MSFT:'g',PLTR:'n',RDDT:'n',V:'n',RTX:'n',TSM:'n',TSLA:'n',MSTR:'n'}},
+  y10:{txt:'Separated entities may trade at a premium or discount to the old combined value; a more fragmented market changes chip demand structure.', tags:{NVDA:'g',AVGO:'g',TSM:'g',GOOGL:'n',AMZN:'n',MSFT:'n'}}},
+ {t:'EV price war & China dominance', blurb:'Chinese EV makers reach global scale and cost leadership.',
+  y5:{txt:'A dominant Chinese EV player emerges; the US incumbent faces direct pricing pressure and share loss, chip suppliers benefit from higher content per vehicle.', tags:{BYDDY:'g',AVGO:'g',NVDA:'g',TSM:'g',MA:'g',V:'g',TSLA:'r'}},
+  y10:{txt:'Global auto industry restructures around Chinese EV leadership; competition shifts from price to autonomy and software.', tags:{BYDDY:'g',TSM:'g',TSLA:'n'}}},
+ {t:'Quantum computing breakthrough', blurb:'Practical quantum computing emerges, threatening classical encryption.',
+  y5:{txt:'A transition to post-quantum cryptography begins; payments and crypto-balance-sheet names face temporary cost and risk, cybersecurity and cloud/chip names benefit from the upgrade cycle.', tags:{PANW:'g',MSFT:'g',GOOGL:'g',AMZN:'g',TSM:'g',COIN:'r',MA:'r',V:'r',MSTR:'r'}},
+  y10:{txt:'Post-quantum security becomes the industry standard; payment and crypto risk is resolved, hardware demand is structurally higher across the board.', tags:{PANW:'g',TSM:'g',NVDA:'g',COIN:'g',MA:'g',V:'g',MSTR:'g'}}},
+ {t:'Climate transition acceleration', blurb:'Aggressive global carbon regulation reshapes transport, travel and computing.',
+  y5:{txt:'Decarbonization economics reshuffle logistics, travel and energy; EV names get a policy tailwind while data-center energy use draws regulatory attention.', tags:{BYDDY:'g',TSLA:'g',BLK:'g',AMZN:'n',RTX:'n',TSM:'r',NVDA:'r',BKNG:'n'}},
+  y10:{txt:'The climate transition becomes a completed structural shift; EV names are the main beneficiaries, travel and defense names adapt to the new energy cost base.', tags:{BYDDY:'g',TSLA:'g',BKNG:'n',RTX:'n'}}}
+];
+let currentHorizon = '5';
+function buildScenarioStudio(){
+  renderP9Portfolio();
+  renderScenList();
+}
+function renderP9Portfolio(){
+  const merged = {};
+  let brokerNames = [];
+  state.brokers.forEach(b=>{
+    const entry = PF[b] && PF[b][state.risk];
+    if(!entry) return;
+    brokerNames.push(b.replace(' (IBKR)','').trim());
+    entry.positions.forEach(p=>{
+      if(!merged[p.s]) merged[p.s] = {s:p.s,t:p.t,v:0};
+      merged[p.s].v += p.v;
+    });
+  });
+  const positions = Object.values(merged).sort((a,b)=>b.v-a.v);
+  const total = positions.reduce((s,p)=>s+p.v,0);
+  document.getElementById('p9BrokerLabel').textContent =
+    brokerNames.length>1 ? `Consolidated: ${brokerNames.join(' + ')}` : (brokerNames[0]||'Portfolio');
+  document.getElementById('p9Total').textContent = '$' + Math.round(total).toLocaleString('en-US');
+  const box = document.getElementById('p9Positions');
+  box.innerHTML='';
+  positions.forEach(p=>{
+    const row = document.createElement('div');
+    row.className='pos-row';
+    row.dataset.sym = p.s;
+    row.innerHTML = `<span class="sym">${p.s}</span><span class="typ">${p.t}</span><span>$${Math.round(p.v).toLocaleString('en-US')}</span>`;
+    box.appendChild(row);
+  });
+}
+function renderScenList(){
+  const list = document.getElementById('scenList');
+  list.innerHTML='';
+  SCENARIOS.forEach((s,i)=>{
+    const card = document.createElement('div');
+    card.className='scen-card';
+    card.innerHTML = `<b>${i+1}. ${s.t}</b><span>${s.blurb}</span>`;
+    card.addEventListener('click', ()=>selectScenario(i, card));
+    list.appendChild(card);
+  });
+}
+function selectScenario(i, card){
+  document.querySelectorAll('.scen-card').forEach(c=>c.classList.remove('active'));
+  card.classList.add('active');
+  const s = SCENARIOS[i];
+  const h = currentHorizon==='5' ? s.y5 : s.y10;
+  document.getElementById('p9Detail').innerHTML = `<h4>${s.t} — ${currentHorizon} years</h4><p>${h.txt}</p>`;
+  document.querySelectorAll('#p9Positions .pos-row').forEach(row=>{
+    row.classList.remove('g-up','g-down','g-flat');
+    const tag = h.tags[row.dataset.sym];
+    if(tag==='g') row.classList.add('g-up');
+    else if(tag==='r') row.classList.add('g-down');
+    else row.classList.add('g-flat');
+  });
+}
+document.querySelectorAll('.htab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.htab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    currentHorizon = tab.dataset.h;
+    const active = document.querySelector('.scen-card.active');
+    if(active){
+      const i = Array.from(document.querySelectorAll('.scen-card')).indexOf(active);
+      selectScenario(i, active);
+    }
+  });
+});
+document.getElementById('scenReset').addEventListener('click', ()=>{
+  document.querySelectorAll('.scen-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#p9Positions .pos-row').forEach(row=>row.classList.remove('g-up','g-down','g-flat'));
+  document.getElementById('p9Detail').innerHTML = '<h4>Pick a scenario</h4><p>Select a card on the left to preview how this scenario could evolve over the chosen horizon.</p>';
+});
+document.getElementById('p9toP8').addEventListener('click', ()=>{ go('page8'); document.querySelectorAll('.tax-block').forEach(b=>b.style.display='flex'); });
+document.getElementById('p9toP10').addEventListener('click', ()=>{ go('page10'); playClosing(); });
+
+/* =========================================================
+   PAGE 10 — Closing
+   ========================================================= */
+function playClosing(){
+  document.getElementById('closingWrap').classList.remove('collapse');
+  const thanks = document.getElementById('closingThanks');
+  const restart = document.getElementById('restartDemo');
+  thanks.classList.remove('show'); restart.classList.remove('show');
+  setTimeout(()=>thanks.classList.add('show'), 900);
+  setTimeout(()=>restart.classList.add('show'), 2600);
+}
+document.getElementById('p10toP9').addEventListener('click', ()=>go('page9'));
+document.getElementById('restartDemo').addEventListener('click', ()=>{
+  document.getElementById('closingWrap').classList.add('collapse');
+  setTimeout(()=>{
+    state.brokers = []; state.risk=null; state.years=null;
+    document.querySelectorAll('#page2 .opt-box, #page3 .opt-box, #page4 .opt-box').forEach(b=>b.classList.remove('selected'));
+    document.getElementById('next2').disabled = true;
+    document.getElementById('next3').disabled = true;
+    document.getElementById('next4').disabled = true;
+    document.getElementById('tagline').classList.remove('show');
+    document.getElementById('brandmark').classList.remove('show');
+    document.getElementById('logo').classList.remove('show');
+    go('page1');
+    setTimeout(()=>document.getElementById('tagline').classList.add('show'), 250);
+    setTimeout(()=>document.getElementById('brandmark').classList.add('show'), 900);
+    setTimeout(()=>document.getElementById('logo').classList.add('show'), 1150);
+    setTimeout(()=>go('page2'), 3800);
+  }, 900);
+});
+
+/* =========================================================
+   Accessibility: keyboard focus + activation for custom controls
+   ========================================================= */
+const FOCUSABLE_SELECTOR = '.opt-box,.exch,.widget-head,.corr-node,.res-opt,.asset-item,.scen-card,.htab,.arrow,.tax-close,.wclose,.cal-close,.corr-reset';
+function makeFocusable(root){
+  root.querySelectorAll(FOCUSABLE_SELECTOR).forEach(el=>{
+    if(!el.hasAttribute('tabindex')) el.tabIndex = 0;
+  });
+}
+makeFocusable(document);
+const appEl = document.getElementById('app');
+appEl.addEventListener('keydown', (e)=>{
+  if(e.key==='Enter' || e.key===' '){
+    if(e.target.matches && e.target.matches(FOCUSABLE_SELECTOR)){
+      e.preventDefault();
+      e.target.click();
+    }
+  }
+});
+// re-run whenever new dynamic nodes are added (asset list, scenario cards, corr nodes)
+new MutationObserver(()=>makeFocusable(appEl)).observe(appEl, {childList:true, subtree:true});
+</script>
+</body>
+</html>

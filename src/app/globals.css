@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #050914;
+  --bg-navy: #0a1330;
+  --bg-navy-2: #0f1b42;
+  --panel: rgba(255, 255, 255, 0.045);
+  --panel-border: rgba(255, 255, 255, 0.09);
+  --ivory: #f3f1e9;
+  --muted: #8e9ac2;
+  --muted-dim: #5e6a94;
+  --silver: #d7dae2;
+  --silver-hi: #eff1f5;
+  --silver-active: #b9c0d2;
+  --amber: #d6b04c;
+  --amber-dim: #8a793f;
+  --green: #4cb88a;
+  --red: #dd6b57;
+  --line: rgba(255, 255, 255, 0.1);
+
+  --background: var(--bg-deep);
+  --foreground: var(--ivory);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-bg-deep: var(--bg-deep);
+  --color-bg-navy: var(--bg-navy);
+  --color-bg-navy-2: var(--bg-navy-2);
+  --color-panel: var(--panel);
+  --color-panel-border: var(--panel-border);
+  --color-ivory: var(--ivory);
+  --color-muted: var(--muted);
+  --color-muted-dim: var(--muted-dim);
+  --color-silver: var(--silver);
+  --color-silver-hi: var(--silver-hi);
+  --color-silver-active: var(--silver-active);
+  --color-amber: var(--amber);
+  --color-amber-dim: var(--amber-dim);
+  --color-green: var(--green);
+  --color-red: var(--red);
+  --font-fraunces: var(--font-fraunces), serif;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
