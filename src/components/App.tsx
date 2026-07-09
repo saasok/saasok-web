@@ -1,94 +1,75 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRef } from "react";
+import { PAGE_ORDER, PageId, useOnboardingStore } from "@/store/onboarding";
+import { useBackNavigationLock } from "@/hooks/useBackNavigationLock";
+import { useFocusableActivation } from "@/hooks/useFocusableActivation";
 import { BrandMark, TopBrand } from "./BrandMark";
 import { Disclaimer } from "./Disclaimer";
+import { CoverPage } from "./onboarding/CoverPage";
+import { BrokersPage } from "./onboarding/BrokersPage";
+import { RiskPage } from "./onboarding/RiskPage";
+import { YearsPage } from "./onboarding/YearsPage";
+import { LoadingPage } from "./onboarding/LoadingPage";
 
-const TOTAL_PAGES = 10;
+const PAGE_NUMBER: Partial<Record<PageId, number>> = {
+  page2: 2,
+  page3: 3,
+  page4: 4,
+  page5: 5,
+  page6: 6,
+  page7: 7,
+  page8: 8,
+  page9: 9,
+  page10: 10,
+};
 
 export function App() {
-  const [page, setPage] = useState(1);
-  const [coverShow, setCoverShow] = useState({
-    tagline: false,
-    brandmark: false,
-    logo: false,
-  });
+  const page = useOnboardingStore((s) => s.page);
+  const goTo = useOnboardingStore((s) => s.goTo);
+  const reset = useOnboardingStore((s) => s.reset);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (page !== 1) return;
-    const timers = [
-      setTimeout(() => setCoverShow((s) => ({ ...s, tagline: true })), 250),
-      setTimeout(() => setCoverShow((s) => ({ ...s, brandmark: true })), 900),
-      setTimeout(() => setCoverShow((s) => ({ ...s, logo: true })), 1150),
-      setTimeout(() => setPage(2), 3800),
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, [page]);
-
-  const goToPage = (n: number) => {
-    if (n === 1) {
-      setCoverShow({ tagline: false, brandmark: false, logo: false });
-    }
-    setPage(Math.min(Math.max(n, 1), TOTAL_PAGES));
-  };
+  useBackNavigationLock(page);
+  useFocusableActivation(containerRef);
 
   return (
     <div
+      ref={containerRef}
       className="relative h-dvh min-h-[660px] w-full overflow-hidden text-ivory"
       style={{
         background:
           "radial-gradient(ellipse 900px 500px at 50% -10%, rgba(214,176,76,0.07), transparent 60%), radial-gradient(ellipse 1200px 800px at 50% 110%, var(--bg-navy-2) 0%, var(--bg-deep) 70%)",
       }}
     >
-      {page > 1 && <ProgressDots current={page} />}
+      {PAGE_NUMBER[page] !== undefined && <ProgressDots current={page} />}
 
-      {page === 1 && (
-        <div className="flex h-full flex-col items-center justify-center gap-[22px]">
-          <div
-            className={`font-fraunces text-center text-[25px] font-medium italic transition-all duration-1000 ease-out ${
-              coverShow.tagline
-                ? "translate-y-0 opacity-100"
-                : "translate-y-3.5 opacity-0"
-            }`}
-          >
-            Get your edge up by <span className="not-italic">SaaSok</span>
-          </div>
-          <div
-            className={`transition-all duration-700 ${
-              coverShow.brandmark ? "scale-100 opacity-100" : "scale-90 opacity-0"
-            }`}
-          >
-            <BrandMark />
-          </div>
-          <div
-            className={`font-fraunces text-[34px] font-semibold tracking-wide transition-all duration-700 ${
-              coverShow.logo
-                ? "translate-y-0 opacity-100"
-                : "translate-y-2 opacity-0"
-            }`}
-          >
-            SaaS<em className="text-muted font-medium not-italic italic">ok</em>
-          </div>
-        </div>
-      )}
-
-      {page > 1 && page < TOTAL_PAGES && (
-        <PlaceholderPage page={page} onNav={goToPage} />
-      )}
-
-      {page === TOTAL_PAGES && <ClosingPage onRestart={() => goToPage(1)} />}
+      {page === "page1" && <CoverPage />}
+      {page === "page2" && <BrokersPage />}
+      {page === "page3" && <RiskPage />}
+      {page === "page4" && <YearsPage />}
+      {page === "pageLoad" && <LoadingPage />}
+      {page === "page5" && <PlaceholderPage page={page} onNext={() => goTo("page6")} />}
+      {page === "page6" && <PlaceholderPage page={page} onNext={() => goTo("page7")} />}
+      {page === "page7" && <PlaceholderPage page={page} onNext={() => goTo("page8")} />}
+      {page === "page8" && <PlaceholderPage page={page} onNext={() => goTo("page9")} />}
+      {page === "page9" && <PlaceholderPage page={page} onNext={() => goTo("page10")} />}
+      {page === "page10" && <ClosingPage onRestart={reset} />}
     </div>
   );
 }
 
-function ProgressDots({ current }: { current: number }) {
+function ProgressDots({ current }: { current: PageId }) {
+  const currentNumber = PAGE_NUMBER[current];
   return (
     <div className="absolute bottom-4 right-[22px] z-20 flex gap-1.5">
-      {Array.from({ length: TOTAL_PAGES - 1 }, (_, i) => i + 2).map((n) => (
+      {PAGE_ORDER.filter((p) => PAGE_NUMBER[p] !== undefined).map((p) => (
         <div
-          key={n}
+          key={p}
           className={`h-[5px] rounded-full transition-all duration-200 ${
-            n === current ? "w-3.5 bg-amber" : "w-[5px] bg-white/[0.18]"
+            p === current || PAGE_NUMBER[p] === currentNumber
+              ? "w-3.5 bg-amber"
+              : "w-[5px] bg-white/[0.18]"
           }`}
         />
       ))}
@@ -98,16 +79,16 @@ function ProgressDots({ current }: { current: number }) {
 
 function PlaceholderPage({
   page,
-  onNav,
+  onNext,
 }: {
-  page: number;
-  onNav: (n: number) => void;
+  page: PageId;
+  onNext: () => void;
 }) {
   return (
     <div className="flex h-full flex-col items-center justify-center px-10 py-9">
       <TopBrand />
       <div className="mb-2.5 font-mono text-[10.5px] tracking-[0.14em] text-amber-dim uppercase">
-        Page {page} of {TOTAL_PAGES}
+        Page {PAGE_NUMBER[page]} of {PAGE_ORDER.length - 1}
       </div>
       <div className="mb-9 max-w-xl text-center font-fraunces text-2xl font-semibold leading-snug">
         Coming soon
@@ -115,21 +96,12 @@ function PlaceholderPage({
           This step of the SaaSok experience is under construction.
         </small>
       </div>
-      <div className="flex gap-3">
-        <button
-          className="rounded-md border border-panel-border px-6 py-3 font-sans text-[13.5px] font-semibold tracking-wide text-ivory transition hover:border-white/20 disabled:cursor-not-allowed disabled:opacity-30"
-          onClick={() => onNav(page - 1)}
-          disabled={page <= 1}
-        >
-          Back
-        </button>
-        <button
-          className="rounded-md bg-silver px-9 py-3 font-sans text-[13.5px] font-semibold tracking-wide text-[#111] transition hover:bg-silver-hi hover:-translate-y-px"
-          onClick={() => onNav(page + 1)}
-        >
-          Next page
-        </button>
-      </div>
+      <button
+        className="rounded-md bg-silver px-9 py-3 font-sans text-[13.5px] font-semibold tracking-wide text-[#111] transition hover:-translate-y-px hover:bg-silver-hi"
+        onClick={onNext}
+      >
+        Next page
+      </button>
       <Disclaimer />
     </div>
   );
