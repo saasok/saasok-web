@@ -1,0 +1,208 @@
+{
+  "assets": [
+    {
+      "ourAsset": "Alphabet ($2.2T)",
+      "competitorsAndTheirMarketCap": "Microsoft $3.1T; Meta $1.5T; Amazon $2.8T; Tencent $0.5T; Baidu $45B",
+      "competitorsCoreRegions": "Microsoft - US, Europe, India, Japan; Meta - US, Europe, India, Latin America; Amazon - US, Europe, India, Japan, Brazil; Tencent - China, Hong Kong, Southeast Asia; Baidu - China",
+      "competitorsOwnersMajorShareholders": "Microsoft - Vanguard, BlackRock, State Street; Meta - Zuckerberg (~13–15% voting control); Amazon - Bezos (~10%), Vanguard, BlackRock; Tencent - Prosus/Naspers + Chinese institutional funds; Baidu - Chinese state-linked & institutional investors",
+      "notes": [
+        "Founders/insiders: Larry Page, Sergey Brin",
+        "Core Regions: North America, Europe, India, Latin America"
+      ]
+    },
+    {
+      "ourAsset": "Amazon ($2.8T)",
+      "competitorsAndTheirMarketCap": "Alibaba $300B; Walmart $800B; MercadoLibre $140B; JD.com $50B; Shopify $140B",
+      "competitorsCoreRegions": "Alibaba - China, Southeast Asia, Middle East; Walmart - US, Mexico, Canada; MercadoLibre - Latin America; JD.com - China; Shopify - US, Canada, Europe, Australia",
+      "competitorsOwnersMajorShareholders": "Alibaba - SoftBank (historical), Jack Ma influence, Chinese institutional funds; Walmart - Walton family (~50% control); MercadoLibre - Marcos Galperin + institutional investors; JD.com - Richard Liu + Tencent stake history; Shopify - institutional shareholders (index funds)",
+      "notes": [
+        "Founder: Jeff Bezos (~9%)",
+        "Core Regions: US, Europe, India, Japan, Latin America"
+      ]
+    },
+    {
+      "ourAsset": "Apple ($4.4T)",
+      "competitorsAndTheirMarketCap": "Samsung $250B; Xiaomi $180B; Huawei private; Alphabet $2.2T; Microsoft $3.1T",
+      "competitorsCoreRegions": "Samsung - South Korea, US, Europe, India; Xiaomi - China, India, Europe, Latin America; Huawei - China, Middle East, Africa (restricted West); Alphabet - US, Europe, India; Microsoft - US, Europe, India, Japan",
+      "competitorsOwnersMajorShareholders": "Samsung - Lee family (chaebol control); Xiaomi - Lei Jun + institutional investors; Huawei - employee ownership + Chinese state-linked structure; Alphabet/Microsoft - institutional investors (Vanguard/BlackRock/State Street)",
+      "notes": [
+        "Institutional: Vanguard, BlackRock, State Street",
+        "Core Regions: US, Europe, China, India"
+      ]
+    },
+    {
+      "ourAsset": "BlackRock ($180B)",
+      "competitorsAndTheirMarketCap": "Vanguard private mutual; State Street $110B; Fidelity private; T. Rowe Price $40B",
+      "competitorsCoreRegions": "Vanguard - US, Europe, Asia; State Street - US, Europe; Fidelity - US, Europe; T. Rowe Price - US, Europe",
+      "competitorsOwnersMajorShareholders": "Vanguard - mutual ownership structure (fund investors); State Street - institutional shareholders; Fidelity - privately controlled Johnson family; T. Rowe Price - public institutional ownership",
+      "notes": [
+        "Institutional ownership model (mutual structure)",
+        "Core Regions: US, Europe, Asia"
+      ]
+    },
+    {
+      "ourAsset": "Booking Holdings ($180B)",
+      "competitorsAndTheirMarketCap": "Airbnb $90B; Expedia $25B; Trip.com $50B",
+      "competitorsCoreRegions": "Airbnb - US, Europe, Latin America, Australia; Expedia - US, Europe, Canada; Trip.com - China, Japan, South Korea, Southeast Asia, Europe",
+      "competitorsOwnersMajorShareholders": "Airbnb - Brian Chesky (control influence) + institutional investors; Expedia - institutional shareholders; Trip.com - Chinese institutional investors + Trip.com Group controlling structure",
+      "notes": [
+        "Institutional: Vanguard, BlackRock",
+        "Core Regions: US, Europe, Asia, Latin America"
+      ]
+    },
+    {
+      "ourAsset": "Broadcom ($1.3T)",
+      "competitorsAndTheirMarketCap": "NVIDIA $4.5T; AMD $250B; Intel $110B; Marvell $80B; Qualcomm $180B",
+      "competitorsCoreRegions": "NVIDIA - US, Taiwan, Israel, Europe; AMD - US, Taiwan, China (manufacturing), Europe; Intel - US, Ireland, Israel; Marvell - US, Israel, Asia; Qualcomm - US, China, Taiwan, South Korea",
+      "competitorsOwnersMajorShareholders": "NVIDIA - Jensen Huang (insider control) + institutional; AMD - Lisa Su (insider influence) + institutional; Intel - institutional + US strategic stakeholders; Qualcomm - institutional investors",
+      "notes": [
+        "CEO insider: Hock Tan",
+        "Institutional: Vanguard, BlackRock",
+        "Core Regions: US, Asia, Europe"
+      ]
+    },
+    {
+      "ourAsset": "BYD ($150B)",
+      "competitorsAndTheirMarketCap": "Tesla $1.0T; NIO $10B; Li Auto $30B; XPeng $20B; Geely $20B",
+      "competitorsCoreRegions": "Tesla - US, China, Germany, Netherlands, Mexico; NIO - China, Norway, Germany; Li Auto - China; XPeng - China, Europe; Geely - China, Europe, Brazil",
+      "competitorsOwnersMajorShareholders": "Tesla - Elon Musk (~12%) + institutional investors; NIO/XPeng - founders + Chinese institutional funds; Geely - Li Shufu (controlling shareholder)",
+      "notes": [
+        "Founder: Wang Chuanfu (~15%)",
+        "Core Regions: China, Europe, Latin America, Southeast Asia"
+      ]
+    },
+    {
+      "ourAsset": "Coinbase ($90B)",
+      "competitorsAndTheirMarketCap": "Robinhood $80B; Kraken private; Binance private; CME $100B",
+      "competitorsCoreRegions": "Robinhood - US, UK (expansion); Kraken - US, Europe; Binance - UAE (Dubai), Europe, Asia (global offshore structure); CME - US, Europe, Singapore",
+      "competitorsOwnersMajorShareholders": "Robinhood - institutional + retail shareholders; Kraken - privately held (founders/early investors); Binance - founder-led (CZ historical control) + decentralized offshore structure; CME  institutional shareholders",
+      "notes": [
+        "CEO: Brian Armstrong (significant insider stake)",
+        "Core Regions: US, Europe"
+      ]
+    },
+    {
+      "ourAsset": "Mastercard ($500B)",
+      "competitorsAndTheirMarketCap": "Visa $700B; AmEx $200B; PayPal $80B; Discover $40B",
+      "competitorsCoreRegions": "Visa - US, Europe, Latin America, Asia; AmEx - US, Europe, Japan; PayPal - US, Europe, Latin America; Discover - US",
+      "competitorsOwnersMajorShareholders": "Visa/Mastercard/AmEx/PayPal - primarily institutional shareholders (index funds: Vanguard, BlackRock, State Street)",
+      "notes": [
+        "Institutional: Vanguard, BlackRock, State Street",
+        "Core Regions: Global"
+      ]
+    },
+    {
+      "ourAsset": "Microsoft ($3.1T)",
+      "competitorsAndTheirMarketCap": "Alphabet $2.2T; Amazon $2.8T; Oracle $700B; Salesforce $250B; SAP $350B",
+      "competitorsCoreRegions": "Alphabet - US, Europe, India; Amazon - US, Europe, Japan, India; Oracle - US, Europe, Middle East; Salesforce - US, Europe, Japan; SAP - Germany, Europe, US",
+      "competitorsOwnersMajorShareholders": "Oracle - Larry Ellison (~40%+ influence); Salesforce - Marc Benioff (significant control); SAP - institutional + founding legacy structure; others - institutional index funds",
+      "notes": [
+        "CEO: Satya Nadella",
+        "Institutional: Vanguard, BlackRock",
+        "Core Regions: US, Europe, India, Japan"
+      ]
+    },
+    {
+      "ourAsset": "Netflix ($600B)",
+      "competitorsAndTheirMarketCap": "Disney $200B; WBD $30B; Amazon (division); Alphabet (division); Apple (division)",
+      "competitorsCoreRegions": "Disney - US, Europe, Latin America, Asia; Warner Bros Discovery - US, Europe; Amazon - US, Europe, Japan, India; YouTube - global; Apple TV+ - US, Europe, Japan",
+      "competitorsOwnersMajorShareholders": "Disney - institutional + Disney family legacy influence; Warner Bros Discovery - institutional investors",
+      "notes": [
+        "Institutional: Vanguard, BlackRock",
+        "Core Regions: US, Europe, Latin America, Asia"
+      ]
+    },
+    {
+      "ourAsset": "NVIDIA ($4.5T)",
+      "competitorsAndTheirMarketCap": "AMD $250B; Intel $110B; Broadcom $1.3T; Qualcomm $180B",
+      "competitorsCoreRegions": "AMD - US, Taiwan, China, Europe; Intel - US, Ireland, Israel; Broadcom - US, Singapore, Israel; Qualcomm - US, China, South Korea, Taiwan",
+      "competitorsOwnersMajorShareholders": "AMD - Lisa Su (insider influence) + institutional; Intel - institutional + US strategic backing; Broadcom - Hock Tan (insider); Qualcomm - institutional investors",
+      "notes": [
+        "Founder insider: Jensen Huang (~3–4%) ",
+        "Institutional: Vanguard, BlackRock",
+        "Core Regions: US, Taiwan, Israel"
+      ]
+    },
+    {
+      "ourAsset": "Palo Alto Networks ($150B)",
+      "competitorsAndTheirMarketCap": "CrowdStrike $130B; Fortinet $80B; Zscaler $40B; Cisco $300B",
+      "competitorsCoreRegions": "CrowdStrike - US, Europe, Israel; Fortinet - US, Europe, Asia; Zscaler - US, Europe, India; Cisco - US, Europe, Latin America, Asia",
+      "competitorsOwnersMajorShareholders": "CrowdStrike - George Kurtz (founder control); Fortinet - Ken Xie (founder control); Cisco - institutional shareholders",
+      "notes": [
+        "Founder: Nir Zuk (insider influence)",
+        "Institutional: Vanguard, BlackRock",
+        "Core Regions: US, Europe, Israel, Asia"
+      ]
+    },
+    {
+      "ourAsset": "Palantir ($350B)",
+      "competitorsAndTheirMarketCap": "Accenture $200B; Booz Allen $20B; C3.ai $10B; IBM $250B",
+      "competitorsCoreRegions": "Accenture - Ireland, US, India; Booz Allen - US; C3.ai - US, Europe; IBM - US, Europe, India",
+      "competitorsOwnersMajorShareholders": "Accenture/Booz Allen/IBM - institutional investors; C3.ai - Tom Siebel (founder influence) + institutional",
+      "notes": [
+        "Peter Thiel (early large influence), Alex Karp (CEO control)",
+        "Core Regions: US, Europe, Middle East"
+      ]
+    },
+    {
+      "ourAsset": "Reddit ($30B)",
+      "competitorsAndTheirMarketCap": "Meta $1.5T; X private; Pinterest $20B; Snap $15B",
+      "competitorsCoreRegions": "Meta - US, Europe, India, Latin America; X - US, Europe, Middle East; Pinterest - US, Europe; Snap - US, Europe",
+      "competitorsOwnersMajorShareholders": "Meta - Zuckerberg (~13–15% voting control); X - Elon Musk (private ownership control); others - institutional shareholders",
+      "notes": [
+        "Institutional: Advance Publications, Fidelity",
+        "Core Regions: US, Europe"
+      ]
+    },
+    {
+      "ourAsset": "RTX ($180B)",
+      "competitorsAndTheirMarketCap": "Lockheed $150B; Northrop $90B; Boeing $150B; BAE $60B",
+      "competitorsCoreRegions": "Lockheed - US, NATO, Middle East, South Korea; Northrop - US, NATO; Boeing Defense - US, Europe, Asia; BAE Systems - UK, US, Saudi Arabia",
+      "competitorsOwnersMajorShareholders": "All - institutional investors (defense-focused funds, index funds)",
+      "notes": [
+        "Institutional: Vanguard, BlackRock",
+        "Core Regions: US, NATO, Middle East, Asia"
+      ]
+    },
+    {
+      "ourAsset": "Strategy ($120B)",
+      "competitorsAndTheirMarketCap": "Coinbase $90B; Marathon $10B; Riot $5B; Metaplanet $5B",
+      "competitorsCoreRegions": "Coinbase - US, Europe; Marathon - US; Riot - US; Metaplanet - Japan",
+      "competitorsOwnersMajorShareholders": "Coinbase - institutional + retail; Marathon/Riot - public retail-heavy + institutional; Metaplanet - Japanese institutional + retail",
+      "notes": [
+        "Michael Saylor (voting control structure)",
+        "Core Regions: US, Bitcoin market global"
+      ]
+    },
+    {
+      "ourAsset": "TSMC ($1.2T)",
+      "competitorsAndTheirMarketCap": "Samsung $250B; Intel $110B; GlobalFoundries $30B",
+      "competitorsCoreRegions": "Samsung - South Korea, US; Intel - US, Ireland, Israel; GlobalFoundries - US, Singapore, Germany",
+      "competitorsOwnersMajorShareholders": "Samsung - Lee chaebol family control; Intel - institutional + US strategic influence; GlobalFoundries - Mubadala sovereign wealth (UAE)",
+      "notes": [
+        "Taiwan government-linked funds, Vanguard",
+        "Core Regions: Taiwan, US, Europe"
+      ]
+    },
+    {
+      "ourAsset": "Tesla ($1.0T)",
+      "competitorsAndTheirMarketCap": "BYD $150B; Xiaomi $100B; Li Auto $30B; Rivian $15B; Lucid $10B",
+      "competitorsCoreRegions": "BYD - China, Europe, Latin America; Xiaomi - China; Li Auto - China; Rivian - US; Lucid - US, Saudi Arabia",
+      "competitorsOwnersMajorShareholders": "Tesla - Musk + institutional investors; BYD - Wang Chuanfu; Lucid - Saudi PIF (major control)",
+      "notes": [
+        "Elon Musk (~12%)",
+        "Core Regions: US, China, Europe"
+      ]
+    },
+    {
+      "ourAsset": "Visa ($700B)",
+      "competitorsAndTheirMarketCap": "Mastercard $500B; AmEx $200B; PayPal $80B; Discover $40B",
+      "competitorsCoreRegions": "Mastercard - US, Europe, Asia; AmEx - US, Europe, Japan; PayPal - US, Europe, Latin America; Discover - US",
+      "competitorsOwnersMajorShareholders": "All - institutional index fund dominance (Vanguard, BlackRock, State Street)",
+      "notes": [
+        "Institutional: Vanguard, BlackRock, State Street",
+        "Core Regions: Global"
+      ]
+    }
+  ]
+}

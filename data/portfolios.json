@@ -1,0 +1,2061 @@
+{
+  "brokers": [
+    {
+      "broker": "INTERACTIVE BROKERS (IBKR)",
+      "profiles": [
+        {
+          "name": "Conservative",
+          "currency": "$",
+          "totalPortfolioValue": 599750.27,
+          "holdings": [
+            {
+              "symbol": "TLT",
+              "type": "Bonds ETF",
+              "qty": 1078,
+              "price": 85.06,
+              "value": 91694.68,
+              "weight": 0.1528881012
+            },
+            {
+              "symbol": "LQD",
+              "type": "IG Bonds ETF",
+              "qty": 1260,
+              "price": 108.17,
+              "value": 136294.2,
+              "weight": 0.2272515859
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 167,
+              "price": 737.55,
+              "value": 123170.85,
+              "weight": 0.2053702285
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 109,
+              "price": 705.06,
+              "value": 76851.54,
+              "weight": 0.1281392337
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 171739,
+              "price": "-",
+              "value": 171739,
+              "weight": 0.2863508507
+            }
+          ]
+        },
+        {
+          "name": "Moderate",
+          "currency": "$",
+          "totalPortfolioValue": 571738.3,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 112,
+              "price": 205.1,
+              "value": 22971.2,
+              "weight": 0.04017782262
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 75,
+              "price": 416.67,
+              "value": 31250.25,
+              "weight": 0.05465831133
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 170,
+              "price": 307.34,
+              "value": 52247.8,
+              "weight": 0.09138411752
+            },
+            {
+              "symbol": "AMZN",
+              "type": "Stock",
+              "qty": 77,
+              "price": 246.03,
+              "value": 18944.31,
+              "weight": 0.03313458273
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 123,
+              "price": 368.53,
+              "value": 45329.19,
+              "weight": 0.07928310907
+            },
+            {
+              "symbol": "AVGO",
+              "type": "Stock",
+              "qty": 136,
+              "price": 385.73,
+              "value": 52459.28,
+              "weight": 0.09175400703
+            },
+            {
+              "symbol": "TSM",
+              "type": "Stock",
+              "qty": 90,
+              "price": 415.17,
+              "value": 37365.3,
+              "weight": 0.06535385158
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 70,
+              "price": 391,
+              "value": 27370,
+              "weight": 0.04787155242
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 69,
+              "price": 737.55,
+              "value": 50890.95,
+              "weight": 0.08901091636
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 65,
+              "price": 705.06,
+              "value": 45828.9,
+              "weight": 0.08015712783
+            },
+            {
+              "symbol": "PANW",
+              "type": "Stock",
+              "qty": 56,
+              "price": 272.05,
+              "value": 15234.8,
+              "weight": 0.02664645695
+            },
+            {
+              "symbol": "XAUUSD",
+              "type": "FX",
+              "qty": 14,
+              "price": 4327.88,
+              "value": 60590.32,
+              "weight": 0.1059756186
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 111256,
+              "price": "-",
+              "value": 111256,
+              "weight": 0.194592526
+            }
+          ]
+        },
+        {
+          "name": "Aggressive",
+          "currency": "$",
+          "totalPortfolioValue": 661792.72,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 80,
+              "price": 205.1,
+              "value": 16408,
+              "weight": 0.02479326155,
+              "expiration": null
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 391,
+              "value": 50830,
+              "weight": 0.07680652637,
+              "expiration": null
+            },
+            {
+              "symbol": "PLTR",
+              "type": "Stock",
+              "qty": 123,
+              "price": 135.53,
+              "value": 16670.19,
+              "weight": 0.025189443,
+              "expiration": null
+            },
+            {
+              "symbol": "COIN",
+              "type": "Stock",
+              "qty": 167,
+              "price": 152.4,
+              "value": 25450.8,
+              "weight": 0.03845735867,
+              "expiration": null
+            },
+            {
+              "symbol": "RDDT",
+              "type": "Stock",
+              "qty": 137,
+              "price": 173.45,
+              "value": 23762.65,
+              "weight": 0.03590648444,
+              "expiration": null
+            },
+            {
+              "symbol": "MSTR",
+              "type": "Stock",
+              "qty": 107,
+              "price": 120.44,
+              "value": 12887.08,
+              "weight": 0.01947298544,
+              "expiration": null
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 178,
+              "price": 416.67,
+              "value": 74167.26,
+              "weight": 0.1120702265,
+              "expiration": null
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 120,
+              "price": 307.34,
+              "value": 36880.8,
+              "weight": 0.05572862754,
+              "expiration": null
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 38,
+              "price": 368.53,
+              "value": 14004.14,
+              "weight": 0.02116091576,
+              "expiration": null
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 127,
+              "price": 737.55,
+              "value": 93668.85,
+              "weight": 0.1415380483,
+              "expiration": null
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 120,
+              "price": 705.06,
+              "value": 84607.2,
+              "weight": 0.127845468,
+              "expiration": null
+            },
+            {
+              "symbol": "ES Futures",
+              "type": "Futures",
+              "qty": 2,
+              "price": 8116.75,
+              "value": 16233.5,
+              "weight": 0.02452958382,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "NQ Futures",
+              "type": "Futures",
+              "qty": 1,
+              "price": 31579.25,
+              "value": 31579.25,
+              "weight": 0.04771773555,
+              "expiration": "December 2028"
+            },
+            {
+              "symbol": "NVDA 200 Call",
+              "type": "Options",
+              "qty": 5,
+              "price": 69.17,
+              "value": 34585,
+              "weight": 0.0522595655,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "MSTR 120 Call",
+              "type": "Options",
+              "qty": 3,
+              "price": 66.77,
+              "value": 20031,
+              "weight": 0.03026778536,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "TSLA 370 Put",
+              "type": "Options",
+              "qty": 4,
+              "price": 93.7,
+              "value": 37480,
+              "weight": 0.05663404699,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 72547,
+              "price": "-",
+              "value": 72547,
+              "weight": 0.1096219372,
+              "expiration": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "broker": "SWISSQUOTE",
+      "profiles": [
+        {
+          "name": "Conservative",
+          "currency": "$",
+          "totalPortfolioValue": 672681.95,
+          "holdings": [
+            {
+              "symbol": "AGG",
+              "type": "Bonds ETF",
+              "qty": 1160,
+              "price": 98.17,
+              "value": 113877.2,
+              "weight": 0.1692883241
+            },
+            {
+              "symbol": "TLT",
+              "type": "Treasury ETF",
+              "qty": 1290,
+              "price": 85.06,
+              "value": 109727.4,
+              "weight": 0.1631192869
+            },
+            {
+              "symbol": "LQD",
+              "type": "IG Bonds ETF",
+              "qty": 675,
+              "price": 108.17,
+              "value": 73014.75,
+              "weight": 0.1085427519
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 120,
+              "price": 737.55,
+              "value": 88506,
+              "weight": 0.1315718372
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 110,
+              "price": 705.06,
+              "value": 77556.6,
+              "weight": 0.1152946054
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 210000,
+              "price": "-",
+              "value": 210000,
+              "weight": 0.3121831945
+            }
+          ]
+        },
+        {
+          "name": "Moderate",
+          "currency": "$",
+          "totalPortfolioValue": 1268488.26,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 305,
+              "price": 205.1,
+              "value": 62555.5,
+              "weight": 0.04931500115
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 200,
+              "price": 416.67,
+              "value": 83334,
+              "weight": 0.06569552327
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 190,
+              "price": 307.34,
+              "value": 58394.6,
+              "weight": 0.04603479736
+            },
+            {
+              "symbol": "AMZN",
+              "type": "Stock",
+              "qty": 200,
+              "price": 246.03,
+              "value": 49206,
+              "weight": 0.03879105669
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 156,
+              "price": 368.53,
+              "value": 57490.68,
+              "weight": 0.04532220109
+            },
+            {
+              "symbol": "AVGO",
+              "type": "Stock",
+              "qty": 360,
+              "price": 385.73,
+              "value": 138862.8,
+              "weight": 0.1094710959
+            },
+            {
+              "symbol": "TSM",
+              "type": "Stock",
+              "qty": 320,
+              "price": 415.17,
+              "value": 132854.4,
+              "weight": 0.104734434
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 270,
+              "price": 391,
+              "value": 105570,
+              "weight": 0.0832250509
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 130,
+              "price": 737.55,
+              "value": 95881.5,
+              "weight": 0.07558721907
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 120,
+              "price": 705.06,
+              "value": 84607.2,
+              "weight": 0.06669923772
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 4,
+              "price": 4742,
+              "value": 18968,
+              "weight": 0.0149532326
+            },
+            {
+              "symbol": "XAUUSD",
+              "type": "FX Spot",
+              "qty": 16,
+              "price": 4327.88,
+              "value": 69246.08,
+              "weight": 0.0545894528
+            },
+            {
+              "symbol": "XAGUSD",
+              "type": "FX Spot",
+              "qty": 170,
+              "price": 67.75,
+              "value": 11517.5,
+              "weight": 0.009079705633
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 300000,
+              "price": "-",
+              "value": 300000,
+              "weight": 0.2365019917
+            }
+          ]
+        },
+        {
+          "name": "Aggressive",
+          "currency": "$",
+          "totalPortfolioValue": 725815.69,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 80,
+              "price": 205.1,
+              "value": 16408,
+              "weight": 0.02260629003,
+              "expiration": null
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 123,
+              "price": 391,
+              "value": 48093,
+              "weight": 0.06626062327,
+              "expiration": null
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 130,
+              "price": 416.67,
+              "value": 54167.1,
+              "weight": 0.07462927675,
+              "expiration": null
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 170,
+              "price": 307.34,
+              "value": 52247.8,
+              "weight": 0.07198494152,
+              "expiration": null
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 129,
+              "price": 368.53,
+              "value": 47540.37,
+              "weight": 0.06549923163,
+              "expiration": null
+            },
+            {
+              "symbol": "COIN",
+              "type": "Stock",
+              "qty": 104,
+              "price": 152.4,
+              "value": 15849.6,
+              "weight": 0.02183694872,
+              "expiration": null
+            },
+            {
+              "symbol": "PLTR",
+              "type": "Stock",
+              "qty": 130,
+              "price": 135.53,
+              "value": 17618.9,
+              "weight": 0.02427461991,
+              "expiration": null
+            },
+            {
+              "symbol": "RDDT",
+              "type": "Stock",
+              "qty": 120,
+              "price": 173.45,
+              "value": 20814,
+              "weight": 0.02867670166,
+              "expiration": null
+            },
+            {
+              "symbol": "MSTR",
+              "type": "Stock",
+              "qty": 68,
+              "price": 120.44,
+              "value": 8189.92,
+              "weight": 0.01128374615,
+              "expiration": null
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 69,
+              "price": 737.55,
+              "value": 50890.95,
+              "weight": 0.07011552754,
+              "expiration": null
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 80,
+              "price": 705.06,
+              "value": 56404.8,
+              "weight": 0.07771229084,
+              "expiration": null
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 7,
+              "price": 4742,
+              "value": 33194,
+              "weight": 0.04573337344,
+              "expiration": null
+            },
+            {
+              "symbol": "ES Futures",
+              "type": "Futures",
+              "qty": 5,
+              "price": 8116.75,
+              "value": 40583.75,
+              "weight": 0.05591467718,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "NQ Futures",
+              "type": "Futures",
+              "qty": 2,
+              "price": 31579.25,
+              "value": 63158.5,
+              "weight": 0.08701727018,
+              "expiration": "December 2028"
+            },
+            {
+              "symbol": "AMZN 200 Call",
+              "type": "Options",
+              "qty": 3,
+              "price": 94.47,
+              "value": 28341,
+              "weight": 0.03904710299,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "RDDT 180 Call",
+              "type": "Options",
+              "qty": 4,
+              "price": 75.5,
+              "value": 30200,
+              "weight": 0.04160835928,
+              "expiration": "15 September 2028"
+            },
+            {
+              "symbol": "AVGO 420 Call",
+              "type": "Options",
+              "qty": 5,
+              "price": 129.5,
+              "value": 64750,
+              "weight": 0.08920997561,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "PANW 250 Put",
+              "type": "Options",
+              "qty": 2,
+              "price": 61.82,
+              "value": 12364,
+              "weight": 0.01703462762,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 65000,
+              "price": "-",
+              "value": 65000,
+              "weight": 0.08955441567,
+              "expiration": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "broker": "EXANTE",
+      "profiles": [
+        {
+          "name": "Conservative",
+          "currency": "$",
+          "totalPortfolioValue": 1044926.7,
+          "holdings": [
+            {
+              "symbol": "AGG",
+              "type": "Bonds ETF",
+              "qty": 1190,
+              "price": 98.17,
+              "value": 116822.3,
+              "weight": 0.1117995167
+            },
+            {
+              "symbol": "TLT",
+              "type": "Treasury ETF",
+              "qty": 1310,
+              "price": 85.06,
+              "value": 111428.6,
+              "weight": 0.1066377192
+            },
+            {
+              "symbol": "LQD",
+              "type": "IG Bonds ETF",
+              "qty": 1500,
+              "price": 108.17,
+              "value": 162255,
+              "weight": 0.1552788344
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 200,
+              "price": 737.55,
+              "value": 147510,
+              "weight": 0.1411677967
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 180,
+              "price": 705.06,
+              "value": 126910.8,
+              "weight": 0.1214542609
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 380000,
+              "price": "-",
+              "value": 380000,
+              "weight": 0.3636618722
+            }
+          ]
+        },
+        {
+          "name": "Moderate",
+          "currency": "$",
+          "totalPortfolioValue": 945756.52,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 230,
+              "price": 205.1,
+              "value": 47173,
+              "weight": 0.0498785882
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 140,
+              "price": 416.67,
+              "value": 58333.8,
+              "weight": 0.06167951134
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 200,
+              "price": 307.34,
+              "value": 61468,
+              "weight": 0.0649934721
+            },
+            {
+              "symbol": "AMZN",
+              "type": "Stock",
+              "qty": 180,
+              "price": 246.03,
+              "value": 44285.4,
+              "weight": 0.04682537108
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 180,
+              "price": 368.53,
+              "value": 66335.4,
+              "weight": 0.07014003985
+            },
+            {
+              "symbol": "AVGO",
+              "type": "Stock",
+              "qty": 130,
+              "price": 385.73,
+              "value": 50144.9,
+              "weight": 0.05302094032
+            },
+            {
+              "symbol": "TSM",
+              "type": "Stock",
+              "qty": 140,
+              "price": 415.17,
+              "value": 58123.8,
+              "weight": 0.06145746688
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 391,
+              "value": 50830,
+              "weight": 0.05374533395
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 120,
+              "price": 737.55,
+              "value": 88506,
+              "weight": 0.09358222558
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 110,
+              "price": 705.06,
+              "value": 77556.6,
+              "weight": 0.0820048272
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 4,
+              "price": 4742,
+              "value": 18968,
+              "weight": 0.02005590191
+            },
+            {
+              "symbol": "XAUUSD",
+              "type": "FX",
+              "qty": 24,
+              "price": 4327.88,
+              "value": 103869.12,
+              "weight": 0.1098264911
+            },
+            {
+              "symbol": "XAGUSD",
+              "type": "FX",
+              "qty": 150,
+              "price": 67.75,
+              "value": 10162.5,
+              "weight": 0.01074536605
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 210000,
+              "price": "-",
+              "value": 210000,
+              "weight": 0.2220444645
+            }
+          ]
+        },
+        {
+          "name": "Aggressive",
+          "currency": "$",
+          "totalPortfolioValue": 1106743.35,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 205.1,
+              "value": 26663,
+              "weight": 0.02409140294,
+              "expiration": null
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 290,
+              "price": 391,
+              "value": 113390,
+              "weight": 0.1024537441,
+              "expiration": null
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 60,
+              "price": 416.67,
+              "value": 25000.2,
+              "weight": 0.02258897693,
+              "expiration": null
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 160,
+              "price": 307.34,
+              "value": 49174.4,
+              "weight": 0.04443162003,
+              "expiration": null
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 170,
+              "price": 368.53,
+              "value": 62650.1,
+              "weight": 0.05660761368,
+              "expiration": null
+            },
+            {
+              "symbol": "COIN",
+              "type": "Stock",
+              "qty": 400,
+              "price": 152.4,
+              "value": 60960,
+              "weight": 0.0550805207,
+              "expiration": null
+            },
+            {
+              "symbol": "PLTR",
+              "type": "Stock",
+              "qty": 370,
+              "price": 135.53,
+              "value": 50146.1,
+              "weight": 0.04530960136,
+              "expiration": null
+            },
+            {
+              "symbol": "RDDT",
+              "type": "Stock",
+              "qty": 320,
+              "price": 173.45,
+              "value": 55504,
+              "weight": 0.05015074181,
+              "expiration": null
+            },
+            {
+              "symbol": "MSTR",
+              "type": "Stock",
+              "qty": 450,
+              "price": 120.44,
+              "value": 54198,
+              "weight": 0.0489707031,
+              "expiration": null
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 100,
+              "price": 737.55,
+              "value": 73755,
+              "weight": 0.06664146661,
+              "expiration": null
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 130,
+              "price": 705.06,
+              "value": 91657.8,
+              "weight": 0.08281757464,
+              "expiration": null
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 3,
+              "price": 4742,
+              "value": 14226,
+              "weight": 0.0128539286,
+              "expiration": null
+            },
+            {
+              "symbol": "ES Futures",
+              "type": "Futures",
+              "qty": 3,
+              "price": 8116.75,
+              "value": 24350.25,
+              "weight": 0.02200171341,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "NQ Futures",
+              "type": "Futures",
+              "qty": 2,
+              "price": 31579.25,
+              "value": 63158.5,
+              "weight": 0.05706697944,
+              "expiration": "December 2028"
+            },
+            {
+              "symbol": "PANW 300 Call",
+              "type": "Options",
+              "qty": 5,
+              "price": 88.75,
+              "value": 44375,
+              "weight": 0.04009511329,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "TSM 430 Call",
+              "type": "Options",
+              "qty": 3,
+              "price": 139.5,
+              "value": 69750,
+              "weight": 0.06302274145,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "META 600 Call ",
+              "type": "Options",
+              "qty": 6,
+              "price": 171.95,
+              "value": 51585,
+              "weight": 0.04660972212,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "RDDT 175 Call",
+              "type": "Options",
+              "qty": 2,
+              "price": 77,
+              "value": 46200,
+              "weight": 0.04174409541,
+              "expiration": "15 September 2028"
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 130000,
+              "price": "-",
+              "value": 130000,
+              "weight": 0.1174617403,
+              "expiration": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "broker": "SAXO",
+      "profiles": [
+        {
+          "name": "Conservative",
+          "currency": "$",
+          "totalPortfolioValue": 828907.26,
+          "holdings": [
+            {
+              "symbol": "TLT",
+              "type": "Bonds",
+              "qty": 1965,
+              "price": 85.06,
+              "value": 167142.9,
+              "weight": 0.2016424612
+            },
+            {
+              "symbol": "LQD",
+              "type": "Bonds",
+              "qty": 1603,
+              "price": 108.17,
+              "value": 173396.51,
+              "weight": 0.2091868637
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 227,
+              "price": 737.55,
+              "value": 167423.85,
+              "weight": 0.2019814014
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 12,
+              "price": 4742,
+              "value": 56904,
+              "weight": 0.06864941682
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 264040,
+              "price": "-",
+              "value": 264040,
+              "weight": 0.3185398569
+            }
+          ]
+        },
+        {
+          "name": "Moderate",
+          "currency": "$",
+          "totalPortfolioValue": 678734,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 100,
+              "price": 205.1,
+              "value": 20510,
+              "weight": 0.03021802356
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 201,
+              "price": 416.67,
+              "value": 83750.67,
+              "weight": 0.1233924778
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 140,
+              "price": 307.34,
+              "value": 43027.6,
+              "weight": 0.06339390689
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 123,
+              "price": 368.53,
+              "value": 45329.19,
+              "weight": 0.06678491132
+            },
+            {
+              "symbol": "AMZN",
+              "type": "Stock",
+              "qty": 220,
+              "price": 246.03,
+              "value": 54126.6,
+              "weight": 0.07974641023
+            },
+            {
+              "symbol": "TSM",
+              "type": "Stock",
+              "qty": 130,
+              "price": 415.17,
+              "value": 53972.1,
+              "weight": 0.07951878055
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 129,
+              "price": 391,
+              "value": 50439,
+              "weight": 0.07431335398
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 80,
+              "price": 737.55,
+              "value": 59004,
+              "weight": 0.08693243598
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 50,
+              "price": 705.06,
+              "value": 35253,
+              "weight": 0.0519393459
+            },
+            {
+              "symbol": "XAUUSD",
+              "type": "FX",
+              "qty": 18,
+              "price": 4327.88,
+              "value": 77901.84,
+              "weight": 0.1147752139
+            },
+            {
+              "symbol": "XAGUSD",
+              "type": "FX",
+              "qty": 80,
+              "price": 67.75,
+              "value": 5420,
+              "weight": 0.007985455274
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 150000,
+              "price": "-",
+              "value": 150000,
+              "weight": 0.2209996847
+            }
+          ]
+        },
+        {
+          "name": "Aggressive",
+          "currency": "$",
+          "totalPortfolioValue": 787487.6,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 205.1,
+              "value": 26663,
+              "weight": 0.03385831091,
+              "expiration": null
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 90,
+              "price": 391,
+              "value": 35190,
+              "weight": 0.04468641792,
+              "expiration": null
+            },
+            {
+              "symbol": "PLTR",
+              "type": "Stock",
+              "qty": 140,
+              "price": 135.53,
+              "value": 18974.2,
+              "weight": 0.02409460162,
+              "expiration": null
+            },
+            {
+              "symbol": "COIN",
+              "type": "Stock",
+              "qty": 300,
+              "price": 152.4,
+              "value": 45720,
+              "weight": 0.05805805704,
+              "expiration": null
+            },
+            {
+              "symbol": "RDDT",
+              "type": "Stock",
+              "qty": 230,
+              "price": 173.45,
+              "value": 39893.5,
+              "weight": 0.05065921038,
+              "expiration": null
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 180,
+              "price": 416.67,
+              "value": 75000.6,
+              "weight": 0.0952403568,
+              "expiration": null
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 160,
+              "price": 307.34,
+              "value": 49174.4,
+              "weight": 0.0624446658,
+              "expiration": null
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 80,
+              "price": 737.55,
+              "value": 59004,
+              "weight": 0.07492689409,
+              "expiration": null
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 90,
+              "price": 705.06,
+              "value": 63455.4,
+              "weight": 0.08057955452,
+              "expiration": null
+            },
+            {
+              "symbol": "ES Futures",
+              "type": "Futures",
+              "qty": 4,
+              "price": 8116.75,
+              "value": 32467,
+              "weight": 0.04122858569,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "NQ Futures",
+              "type": "Futures",
+              "qty": 2,
+              "price": 31579.25,
+              "value": 63158.5,
+              "weight": 0.08020253271,
+              "expiration": "December 2028"
+            },
+            {
+              "symbol": "RDDT 150 Put",
+              "type": "Options",
+              "qty": 6,
+              "price": 49.75,
+              "value": 29850,
+              "weight": 0.03790535876,
+              "expiration": "15 September 2028"
+            },
+            {
+              "symbol": "GOOGL 370 Call",
+              "type": "Options",
+              "qty": 3,
+              "price": 104.75,
+              "value": 31425,
+              "weight": 0.03990539026,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "AMZN 210 Call",
+              "type": "Options",
+              "qty": 4,
+              "price": 88.55,
+              "value": 35420,
+              "weight": 0.04497848601,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "AVGO 400 Call",
+              "type": "Options",
+              "qty": 6,
+              "price": 135.32,
+              "value": 81192,
+              "weight": 0.1031025758,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 100900,
+              "price": "-",
+              "value": 100900,
+              "weight": 0.1281290017,
+              "expiration": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "broker": "XTB",
+      "profiles": [
+        {
+          "name": "Conservative",
+          "currency": "$",
+          "totalPortfolioValue": 547157.18,
+          "holdings": [
+            {
+              "symbol": "AGG",
+              "type": "Bonds ETF",
+              "qty": 1200,
+              "price": 98.17,
+              "value": 117804,
+              "weight": 0.2153019357
+            },
+            {
+              "symbol": "TLT",
+              "type": "Treasury ETF",
+              "qty": 800,
+              "price": 85.06,
+              "value": 68048,
+              "weight": 0.1243664572
+            },
+            {
+              "symbol": "LQD",
+              "type": "IG Bonds ETF",
+              "qty": 720,
+              "price": 108.17,
+              "value": 77882.4,
+              "weight": 0.1423400859
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 80,
+              "price": 737.55,
+              "value": 59004,
+              "weight": 0.107837386
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 63,
+              "price": 705.06,
+              "value": 44418.78,
+              "weight": 0.08118102371
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 180000,
+              "price": "-",
+              "value": 180000,
+              "weight": 0.3289731115
+            }
+          ]
+        },
+        {
+          "name": "Moderate",
+          "currency": "$",
+          "totalPortfolioValue": 666959.77,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 205.1,
+              "value": 26663,
+              "weight": 0.03997692395
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 140,
+              "price": 416.67,
+              "value": 58333.8,
+              "weight": 0.08746224679
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 138,
+              "price": 307.34,
+              "value": 42412.92,
+              "weight": 0.06359142171
+            },
+            {
+              "symbol": "AMZN",
+              "type": "Stock",
+              "qty": 120,
+              "price": 246.03,
+              "value": 29523.6,
+              "weight": 0.04426593826
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 120,
+              "price": 368.53,
+              "value": 44223.6,
+              "weight": 0.06630624813
+            },
+            {
+              "symbol": "AVGO",
+              "type": "Stock",
+              "qty": 105,
+              "price": 385.73,
+              "value": 40501.65,
+              "weight": 0.06072577661
+            },
+            {
+              "symbol": "TSM",
+              "type": "Stock",
+              "qty": 90,
+              "price": 415.17,
+              "value": 37365.3,
+              "weight": 0.05602331907
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 70,
+              "price": 391,
+              "value": 27370,
+              "weight": 0.0410369579
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 60,
+              "price": 737.55,
+              "value": 44253,
+              "weight": 0.06635032875
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 50,
+              "price": 705.06,
+              "value": 35253,
+              "weight": 0.05285626148
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 3,
+              "price": 4742,
+              "value": 14226,
+              "weight": 0.02132962232
+            },
+            {
+              "symbol": "XAUUSD",
+              "type": "FX Spot",
+              "qty": 30,
+              "price": 4327.88,
+              "value": 129836.4,
+              "weight": 0.1946690128
+            },
+            {
+              "symbol": "XAGUSD",
+              "type": "FX Spot",
+              "qty": 90,
+              "price": 67.75,
+              "value": 6097.5,
+              "weight": 0.009142230573
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 130900,
+              "price": "-",
+              "value": 130900,
+              "weight": 0.1962637117
+            }
+          ]
+        },
+        {
+          "name": "Aggressive",
+          "currency": "$",
+          "totalPortfolioValue": 886318.63,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 123,
+              "price": 205.1,
+              "value": 25227.3,
+              "weight": 0.02846301448,
+              "expiration": null
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 198,
+              "price": 391,
+              "value": 77418,
+              "weight": 0.08734781982,
+              "expiration": null
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 55,
+              "price": 416.67,
+              "value": 22916.85,
+              "weight": 0.02585622058,
+              "expiration": null
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 160,
+              "price": 307.34,
+              "value": 49174.4,
+              "weight": 0.05548162741,
+              "expiration": null
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 170,
+              "price": 368.53,
+              "value": 62650.1,
+              "weight": 0.07068575327,
+              "expiration": null
+            },
+            {
+              "symbol": "COIN",
+              "type": "Stock",
+              "qty": 310,
+              "price": 152.4,
+              "value": 47244,
+              "weight": 0.05330362964,
+              "expiration": null
+            },
+            {
+              "symbol": "PLTR",
+              "type": "Stock",
+              "qty": 320,
+              "price": 135.53,
+              "value": 43369.6,
+              "weight": 0.04893228973,
+              "expiration": null
+            },
+            {
+              "symbol": "RDDT",
+              "type": "Stock",
+              "qty": 240,
+              "price": 173.45,
+              "value": 41628,
+              "weight": 0.04696730791,
+              "expiration": null
+            },
+            {
+              "symbol": "MSTR",
+              "type": "Stock",
+              "qty": 450,
+              "price": 120.44,
+              "value": 54198,
+              "weight": 0.06114956649,
+              "expiration": null
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 100,
+              "price": 737.55,
+              "value": 73755,
+              "weight": 0.08321499459,
+              "expiration": null
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 98,
+              "price": 705.06,
+              "value": 69095.88,
+              "weight": 0.0779582846,
+              "expiration": null
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 5,
+              "price": 4742,
+              "value": 23710,
+              "weight": 0.02675110191,
+              "expiration": null
+            },
+            {
+              "symbol": "ES Futures",
+              "type": "Futures",
+              "qty": 4,
+              "price": 8116.75,
+              "value": 32467,
+              "weight": 0.0366312959,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "NQ Futures",
+              "type": "Futures",
+              "qty": 2,
+              "price": 31579.25,
+              "value": 63158.5,
+              "weight": 0.07125936188,
+              "expiration": "December 2028"
+            },
+            {
+              "symbol": "PLTR 120 Call",
+              "type": "Options",
+              "qty": 3,
+              "price": 59.6,
+              "value": 17880,
+              "weight": 0.02017333202,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "TSM. 470 Call",
+              "type": "Options",
+              "qty": 4,
+              "price": 126.5,
+              "value": 50600,
+              "weight": 0.05709007832,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "AMZN 260 Call",
+              "type": "Options",
+              "qty": 6,
+              "price": 65.92,
+              "value": 39552,
+              "weight": 0.04462503513,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "MSFT 400 Put",
+              "type": "Options",
+              "qty": 2,
+              "price": 61.37,
+              "value": 12274,
+              "weight": 0.01384829291,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 80000,
+              "price": "-",
+              "value": 80000,
+              "weight": 0.09026099339,
+              "expiration": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "broker": "WIO",
+      "profiles": [
+        {
+          "name": "Conservative",
+          "currency": "$",
+          "totalPortfolioValue": 493915.46,
+          "holdings": [
+            {
+              "symbol": "AGG",
+              "type": "Bonds ETF",
+              "qty": 990,
+              "price": 98.17,
+              "value": 97188.3,
+              "weight": 0.1967711235
+            },
+            {
+              "symbol": "TLT",
+              "type": "Treasury ETF",
+              "qty": 1090,
+              "price": 85.06,
+              "value": 92715.4,
+              "weight": 0.1877151203
+            },
+            {
+              "symbol": "LQD",
+              "type": "IG Bonds ETF",
+              "qty": 780,
+              "price": 108.17,
+              "value": 84372.6,
+              "weight": 0.1708239706
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 80,
+              "price": 737.55,
+              "value": 59004,
+              "weight": 0.1194617395
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 86,
+              "price": 705.06,
+              "value": 60635.16,
+              "weight": 0.122764248
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 100000,
+              "price": "-",
+              "value": 100000,
+              "weight": 0.2024637982
+            }
+          ]
+        },
+        {
+          "name": "Moderate",
+          "currency": "$",
+          "totalPortfolioValue": 1415720.35,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 390,
+              "price": 205.1,
+              "value": 79989,
+              "weight": 0.05650056524
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 460,
+              "price": 416.67,
+              "value": 191668.2,
+              "weight": 0.135385636
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 470,
+              "price": 307.34,
+              "value": 144449.8,
+              "weight": 0.1020327214
+            },
+            {
+              "symbol": "AMZN",
+              "type": "Stock",
+              "qty": 360,
+              "price": 246.03,
+              "value": 88570.8,
+              "weight": 0.06256235562
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 299,
+              "price": 368.53,
+              "value": 110190.47,
+              "weight": 0.0778335001
+            },
+            {
+              "symbol": "AVGO",
+              "type": "Stock",
+              "qty": 480,
+              "price": 385.73,
+              "value": 185150.4,
+              "weight": 0.1307817607
+            },
+            {
+              "symbol": "TSM",
+              "type": "Stock",
+              "qty": 140,
+              "price": 415.17,
+              "value": 58123.8,
+              "weight": 0.04105598962
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 391,
+              "value": 50830,
+              "weight": 0.03590398344
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 70,
+              "price": 737.55,
+              "value": 51628.5,
+              "weight": 0.03646800726
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 80,
+              "price": 705.06,
+              "value": 56404.8,
+              "weight": 0.03984176677
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 3,
+              "price": 4742,
+              "value": 14226,
+              "weight": 0.0100485947
+            },
+            {
+              "symbol": "XAUUSD",
+              "type": "FX",
+              "qty": 16,
+              "price": 4327.88,
+              "value": 69246.08,
+              "weight": 0.0489122587
+            },
+            {
+              "symbol": "XAGUSD",
+              "type": "FX",
+              "qty": 70,
+              "price": 67.75,
+              "value": 4742.5,
+              "weight": 0.003349884742
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 310500,
+              "price": "-",
+              "value": 310500,
+              "weight": 0.2193229758
+            }
+          ]
+        },
+        {
+          "name": "Aggressive",
+          "currency": "$",
+          "totalPortfolioValue": 851903.11,
+          "holdings": [
+            {
+              "symbol": "NVDA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 205.1,
+              "value": 26663,
+              "weight": 0.03129816019,
+              "expiration": null
+            },
+            {
+              "symbol": "TSLA",
+              "type": "Stock",
+              "qty": 130,
+              "price": 391,
+              "value": 50830,
+              "weight": 0.05966640972,
+              "expiration": null
+            },
+            {
+              "symbol": "MSFT",
+              "type": "Stock",
+              "qty": 123,
+              "price": 416.67,
+              "value": 51250.41,
+              "weight": 0.0601599048,
+              "expiration": null
+            },
+            {
+              "symbol": "AAPL",
+              "type": "Stock",
+              "qty": 167,
+              "price": 307.34,
+              "value": 51325.78,
+              "weight": 0.06024837731,
+              "expiration": null
+            },
+            {
+              "symbol": "GOOGL",
+              "type": "Stock",
+              "qty": 137,
+              "price": 368.53,
+              "value": 50488.61,
+              "weight": 0.05926567166,
+              "expiration": null
+            },
+            {
+              "symbol": "COIN",
+              "type": "Stock",
+              "qty": 107,
+              "price": 152.4,
+              "value": 16306.8,
+              "weight": 0.01914161342,
+              "expiration": null
+            },
+            {
+              "symbol": "PLTR",
+              "type": "Stock",
+              "qty": 162,
+              "price": 135.53,
+              "value": 21955.86,
+              "weight": 0.02577271962,
+              "expiration": null
+            },
+            {
+              "symbol": "RDDT",
+              "type": "Stock",
+              "qty": 110,
+              "price": 173.45,
+              "value": 19079.5,
+              "weight": 0.02239632627,
+              "expiration": null
+            },
+            {
+              "symbol": "MSTR",
+              "type": "Stock",
+              "qty": 80,
+              "price": 120.44,
+              "value": 9635.2,
+              "weight": 0.01131020639,
+              "expiration": null
+            },
+            {
+              "symbol": "SPY",
+              "type": "ETF",
+              "qty": 120,
+              "price": 737.55,
+              "value": 88506,
+              "weight": 0.1038920964,
+              "expiration": null
+            },
+            {
+              "symbol": "QQQ",
+              "type": "ETF",
+              "qty": 120,
+              "price": 705.06,
+              "value": 84607.2,
+              "weight": 0.09931551958,
+              "expiration": null
+            },
+            {
+              "symbol": "MSCI World",
+              "type": "ETF",
+              "qty": 6,
+              "price": 4742,
+              "value": 28452,
+              "weight": 0.03339816426,
+              "expiration": null
+            },
+            {
+              "symbol": "ES Futures",
+              "type": "Futures",
+              "qty": 7,
+              "price": 8116.75,
+              "value": 56817.25,
+              "weight": 0.06669449769,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "NQ Futures",
+              "type": "Futures",
+              "qty": 2,
+              "price": 31579.25,
+              "value": 63158.5,
+              "weight": 0.07413812587,
+              "expiration": "December 2028"
+            },
+            {
+              "symbol": "PLTR 115 Put",
+              "type": "Options",
+              "qty": 5,
+              "price": 29.77,
+              "value": 14885,
+              "weight": 0.01747264428,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "GOOGL 350 Call",
+              "type": "Options",
+              "qty": 3,
+              "price": 113,
+              "value": 33900,
+              "weight": 0.03979325771,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "META 590 Put",
+              "type": "Options",
+              "qty": 4,
+              "price": 118.6,
+              "value": 47440,
+              "weight": 0.05568708395,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "MSFT 420 Call",
+              "type": "Options",
+              "qty": 6,
+              "price": 102.67,
+              "value": 61602,
+              "weight": 0.07231104016,
+              "expiration": "15 December 2028"
+            },
+            {
+              "symbol": "Cash",
+              "type": "USD",
+              "qty": 75000,
+              "price": "-",
+              "value": 75000,
+              "weight": 0.08803818077,
+              "expiration": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
