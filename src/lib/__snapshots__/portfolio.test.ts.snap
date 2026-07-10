@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`getSectorBreakdown: data shape snapshot matches the known sector breakdown for a fixed portfolio 1`] = `
+[
+  {
+    "pct": 0.19459252598610233,
+    "sector": "Cash",
+    "value": 111256,
+  },
+  {
+    "pct": 0.10597561856534708,
+    "sector": "Commodities & FX",
+    "value": 60590.32,
+  },
+  {
+    "pct": 0.36997456703530257,
+    "sector": "Technology",
+    "value": 211528.63,
+  },
+  {
+    "pct": 0.1691680441908474,
+    "sector": "Broad Equity ETF",
+    "value": 96719.85,
+  },
+  {
+    "pct": 0.0792831090728048,
+    "sector": "Communication Svcs",
+    "value": 45329.19,
+  },
+  {
+    "pct": 0.08100613514959551,
+    "sector": "Consumer Discretionary",
+    "value": 46314.31,
+  },
+]
+`;

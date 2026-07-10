@@ -11,6 +11,7 @@ import { BrokersPage } from "./onboarding/BrokersPage";
 import { RiskPage } from "./onboarding/RiskPage";
 import { YearsPage } from "./onboarding/YearsPage";
 import { LoadingPage } from "./onboarding/LoadingPage";
+import { DashboardPage } from "./onboarding/DashboardPage";
 
 const PAGE_NUMBER: Partial<Record<PageId, number>> = {
   page2: 2,
@@ -49,7 +50,7 @@ export function App() {
       {page === "page3" && <RiskPage />}
       {page === "page4" && <YearsPage />}
       {page === "pageLoad" && <LoadingPage />}
-      {page === "page5" && <PlaceholderPage page={page} onNext={() => goTo("page6")} />}
+      {page === "page5" && <DashboardPage onNext={() => goTo("page6")} />}
       {page === "page6" && <PlaceholderPage page={page} onNext={() => goTo("page7")} />}
       {page === "page7" && <PlaceholderPage page={page} onNext={() => goTo("page8")} />}
       {page === "page8" && <PlaceholderPage page={page} onNext={() => goTo("page9")} />}

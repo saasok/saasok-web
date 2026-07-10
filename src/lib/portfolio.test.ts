@@ -6,6 +6,7 @@ import {
   getBrokerFees,
   getPortfolio,
   getSectorBreakdown,
+  summarizeFees,
   type Broker,
 } from "./portfolio";
 
@@ -183,5 +184,38 @@ describe("data integrity: all broker combinations", () => {
     }
 
     expect(failures).toEqual([]);
+  });
+});
+
+describe("summarizeFees", () => {
+  it("computes custody and FX cost in dollars for a single broker", () => {
+    const total = 100000;
+    const summary = summarizeFees(["SAXO"], total);
+    // Saxo: custody 0.15%, FX 0.25%
+    expect(summary.custodyFeeAnnualUsd).toBeCloseTo(150, 2);
+    expect(summary.fxConversionFeeUsd).toBeCloseTo(250, 2);
+    expect(summary.fees).toHaveLength(1);
+  });
+
+  it("averages rates across multiple brokers", () => {
+    const total = 100000;
+    const summary = summarizeFees(["INTERACTIVE BROKERS (IBKR)", "SAXO"], total);
+    // custody: (0 + 0.15) / 2 = 0.075%% -> $75; FX: (0.03 + 0.25) / 2 = 0.14% -> $140
+    expect(summary.custodyFeeAnnualUsd).toBeCloseTo(75, 2);
+    expect(summary.fxConversionFeeUsd).toBeCloseTo(140, 2);
+  });
+
+  it("returns a null FX cost when a selected broker doesn't disclose a rate", () => {
+    const summary = summarizeFees(["WIO"], 100000);
+    expect(summary.fxConversionFeeUsd).toBeNull();
+    expect(summary.fees[0].fxConversionFee).toBe("Not disclosed");
+  });
+});
+
+describe("getSectorBreakdown: data shape snapshot", () => {
+  it("matches the known sector breakdown for a fixed portfolio", () => {
+    const portfolio = getPortfolio(["INTERACTIVE BROKERS (IBKR)"], "moderate");
+    const sectors = getSectorBreakdown(portfolio.positions);
+    expect(sectors).toMatchSnapshot();
   });
 });

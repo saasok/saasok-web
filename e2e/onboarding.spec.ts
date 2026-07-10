@@ -31,7 +31,9 @@ test("cover -> onboarding -> loading transitions with correct final state", asyn
 
   await expect(page.getByText("LOADING YOUR DEMO PORTFOLIO")).toBeVisible();
 
-  await expect(page.getByText("Coming soon")).toBeVisible({ timeout: 6000 });
+  await expect(page.getByText("Unified Portfolio Dashboard")).toBeVisible({
+    timeout: 6000,
+  });
 
   const state = await page.evaluate(() => window.__onboardingState);
   expect(state).toEqual({

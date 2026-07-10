@@ -91,11 +91,19 @@ export interface BrokerFees {
   stockEtfCommission: string;
   custodyFeeAnnual: number;
   custodyFeeNotes: string;
-  fxConversionFee: number;
+  // Wio's sheet leaves this as the string "Not disclosed" instead of a rate.
+  fxConversionFee: number | string;
   inactivityFee: string;
   minDepositApproxUsdEquiv: number;
   sourceLastChecked: string;
   ukIsaOffered: string;
+}
+
+export interface FeeSummary {
+  fees: BrokerFees[];
+  custodyFeeAnnualUsd: number;
+  // null when any selected broker doesn't publish a numeric FX rate.
+  fxConversionFeeUsd: number | null;
 }
 
 interface RawHolding {
@@ -215,6 +223,32 @@ export function getBrokerFees(broker: Broker): BrokerFees {
   const row = brokerFeeRows.find((r) => r.broker === shortName);
   if (!row) throw new Error(`No fee data for broker: ${broker}`);
   return row;
+}
+
+// Averages published rates across the selected brokers and applies them to
+// the merged portfolio total. Commission is left as raw per-broker text
+// (BrokerFees.stockEtfCommission) rather than a dollar figure: the sheet
+// only gives per-share/per-trade rates, which aren't computable into a
+// dollar cost without trade-level data.
+export function summarizeFees(brokers: Broker[], total: number): FeeSummary {
+  const fees = brokers.map((broker) => getBrokerFees(broker));
+
+  const custodyPct =
+    fees.reduce((sum, f) => sum + f.custodyFeeAnnual, 0) / fees.length;
+
+  const fxRates = fees
+    .map((f) => f.fxConversionFee)
+    .filter((f): f is number => typeof f === "number");
+  const fxConversionFeeUsd =
+    fxRates.length === fees.length
+      ? (total * (fxRates.reduce((sum, r) => sum + r, 0) / fxRates.length)) / 100
+      : null;
+
+  return {
+    fees,
+    custodyFeeAnnualUsd: (total * custodyPct) / 100,
+    fxConversionFeeUsd,
+  };
 }
 
 function combinations<T>(items: T[], size: number): T[][] {
