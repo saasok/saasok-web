@@ -1,0 +1,94 @@
+{
+  "exchanges": [
+    {
+      "name": "NYSE",
+      "hours": "9:30–16:00 ET",
+      "preMarket": "4:00–9:30 ET",
+      "afterMarket": "16:00–20:00 ET",
+      "daysOff": "Sat, Sun",
+      "holidays": "Thanksgiving, Christmas",
+      "urgentNote": "Closed for state funeral, Apr 2025"
+    },
+    {
+      "name": "NASDAQ",
+      "hours": "9:30–16:00 ET",
+      "preMarket": "4:00–9:30 ET",
+      "afterMarket": "16:00–20:00 ET",
+      "daysOff": "Sat, Sun",
+      "holidays": "Independence Day, New Year",
+      "urgentNote": "—"
+    },
+    {
+      "name": "LSE",
+      "hours": "8:00–16:30 GMT",
+      "preMarket": "—",
+      "afterMarket": "16:40–17:15 GMT",
+      "daysOff": "Sat, Sun",
+      "holidays": "Boxing Day, Good Friday",
+      "urgentNote": "—"
+    },
+    {
+      "name": "XETRA",
+      "hours": "9:00–17:30 CET",
+      "preMarket": "8:00–9:00 CET",
+      "afterMarket": "—",
+      "daysOff": "Sat, Sun",
+      "holidays": "Reunification Day",
+      "urgentNote": "—"
+    },
+    {
+      "name": "EURONEXT",
+      "hours": "9:00–17:30 CET",
+      "preMarket": "7:15–9:00 CET",
+      "afterMarket": "—",
+      "daysOff": "Sat, Sun",
+      "holidays": "Bastille Day",
+      "urgentNote": "—"
+    },
+    {
+      "name": "TSE",
+      "hours": "9:00–15:00 JST",
+      "preMarket": "—",
+      "afterMarket": "—",
+      "daysOff": "Sat, Sun",
+      "holidays": "Golden Week",
+      "urgentNote": "—"
+    },
+    {
+      "name": "HKEX",
+      "hours": "9:30–16:00 HKT",
+      "preMarket": "—",
+      "afterMarket": "—",
+      "daysOff": "Sat, Sun",
+      "holidays": "Lunar New Year",
+      "urgentNote": "Typhoon signal closures"
+    },
+    {
+      "name": "SSE",
+      "hours": "9:30–15:00 CST",
+      "preMarket": "—",
+      "afterMarket": "—",
+      "daysOff": "Sat, Sun",
+      "holidays": "Golden Week",
+      "urgentNote": "—"
+    },
+    {
+      "name": "ASX",
+      "hours": "10:00–16:00 AEST",
+      "preMarket": "7:00–10:00 AEST",
+      "afterMarket": "—",
+      "daysOff": "Sat, Sun",
+      "holidays": "ANZAC Day",
+      "urgentNote": "—"
+    },
+    {
+      "name": "OTC Pink",
+      "hours": "9:30–16:00 ET",
+      "preMarket": "—",
+      "afterMarket": "—",
+      "daysOff": "Sat, Sun",
+      "holidays": "US federal holidays",
+      "urgentNote": "—"
+    }
+  ]
+}

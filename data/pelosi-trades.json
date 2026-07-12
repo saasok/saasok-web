@@ -1,0 +1,304 @@
+{
+  "trades": [
+    {
+      "date": "2026-07-10",
+      "ticker": "NVDA",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-07-07",
+      "ticker": "MSFT",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-07-03",
+      "ticker": "AVGO",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-06-28",
+      "ticker": "GOOGL",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-06-22",
+      "ticker": "PANW",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-06-19",
+      "ticker": "TSM",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-06-15",
+      "ticker": "AAPL",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-06-10",
+      "ticker": "CRM",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-06-04",
+      "ticker": "AMZN",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-06-01",
+      "ticker": "NFLX",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-05-28",
+      "ticker": "V",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-05-23",
+      "ticker": "MA",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-05-17",
+      "ticker": "TSLA",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-05-14",
+      "ticker": "PLTR",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-05-10",
+      "ticker": "COIN",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-05-05",
+      "ticker": "RDDT",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-04-29",
+      "ticker": "BKNG",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-04-26",
+      "ticker": "BLK",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-04-22",
+      "ticker": "MSTR",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-04-17",
+      "ticker": "RTX",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-04-11",
+      "ticker": "NVDA",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-04-08",
+      "ticker": "MSFT",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-04-04",
+      "ticker": "AVGO",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-03-30",
+      "ticker": "GOOGL",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-03-24",
+      "ticker": "PANW",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-03-21",
+      "ticker": "TSM",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-03-17",
+      "ticker": "AAPL",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-03-12",
+      "ticker": "CRM",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-03-06",
+      "ticker": "AMZN",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-03-03",
+      "ticker": "NFLX",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-02-27",
+      "ticker": "V",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-02-22",
+      "ticker": "MA",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-02-16",
+      "ticker": "TSLA",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-02-13",
+      "ticker": "PLTR",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-02-09",
+      "ticker": "COIN",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-02-04",
+      "ticker": "RDDT",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-01-29",
+      "ticker": "BKNG",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-01-26",
+      "ticker": "BLK",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-01-22",
+      "ticker": "MSTR",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-01-17",
+      "ticker": "RTX",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-01-11",
+      "ticker": "NVDA",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2026-01-08",
+      "ticker": "MSFT",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2026-01-04",
+      "ticker": "AVGO",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2025-12-30",
+      "ticker": "GOOGL",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2025-12-24",
+      "ticker": "PANW",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2025-12-21",
+      "ticker": "TSM",
+      "action": "sell",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2025-12-17",
+      "ticker": "AAPL",
+      "action": "buy",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2025-12-12",
+      "ticker": "CRM",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    },
+    {
+      "date": "2025-12-06",
+      "ticker": "AMZN",
+      "action": "sell",
+      "amountRange": "$1,000,001–$5,000,000"
+    },
+    {
+      "date": "2025-12-03",
+      "ticker": "NFLX",
+      "action": "buy",
+      "amountRange": "$100,001–$250,000"
+    }
+  ]
+}

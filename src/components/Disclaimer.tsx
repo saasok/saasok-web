@@ -1,6 +1,9 @@
 export function Disclaimer() {
   return (
-    <div className="absolute bottom-3 left-0 right-0 px-[70px] text-center text-[9px] leading-relaxed text-muted-dim">
+    <div
+      className="pointer-events-none absolute bottom-3 left-0 right-0 px-[70px] text-center text-[9px] leading-relaxed text-muted-dim"
+      data-testid="disclaimer"
+    >
       SaaSok is a financial technology software company providing Software as
       a Service (SaaS), financial data analytics, data processing, monitoring
       and reporting solutions. SaaSok does not provide investment, financial

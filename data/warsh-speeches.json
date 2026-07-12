@@ -1,0 +1,28 @@
+{
+  "talks": [
+    { "date": "2026-07-14", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2026-08-22", "topic": "Jackson Hole Symposium remarks", "location": "Jackson Hole, WY" },
+    { "date": "2026-09-17", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2026-10-06", "topic": "Economic Club address", "location": "New York, NY" },
+    { "date": "2026-11-05", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2026-12-16", "topic": "FOMC Press Conference + SEP", "location": "Washington, D.C." },
+    { "date": "2027-01-28", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2027-02-11", "topic": "Semiannual testimony to Congress", "location": "Washington, D.C." },
+    { "date": "2027-03-18", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2027-04-29", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2027-05-12", "topic": "Community banking conference remarks", "location": "Chicago, IL" },
+    { "date": "2027-06-16", "topic": "FOMC Press Conference + SEP", "location": "Washington, D.C." },
+    { "date": "2027-07-28", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2027-08-21", "topic": "Jackson Hole Symposium remarks", "location": "Jackson Hole, WY" },
+    { "date": "2027-09-22", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2027-10-05", "topic": "Economic Club address", "location": "New York, NY" },
+    { "date": "2027-11-03", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2027-12-15", "topic": "FOMC Press Conference + SEP", "location": "Washington, D.C." },
+    { "date": "2028-01-27", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2028-02-10", "topic": "Semiannual testimony to Congress", "location": "Washington, D.C." },
+    { "date": "2028-03-16", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2028-04-27", "topic": "FOMC Press Conference", "location": "Washington, D.C." },
+    { "date": "2028-05-10", "topic": "Community banking conference remarks", "location": "Chicago, IL" },
+    { "date": "2028-06-14", "topic": "FOMC Press Conference + SEP", "location": "Washington, D.C." }
+  ]
+}
