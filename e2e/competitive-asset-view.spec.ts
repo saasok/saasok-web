@@ -111,5 +111,7 @@ test("left arrow returns to the dashboard and right arrow advances past the view
   await expect(page.getByText("Competitive Asset View")).toBeVisible();
 
   await page.getByTestId("competitive-next-arrow").click();
-  await expect(page.getByText("Page 7 of 10")).toBeVisible();
+  await expect(
+    page.getByText("Correlation Analysis of your investments"),
+  ).toBeVisible();
 });

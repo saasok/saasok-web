@@ -13,6 +13,7 @@ import { YearsPage } from "./onboarding/YearsPage";
 import { LoadingPage } from "./onboarding/LoadingPage";
 import { DashboardPage } from "./onboarding/DashboardPage";
 import { CompetitiveAssetPage } from "./onboarding/CompetitiveAssetPage";
+import { CorrelationAnalysisPage } from "./onboarding/CorrelationAnalysisPage";
 
 const PAGE_NUMBER: Partial<Record<PageId, number>> = {
   page2: 2,
@@ -59,7 +60,12 @@ export function App() {
           onPrev={() => goBack("page5")}
         />
       )}
-      {page === "page7" && <PlaceholderPage page={page} onNext={() => goTo("page8")} />}
+      {page === "page7" && (
+        <CorrelationAnalysisPage
+          onNext={() => goTo("page8")}
+          onPrev={() => goBack("page6")}
+        />
+      )}
       {page === "page8" && <PlaceholderPage page={page} onNext={() => goTo("page9")} />}
       {page === "page9" && <PlaceholderPage page={page} onNext={() => goTo("page10")} />}
       {page === "page10" && <ClosingPage onRestart={reset} />}
