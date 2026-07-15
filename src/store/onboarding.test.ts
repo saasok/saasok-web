@@ -82,4 +82,19 @@ describe("page navigation guard", () => {
     useOnboardingStore.getState().goTo("page2");
     expect(useOnboardingStore.getState().page).toBe("page2");
   });
+
+  it("goBack moves to an earlier page without touching the forward guard", () => {
+    useOnboardingStore.getState().goTo("page5");
+    useOnboardingStore.getState().goTo("page6");
+    useOnboardingStore.getState().goBack("page5");
+    expect(useOnboardingStore.getState().page).toBe("page5");
+
+    // The forward guard (maxPageIndex) is untouched, so re-advancing to the
+    // page already reached still works...
+    useOnboardingStore.getState().goTo("page6");
+    expect(useOnboardingStore.getState().page).toBe("page6");
+    // ...but jumping further back is still blocked by goTo.
+    useOnboardingStore.getState().goTo("page2");
+    expect(useOnboardingStore.getState().page).toBe("page6");
+  });
 });

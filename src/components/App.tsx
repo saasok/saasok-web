@@ -12,6 +12,7 @@ import { RiskPage } from "./onboarding/RiskPage";
 import { YearsPage } from "./onboarding/YearsPage";
 import { LoadingPage } from "./onboarding/LoadingPage";
 import { DashboardPage } from "./onboarding/DashboardPage";
+import { CompetitiveAssetPage } from "./onboarding/CompetitiveAssetPage";
 
 const PAGE_NUMBER: Partial<Record<PageId, number>> = {
   page2: 2,
@@ -28,6 +29,7 @@ const PAGE_NUMBER: Partial<Record<PageId, number>> = {
 export function App() {
   const page = useOnboardingStore((s) => s.page);
   const goTo = useOnboardingStore((s) => s.goTo);
+  const goBack = useOnboardingStore((s) => s.goBack);
   const reset = useOnboardingStore((s) => s.reset);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +53,12 @@ export function App() {
       {page === "page4" && <YearsPage />}
       {page === "pageLoad" && <LoadingPage />}
       {page === "page5" && <DashboardPage onNext={() => goTo("page6")} />}
-      {page === "page6" && <PlaceholderPage page={page} onNext={() => goTo("page7")} />}
+      {page === "page6" && (
+        <CompetitiveAssetPage
+          onNext={() => goTo("page7")}
+          onPrev={() => goBack("page5")}
+        />
+      )}
       {page === "page7" && <PlaceholderPage page={page} onNext={() => goTo("page8")} />}
       {page === "page8" && <PlaceholderPage page={page} onNext={() => goTo("page9")} />}
       {page === "page9" && <PlaceholderPage page={page} onNext={() => goTo("page10")} />}

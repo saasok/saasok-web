@@ -40,6 +40,7 @@ interface OnboardingState {
   setRisk: (risk: Risk) => void;
   setYears: (years: Years) => void;
   goTo: (page: PageId) => void;
+  goBack: (page: PageId) => void;
   reset: () => void;
 }
 
@@ -84,6 +85,12 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
     if (targetIndex < get().maxPageIndex) return;
     set({ page, maxPageIndex: Math.max(targetIndex, get().maxPageIndex) });
   },
+
+  // Explicit escape hatch for the Competitive Asset View's back arrow only:
+  // moves to an already-visited page without touching maxPageIndex, so the
+  // forward guard (and the browser back/forward lock) stay intact everywhere
+  // else.
+  goBack: (page) => set({ page }),
 
   reset: () => set({ ...initial }),
 }));
