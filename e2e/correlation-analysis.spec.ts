@@ -89,5 +89,7 @@ test("left arrow returns to page 6 and right arrow advances to the next placehol
   ).toBeVisible();
 
   await page.getByTestId("corr-next-arrow").click();
-  await expect(page.getByText("Page 8 of 10")).toBeVisible();
+  await expect(
+    page.getByText("Tax insights for your portfolio"),
+  ).toBeVisible();
 });

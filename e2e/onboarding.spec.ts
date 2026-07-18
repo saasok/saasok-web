@@ -41,6 +41,7 @@ test("cover -> onboarding -> loading transitions with correct final state", asyn
     brokers: ["INTERACTIVE BROKERS (IBKR)", "XTB", "SAXO"],
     risk: "aggressive",
     years: "10+",
+    residency: null,
   });
 });
 

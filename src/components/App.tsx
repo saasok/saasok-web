@@ -14,6 +14,7 @@ import { LoadingPage } from "./onboarding/LoadingPage";
 import { DashboardPage } from "./onboarding/DashboardPage";
 import { CompetitiveAssetPage } from "./onboarding/CompetitiveAssetPage";
 import { CorrelationAnalysisPage } from "./onboarding/CorrelationAnalysisPage";
+import { TaxInsightsPage } from "./onboarding/TaxInsightsPage";
 
 const PAGE_NUMBER: Partial<Record<PageId, number>> = {
   page2: 2,
@@ -66,7 +67,12 @@ export function App() {
           onPrev={() => goBack("page6")}
         />
       )}
-      {page === "page8" && <PlaceholderPage page={page} onNext={() => goTo("page9")} />}
+      {page === "page8" && (
+        <TaxInsightsPage
+          onNext={() => goTo("page9")}
+          onPrev={() => goBack("page7")}
+        />
+      )}
       {page === "page9" && <PlaceholderPage page={page} onNext={() => goTo("page10")} />}
       {page === "page10" && <ClosingPage onRestart={reset} />}
     </div>

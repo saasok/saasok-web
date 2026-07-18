@@ -30,15 +30,46 @@ export const BROKERS = [
 
 export const MAX_BROKERS = 3;
 
+export type Residency = "EU" | "UK" | "US" | "UAE" | "CH" | "UA";
+export const RESIDENCIES: Residency[] = ["EU", "UK", "US", "UAE", "CH", "UA"];
+
+const RESIDENCY_STORAGE_KEY = "saasok:residency";
+
+function isResidency(v: string | null): v is Residency {
+  return v !== null && (RESIDENCIES as readonly string[]).includes(v);
+}
+
+// Residency is the one onboarding field that must survive a real browser
+// reload within the same tab session (unlike page/brokers/risk/years, which
+// are in-memory only and reset to page1 on refresh) — sessionStorage is used
+// here and nowhere else in the app.
+function readStoredResidency(): Residency | null {
+  if (typeof window === "undefined") return null;
+  const v = window.sessionStorage.getItem(RESIDENCY_STORAGE_KEY);
+  return isResidency(v) ? v : null;
+}
+function writeStoredResidency(r: Residency) {
+  if (typeof window !== "undefined") {
+    window.sessionStorage.setItem(RESIDENCY_STORAGE_KEY, r);
+  }
+}
+function clearStoredResidency() {
+  if (typeof window !== "undefined") {
+    window.sessionStorage.removeItem(RESIDENCY_STORAGE_KEY);
+  }
+}
+
 interface OnboardingState {
   page: PageId;
   maxPageIndex: number;
   brokers: string[];
   risk: Risk | null;
   years: Years | null;
+  residency: Residency | null;
   toggleBroker: (broker: string) => void;
   setRisk: (risk: Risk) => void;
   setYears: (years: Years) => void;
+  setResidency: (residency: Residency) => void;
   goTo: (page: PageId) => void;
   goBack: (page: PageId) => void;
   reset: () => void;
@@ -50,6 +81,7 @@ const initial = {
   brokers: [] as string[],
   risk: null as Risk | null,
   years: null as Years | null,
+  residency: readStoredResidency(),
 };
 
 declare global {
@@ -59,6 +91,7 @@ declare global {
       brokers: string[];
       risk: Risk | null;
       years: Years | null;
+      residency: Residency | null;
     };
   }
 }
@@ -80,6 +113,14 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
 
   setYears: (years) => set({ years }),
 
+  // Ratchet like the goTo forward guard: once set, further calls are a no-op
+  // — this is the "no going back" rule applied to residency.
+  setResidency: (residency) => {
+    if (get().residency) return;
+    writeStoredResidency(residency);
+    set({ residency });
+  },
+
   goTo: (page) => {
     const targetIndex = PAGE_ORDER.indexOf(page);
     if (targetIndex < get().maxPageIndex) return;
@@ -92,7 +133,13 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
   // else.
   goBack: (page) => set({ page }),
 
-  reset: () => set({ ...initial }),
+  // Explicitly clears storage and nulls residency rather than reusing the
+  // module-load-time `initial` object, whose residency field was only ever
+  // read once.
+  reset: () => {
+    clearStoredResidency();
+    set({ ...initial, residency: null });
+  },
 }));
 
 // Exposes a read-only snapshot for e2e assertions; the app itself never reads this.
@@ -103,6 +150,7 @@ if (typeof window !== "undefined") {
       brokers: state.brokers,
       risk: state.risk,
       years: state.years,
+      residency: state.residency,
     };
   });
 }

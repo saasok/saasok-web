@@ -1,4 +1,4 @@
-import { BROKERS, type Risk } from "@/store/onboarding";
+import { BROKERS, type Risk, type Residency } from "@/store/onboarding";
 import portfoliosData from "../../data/portfolios.json";
 import taxInsightsData from "../../data/tax-insights.json";
 
@@ -10,7 +10,7 @@ export const RISK_LEVELS: RiskLevel[] = ["conservative", "moderate", "aggressive
 // Short names as used by the Broker Fees sheet and for on-screen labels;
 // "INTERACTIVE BROKERS (IBKR)" is the raw source-sheet name used everywhere
 // else (see BROKERS in @/store/onboarding).
-const BROKER_SHORT_NAME: Record<Broker, string> = {
+export const BROKER_SHORT_NAME: Record<Broker, string> = {
   "INTERACTIVE BROKERS (IBKR)": "IBKR",
   SAXO: "Saxo",
   WIO: "Wio",
@@ -106,6 +106,26 @@ export interface FeeSummary {
   fxConversionFeeUsd: number | null;
 }
 
+export interface FeeReductionTactic {
+  broker: string;
+  whatReducesYourFees: string;
+  watchOutFor: string;
+}
+
+export interface TaxReductionLevers {
+  taxResidency: Residency;
+  realLegitimateLevers: string;
+  whatDoesNotWork: string;
+}
+
+export interface CapitalGainsTax {
+  taxResidency: Residency;
+  // Decimals, e.g. 0.238 = 23.8%.
+  typicalRateLow: number;
+  typicalRateHigh: number;
+  notesBasis: string;
+}
+
 interface RawHolding {
   symbol: string;
   type: string;
@@ -127,6 +147,19 @@ const brokersData = (portfoliosData as unknown as { brokers: RawBroker[] }).brok
 const brokerFeeRows = (
   taxInsightsData as unknown as { brokerFees: { rows: BrokerFees[] } }
 ).brokerFees.rows;
+const feeReductionTacticsRows = (
+  taxInsightsData as unknown as {
+    feeReductionTactics: { rows: FeeReductionTactic[] };
+  }
+).feeReductionTactics.rows;
+const taxReductionLeversRows = (
+  taxInsightsData as unknown as {
+    taxReductionLevers: { rows: TaxReductionLevers[] };
+  }
+).taxReductionLevers.rows;
+const capitalGainsTaxRows = (
+  taxInsightsData as unknown as { capitalGainsTax: { rows: CapitalGainsTax[] } }
+).capitalGainsTax.rows;
 
 function findProfile(broker: Broker, risk: RiskLevel): RawProfile {
   const brokerEntry = brokersData.find((b) => b.broker === broker);
@@ -222,6 +255,25 @@ export function getBrokerFees(broker: Broker): BrokerFees {
   const shortName = BROKER_SHORT_NAME[broker];
   const row = brokerFeeRows.find((r) => r.broker === shortName);
   if (!row) throw new Error(`No fee data for broker: ${broker}`);
+  return row;
+}
+
+export function getFeeReductionTactics(broker: Broker): FeeReductionTactic {
+  const shortName = BROKER_SHORT_NAME[broker];
+  const row = feeReductionTacticsRows.find((r) => r.broker === shortName);
+  if (!row) throw new Error(`No fee reduction tactics for broker: ${broker}`);
+  return row;
+}
+
+export function getTaxReductionLevers(residency: Residency): TaxReductionLevers {
+  const row = taxReductionLeversRows.find((r) => r.taxResidency === residency);
+  if (!row) throw new Error(`No tax reduction levers for residency: ${residency}`);
+  return row;
+}
+
+export function getCapitalGainsTax(residency: Residency): CapitalGainsTax {
+  const row = capitalGainsTaxRows.find((r) => r.taxResidency === residency);
+  if (!row) throw new Error(`No capital gains tax data for residency: ${residency}`);
   return row;
 }
 

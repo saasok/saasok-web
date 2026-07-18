@@ -54,6 +54,43 @@ describe("years", () => {
   });
 });
 
+describe("residency", () => {
+  beforeEach(() => {
+    window.sessionStorage.clear();
+  });
+
+  it("starts null", () => {
+    expect(useOnboardingStore.getState().residency).toBeNull();
+  });
+
+  it("is a ratchet: set once, further calls are a no-op", () => {
+    const { setResidency } = useOnboardingStore.getState();
+    setResidency("UK");
+    setResidency("US");
+    expect(useOnboardingStore.getState().residency).toBe("UK");
+  });
+
+  it("persists to sessionStorage on set", () => {
+    useOnboardingStore.getState().setResidency("CH");
+    expect(window.sessionStorage.getItem("saasok:residency")).toBe("CH");
+  });
+
+  it("reset clears both the state field and sessionStorage", () => {
+    useOnboardingStore.getState().setResidency("EU");
+    useOnboardingStore.getState().reset();
+    expect(useOnboardingStore.getState().residency).toBeNull();
+    expect(window.sessionStorage.getItem("saasok:residency")).toBeNull();
+  });
+
+  it("reseeds residency from sessionStorage on a fresh module load", () => {
+    useOnboardingStore.getState().setResidency("UA");
+    jest.resetModules();
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const fresh = require("./onboarding").useOnboardingStore;
+    expect(fresh.getState().residency).toBe("UA");
+  });
+});
+
 describe("page navigation guard", () => {
   it("advances forward through pages", () => {
     useOnboardingStore.getState().goTo("page2");
