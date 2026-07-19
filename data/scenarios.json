@@ -1,0 +1,124 @@
+{
+  "scenarios": [
+    {
+      "title": "AI performance supercycle",
+      "blurb": "AI-driven productivity gains flow through corporate earnings broadly.",
+      "y5": {
+        "txt": "Effect broadens across the portfolio as AI productivity gains reach a wide range of businesses.",
+        "tags": { "AAPL": "g", "MA": "g", "V": "g", "BLK": "g", "BKNG": "g", "BYDDY": "g", "TSLA": "g", "NFLX": "g", "COIN": "g", "PLTR": "g", "PANW": "g", "TSM": "g", "RDDT": "g", "RTX": "n", "MSTR": "n" }
+      },
+      "y10": {
+        "txt": "Structural GDP acceleration re-rates the whole portfolio; chips and AI platforms remain the core growth leaders.",
+        "tags": { "NVDA": "g", "AVGO": "g", "TSM": "g", "PLTR": "g", "TSLA": "g", "V": "g" }
+      }
+    },
+    {
+      "title": "Full Fed easing cycle",
+      "blurb": "The Fed completes a full rate-cut cycle as inflation cools.",
+      "y5": {
+        "txt": "Rates normalize; payments and asset-management names track fundamentals rather than rate expectations, high-beta names get a tailwind.",
+        "tags": { "MA": "g", "V": "g", "BLK": "g", "PLTR": "g", "RDDT": "g", "TSLA": "g", "MSTR": "g", "TSM": "g", "RTX": "n" }
+      },
+      "y10": {
+        "txt": "A new secular rate level is set; valuations reflect real business growth rather than cheap money.",
+        "tags": { "TSM": "g", "V": "g", "RTX": "n" }
+      }
+    },
+    {
+      "title": "Inflation returns / stagflation",
+      "blurb": "Inflation proves sticky, the Fed holds or hikes again, growth is weak.",
+      "y5": {
+        "txt": "Multiples compress across most of the portfolio; only cash-generative names hold up relatively well.",
+        "tags": { "AAPL": "g", "MA": "g", "V": "g", "MSFT": "g", "RTX": "g", "BYDDY": "r", "TSLA": "r", "BKNG": "r", "PLTR": "r", "RDDT": "r", "MSTR": "r", "TSM": "r" }
+      },
+      "y10": {
+        "txt": "Portfolio re-rated structurally lower unless offset by an AI productivity effect; leveraged crypto-balance-sheet exposure is especially vulnerable.",
+        "tags": { "RTX": "g", "V": "g", "MSTR": "r" }
+      }
+    },
+    {
+      "title": "US–China geopolitical escalation",
+      "blurb": "Rising tension around Taiwan plus a new tariff war.",
+      "y5": {
+        "txt": "Supply chains re-route; reshoring partly benefits US chip names while Taiwan-based manufacturing is directly exposed.",
+        "tags": { "AVGO": "g", "NVDA": "g", "RTX": "g", "PLTR": "g", "PANW": "g", "TSM": "r", "BYDDY": "r", "TSLA": "r", "V": "n", "MA": "n", "RDDT": "n" }
+      },
+      "y10": {
+        "txt": "A durably split US/China tech ecosystem forms; defense and AI-government positioning become structural advantages.",
+        "tags": { "RTX": "g", "PLTR": "g", "AVGO": "g", "NVDA": "g", "TSM": "r", "BYDDY": "r", "TSLA": "r" }
+      }
+    },
+    {
+      "title": "Mainstream crypto legalization",
+      "blurb": "A comprehensive global framework legitimizes crypto as an asset class.",
+      "y5": {
+        "txt": "Institutional adoption expands; balance-sheet and infrastructure crypto exposure benefit directly, rest of the portfolio barely touched.",
+        "tags": { "BLK": "g", "COIN": "g", "MSTR": "g", "V": "g", "MA": "g" }
+      },
+      "y10": {
+        "txt": "Digital assets go mainstream; a light tailwind reaches the wider portfolio through embedded crypto rails in payments and finance.",
+        "tags": { "BLK": "g", "COIN": "g", "MSTR": "g", "V": "g", "MA": "g" }
+      }
+    },
+    {
+      "title": "Global recession / credit crisis",
+      "blurb": "A synchronized downturn with credit contraction; demand falls broadly.",
+      "y5": {
+        "txt": "Uneven recovery: strong-balance-sheet names recover fastest, high-beta and leveraged names fall harder than the market.",
+        "tags": { "AAPL": "g", "MSFT": "g", "GOOGL": "g", "V": "g", "BLK": "g", "RTX": "n", "PLTR": "r", "RDDT": "r", "TSLA": "r", "MSTR": "r", "TSM": "r" }
+      },
+      "y10": {
+        "txt": "If the portfolio avoided forced selling, composition proves resilient long-term, though decade returns trail the base case.",
+        "tags": { "RTX": "g", "V": "g", "MSTR": "r", "BYDDY": "r", "TSLA": "r" }
+      }
+    },
+    {
+      "title": "Big Tech antitrust breakup",
+      "blurb": "US and EU regulators force large platforms to separate business lines.",
+      "y5": {
+        "txt": "Regulatory action advances in parts of the market; a sum-of-parts unlock plays out for some platform names.",
+        "tags": { "GOOGL": "g", "AMZN": "g", "MSFT": "g", "PLTR": "n", "RDDT": "n", "V": "n", "RTX": "n", "TSM": "n", "TSLA": "n", "MSTR": "n" }
+      },
+      "y10": {
+        "txt": "Separated entities may trade at a premium or discount to the old combined value; a more fragmented market changes chip demand structure.",
+        "tags": { "NVDA": "g", "AVGO": "g", "TSM": "g", "GOOGL": "n", "AMZN": "n", "MSFT": "n" }
+      }
+    },
+    {
+      "title": "EV price war & China dominance",
+      "blurb": "Chinese EV makers reach global scale and cost leadership.",
+      "y5": {
+        "txt": "A dominant Chinese EV player emerges; the US incumbent faces direct pricing pressure and share loss, chip suppliers benefit from higher content per vehicle.",
+        "tags": { "BYDDY": "g", "AVGO": "g", "NVDA": "g", "TSM": "g", "MA": "g", "V": "g", "TSLA": "r" }
+      },
+      "y10": {
+        "txt": "Global auto industry restructures around Chinese EV leadership; competition shifts from price to autonomy and software.",
+        "tags": { "BYDDY": "g", "TSM": "g", "TSLA": "n" }
+      }
+    },
+    {
+      "title": "Quantum computing breakthrough",
+      "blurb": "Practical quantum computing emerges, threatening classical encryption.",
+      "y5": {
+        "txt": "A transition to post-quantum cryptography begins; payments and crypto-balance-sheet names face temporary cost and risk, cybersecurity and cloud/chip names benefit from the upgrade cycle.",
+        "tags": { "PANW": "g", "MSFT": "g", "GOOGL": "g", "AMZN": "g", "TSM": "g", "COIN": "r", "MA": "r", "V": "r", "MSTR": "r" }
+      },
+      "y10": {
+        "txt": "Post-quantum security becomes the industry standard; payment and crypto risk is resolved, hardware demand is structurally higher across the board.",
+        "tags": { "PANW": "g", "TSM": "g", "NVDA": "g", "COIN": "g", "MA": "g", "V": "g", "MSTR": "g" }
+      }
+    },
+    {
+      "title": "Climate transition acceleration",
+      "blurb": "Aggressive global carbon regulation reshapes transport, travel and computing.",
+      "y5": {
+        "txt": "Decarbonization economics reshuffle logistics, travel and energy; EV names get a policy tailwind while data-center energy use draws regulatory attention.",
+        "tags": { "BYDDY": "g", "TSLA": "g", "BLK": "g", "AMZN": "n", "RTX": "n", "TSM": "r", "NVDA": "r", "BKNG": "n" }
+      },
+      "y10": {
+        "txt": "The climate transition becomes a completed structural shift; EV names are the main beneficiaries, travel and defense names adapt to the new energy cost base.",
+        "tags": { "BYDDY": "g", "TSLA": "g", "BKNG": "n", "RTX": "n" }
+      }
+    }
+  ]
+}

@@ -4,8 +4,6 @@ import { useRef } from "react";
 import { PAGE_ORDER, PageId, useOnboardingStore } from "@/store/onboarding";
 import { useBackNavigationLock } from "@/hooks/useBackNavigationLock";
 import { useFocusableActivation } from "@/hooks/useFocusableActivation";
-import { BrandMark, TopBrand } from "./BrandMark";
-import { Disclaimer } from "./Disclaimer";
 import { CoverPage } from "./onboarding/CoverPage";
 import { BrokersPage } from "./onboarding/BrokersPage";
 import { RiskPage } from "./onboarding/RiskPage";
@@ -15,6 +13,8 @@ import { DashboardPage } from "./onboarding/DashboardPage";
 import { CompetitiveAssetPage } from "./onboarding/CompetitiveAssetPage";
 import { CorrelationAnalysisPage } from "./onboarding/CorrelationAnalysisPage";
 import { TaxInsightsPage } from "./onboarding/TaxInsightsPage";
+import { ScenarioStudioPage } from "./onboarding/ScenarioStudioPage";
+import { ClosingPage } from "./onboarding/ClosingPage";
 
 const PAGE_NUMBER: Partial<Record<PageId, number>> = {
   page2: 2,
@@ -73,7 +73,12 @@ export function App() {
           onPrev={() => goBack("page7")}
         />
       )}
-      {page === "page9" && <PlaceholderPage page={page} onNext={() => goTo("page10")} />}
+      {page === "page9" && (
+        <ScenarioStudioPage
+          onNext={() => goTo("page10")}
+          onPrev={() => goBack("page8")}
+        />
+      )}
       {page === "page10" && <ClosingPage onRestart={reset} />}
     </div>
   );
@@ -93,60 +98,6 @@ function ProgressDots({ current }: { current: PageId }) {
           }`}
         />
       ))}
-    </div>
-  );
-}
-
-function PlaceholderPage({
-  page,
-  onNext,
-}: {
-  page: PageId;
-  onNext: () => void;
-}) {
-  return (
-    <div className="flex h-full flex-col items-center justify-center px-10 py-9">
-      <TopBrand />
-      <div className="mb-2.5 font-mono text-[10.5px] tracking-[0.14em] text-amber-dim uppercase">
-        Page {PAGE_NUMBER[page]} of {PAGE_ORDER.length - 1}
-      </div>
-      <div className="mb-9 max-w-xl text-center font-fraunces text-2xl font-semibold leading-snug">
-        Coming soon
-        <small className="mt-2 block font-sans text-xs font-normal text-muted">
-          This step of the SaaSok experience is under construction.
-        </small>
-      </div>
-      <button
-        className="rounded-md bg-silver px-9 py-3 font-sans text-[13.5px] font-semibold tracking-wide text-[#111] transition hover:-translate-y-px hover:bg-silver-hi"
-        onClick={onNext}
-      >
-        Next page
-      </button>
-      <Disclaimer />
-    </div>
-  );
-}
-
-function ClosingPage({ onRestart }: { onRestart: () => void }) {
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-4">
-      <BrandMark />
-      <div className="font-fraunces text-[34px] font-semibold tracking-wide">
-        SaaS<em className="text-muted font-medium not-italic italic">ok</em>
-      </div>
-      <div className="font-fraunces text-xl italic text-ivory">
-        Now you are edged up by SaaSok!
-      </div>
-      <div className="max-w-[340px] text-center font-fraunces text-[15px] italic text-muted">
-        Thank you for participating in our research! Every response makes
-        SaaSok better.
-      </div>
-      <button
-        className="mt-2.5 rounded-full border border-panel-border px-4 py-2 font-mono text-[10.5px] text-muted transition hover:border-amber-dim hover:text-ivory"
-        onClick={onRestart}
-      >
-        Restart demo
-      </button>
     </div>
   );
 }

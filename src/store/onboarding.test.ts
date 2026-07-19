@@ -120,6 +120,26 @@ describe("page navigation guard", () => {
     expect(useOnboardingStore.getState().page).toBe("page2");
   });
 
+  it("reset clears brokers, risk, and years fully, with no stale values leaking into a new session", () => {
+    const { toggleBroker, setRisk, setYears, goTo, reset } =
+      useOnboardingStore.getState();
+    toggleBroker(BROKERS[0]);
+    toggleBroker(BROKERS[1]);
+    setRisk("aggressive");
+    setYears("10+");
+    goTo("page5");
+
+    reset();
+
+    expect(useOnboardingStore.getState()).toMatchObject({
+      brokers: [],
+      risk: null,
+      years: null,
+      page: "page1",
+      maxPageIndex: 0,
+    });
+  });
+
   it("goBack moves to an earlier page without touching the forward guard", () => {
     useOnboardingStore.getState().goTo("page5");
     useOnboardingStore.getState().goTo("page6");
