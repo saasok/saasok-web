@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { useHoverDuration } from "@/hooks/useHoverDuration";
+import { trackEvent } from "@/lib/analytics";
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -46,9 +47,18 @@ export function CollapsibleWidget({
 
   const step = useCallback(
     (delta: number) => {
-      setStartIndex((i) => clamp(i + delta, 0, maxStart));
+      setStartIndex((i) => {
+        const next = clamp(i + delta, 0, maxStart);
+        if (next !== i && maxStart > 0) {
+          trackEvent("widget_scroll", {
+            widget: testId,
+            depth_pct: Math.round((next / maxStart) * 100),
+          });
+        }
+        return next;
+      });
     },
-    [maxStart],
+    [maxStart, testId],
   );
 
   const handleHeaderClick = (e: MouseEvent<HTMLDivElement>) => {

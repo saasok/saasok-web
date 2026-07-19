@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { COMPETITIVE_ASSETS } from "@/lib/competitiveAssets";
 import { exportCompetitiveAssetsWorkbook } from "@/lib/exportCompetitiveAssets";
+import { trackEvent } from "@/lib/analytics";
 import { TopBrand } from "../BrandMark";
 import { Disclaimer } from "../Disclaimer";
 
@@ -80,7 +81,10 @@ export function CompetitiveAssetPage({
                 key={a.ticker}
                 data-testid={`asset-item-${a.ticker}`}
                 data-active={i === selectedIndex}
-                onClick={() => setSelectedIndex(i)}
+                onClick={() => {
+                  setSelectedIndex(i);
+                  trackEvent("asset_click", { ticker: a.ticker });
+                }}
                 className={`block w-full border-b border-white/5 px-3.5 py-2.5 text-left font-mono text-[11.5px] transition ${
                   i === selectedIndex
                     ? "bg-amber/[0.14] text-amber"
@@ -96,7 +100,10 @@ export function CompetitiveAssetPage({
         <button
           type="button"
           data-testid="save-results-button"
-          onClick={() => exportCompetitiveAssetsWorkbook()}
+          onClick={() => {
+            trackEvent("save_results_click");
+            exportCompetitiveAssetsWorkbook();
+          }}
           className="mt-5 rounded-md bg-silver px-6 py-2.5 font-sans text-[12.5px] font-semibold text-[#111] transition hover:bg-silver-hi"
         >
           Save results of analysis

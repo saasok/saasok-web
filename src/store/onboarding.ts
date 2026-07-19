@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { trackEvent } from "@/lib/analytics";
 
 export const PAGE_ORDER = [
   "page1",
@@ -33,6 +34,14 @@ export const MAX_BROKERS = 3;
 export type Residency = "EU" | "UK" | "US" | "UAE" | "CH" | "UA";
 export const RESIDENCIES: Residency[] = ["EU", "UK", "US", "UAE", "CH", "UA"];
 
+export type Language = "en" | "de" | "fr" | "it";
+export const LANGUAGES: { code: Language; label: string }[] = [
+  { code: "en", label: "English" },
+  { code: "de", label: "German" },
+  { code: "fr", label: "French" },
+  { code: "it", label: "Italian" },
+];
+
 const RESIDENCY_STORAGE_KEY = "saasok:residency";
 
 function isResidency(v: string | null): v is Residency {
@@ -66,10 +75,12 @@ interface OnboardingState {
   risk: Risk | null;
   years: Years | null;
   residency: Residency | null;
+  language: Language;
   toggleBroker: (broker: string) => void;
   setRisk: (risk: Risk) => void;
   setYears: (years: Years) => void;
   setResidency: (residency: Residency) => void;
+  setLanguage: (language: Language) => void;
   goTo: (page: PageId) => void;
   goBack: (page: PageId) => void;
   reset: () => void;
@@ -82,6 +93,7 @@ const initial = {
   risk: null as Risk | null,
   years: null as Years | null,
   residency: readStoredResidency(),
+  language: "en" as Language,
 };
 
 declare global {
@@ -92,6 +104,7 @@ declare global {
       risk: Risk | null;
       years: Years | null;
       residency: Residency | null;
+      language: Language;
     };
   }
 }
@@ -119,7 +132,10 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
     if (get().residency) return;
     writeStoredResidency(residency);
     set({ residency });
+    trackEvent("residency_selected", { residency });
   },
+
+  setLanguage: (language) => set({ language }),
 
   goTo: (page) => {
     const targetIndex = PAGE_ORDER.indexOf(page);
@@ -151,6 +167,7 @@ if (typeof window !== "undefined") {
       risk: state.risk,
       years: state.years,
       residency: state.residency,
+      language: state.language,
     };
   });
 }

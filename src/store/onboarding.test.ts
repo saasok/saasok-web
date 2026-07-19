@@ -89,6 +89,21 @@ describe("residency", () => {
     const fresh = require("./onboarding").useOnboardingStore;
     expect(fresh.getState().residency).toBe("UA");
   });
+
+  it("tracks residency_selected only on the genuine first selection, not on the ignored repeat", () => {
+    window.gtag = jest.fn();
+    const { setResidency } = useOnboardingStore.getState();
+
+    setResidency("UK");
+    setResidency("US");
+
+    expect(window.gtag).toHaveBeenCalledTimes(1);
+    expect(window.gtag).toHaveBeenCalledWith("event", "residency_selected", {
+      residency: "UK",
+    });
+
+    delete window.gtag;
+  });
 });
 
 describe("page navigation guard", () => {
@@ -120,13 +135,14 @@ describe("page navigation guard", () => {
     expect(useOnboardingStore.getState().page).toBe("page2");
   });
 
-  it("reset clears brokers, risk, and years fully, with no stale values leaking into a new session", () => {
-    const { toggleBroker, setRisk, setYears, goTo, reset } =
+  it("reset clears brokers, risk, years, and language fully, with no stale values leaking into a new session", () => {
+    const { toggleBroker, setRisk, setYears, setLanguage, goTo, reset } =
       useOnboardingStore.getState();
     toggleBroker(BROKERS[0]);
     toggleBroker(BROKERS[1]);
     setRisk("aggressive");
     setYears("10+");
+    setLanguage("de");
     goTo("page5");
 
     reset();
@@ -135,6 +151,7 @@ describe("page navigation guard", () => {
       brokers: [],
       risk: null,
       years: null,
+      language: "en",
       page: "page1",
       maxPageIndex: 0,
     });

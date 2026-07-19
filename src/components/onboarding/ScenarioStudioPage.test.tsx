@@ -136,3 +136,22 @@ describe("navigation", () => {
     expect(onNext).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("analytics wiring", () => {
+  afterEach(() => {
+    delete window.gtag;
+  });
+
+  it("tracks scenario_click with the scenario title, horizon, and index", () => {
+    window.gtag = jest.fn();
+    setup();
+
+    fireEvent.click(screen.getByTestId("scen-card-2"));
+
+    expect(window.gtag).toHaveBeenCalledWith("event", "scenario_click", {
+      scenario: SCENARIOS[2].title,
+      horizon: "5",
+      index: 2,
+    });
+  });
+});

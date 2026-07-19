@@ -2,6 +2,10 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { COMPETITIVE_ASSETS } from "@/lib/competitiveAssets";
 import { CompetitiveAssetPage } from "./CompetitiveAssetPage";
 
+jest.mock("../../lib/exportCompetitiveAssets", () => ({
+  exportCompetitiveAssetsWorkbook: jest.fn(),
+}));
+
 describe("CompetitiveAssetPage", () => {
   it("defaults to the first asset selected", () => {
     render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
@@ -66,5 +70,36 @@ describe("CompetitiveAssetPage", () => {
 
     expect(onPrev).toHaveBeenCalledTimes(1);
     expect(onNext).toHaveBeenCalledTimes(1);
+  });
+
+  describe("analytics wiring", () => {
+    afterEach(() => {
+      delete window.gtag;
+    });
+
+    it("tracks asset_click with the clicked ticker", () => {
+      window.gtag = jest.fn();
+      render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
+      const third = COMPETITIVE_ASSETS[2];
+
+      fireEvent.click(screen.getByTestId(`asset-item-${third.ticker}`));
+
+      expect(window.gtag).toHaveBeenCalledWith("event", "asset_click", {
+        ticker: third.ticker,
+      });
+    });
+
+    it("tracks save_results_click when the save button is clicked", () => {
+      window.gtag = jest.fn();
+      render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
+
+      fireEvent.click(screen.getByTestId("save-results-button"));
+
+      expect(window.gtag).toHaveBeenCalledWith(
+        "event",
+        "save_results_click",
+        {},
+      );
+    });
   });
 });

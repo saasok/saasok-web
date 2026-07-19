@@ -42,6 +42,7 @@ test("cover -> onboarding -> loading transitions with correct final state", asyn
     risk: "aggressive",
     years: "10+",
     residency: null,
+    language: "en",
   });
 });
 

@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { PAGE_ORDER, PageId, useOnboardingStore } from "@/store/onboarding";
 import { useBackNavigationLock } from "@/hooks/useBackNavigationLock";
 import { useFocusableActivation } from "@/hooks/useFocusableActivation";
+import { trackEvent } from "@/lib/analytics";
+import { parseUtmParams } from "@/lib/utm";
 import { CoverPage } from "./onboarding/CoverPage";
 import { BrokersPage } from "./onboarding/BrokersPage";
 import { RiskPage } from "./onboarding/RiskPage";
@@ -37,6 +39,10 @@ export function App() {
 
   useBackNavigationLock(page);
   useFocusableActivation(containerRef);
+
+  useEffect(() => {
+    trackEvent("utm_capture", parseUtmParams(window.location.search));
+  }, []);
 
   return (
     <div

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useOnboardingStore } from "@/store/onboarding";
 import { getPortfolio, type Broker } from "@/lib/portfolio";
+import { trackEvent } from "@/lib/analytics";
 import {
   SCENARIOS,
   getScenarioTag,
@@ -105,7 +106,14 @@ export function ScenarioStudioPage({
                 key={scenario.title}
                 data-testid={`scen-card-${i}`}
                 data-active={selectedIndex === i}
-                onClick={() => setSelectedIndex(i)}
+                onClick={() => {
+                  setSelectedIndex(i);
+                  trackEvent("scenario_click", {
+                    scenario: scenario.title,
+                    horizon,
+                    index: i,
+                  });
+                }}
                 className={`rounded-[9px] border p-2.5 text-left text-[11px] transition ${
                   selectedIndex === i
                     ? "border-amber bg-amber/10"

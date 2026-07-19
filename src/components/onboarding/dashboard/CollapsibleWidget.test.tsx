@@ -81,6 +81,34 @@ describe("CollapsibleWidget", () => {
     expect(screen.getByTestId("widget-test-row-10")).toBeInTheDocument();
   });
 
+  it("tracks a widget_scroll event with the widget id and scroll depth on step", () => {
+    window.gtag = jest.fn();
+    renderWidget(50);
+    fireEvent.click(screen.getByTestId("widget-test-header"));
+
+    fireEvent.click(screen.getByTestId("widget-test-scroll-down"));
+
+    // totalRows 50, windowSize 10 -> maxStart 40; stepping from 0 to 1.
+    expect(window.gtag).toHaveBeenCalledWith("event", "widget_scroll", {
+      widget: "widget-test",
+      depth_pct: 3,
+    });
+
+    delete window.gtag;
+  });
+
+  it("does not track a scroll event when a step is a no-op at a boundary", () => {
+    window.gtag = jest.fn();
+    renderWidget();
+    fireEvent.click(screen.getByTestId("widget-test-header"));
+
+    fireEvent.click(screen.getByTestId("widget-test-scroll-up"));
+
+    expect(window.gtag).not.toHaveBeenCalled();
+
+    delete window.gtag;
+  });
+
   it("cannot scroll above the first row via wheel or the up arrow", () => {
     renderWidget();
     fireEvent.click(screen.getByTestId("widget-test-header"));
