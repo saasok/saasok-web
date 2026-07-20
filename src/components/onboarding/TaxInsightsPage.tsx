@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   useOnboardingStore,
   RESIDENCIES,
   type Residency,
+  type Language,
 } from "@/store/onboarding";
 import {
   getPortfolio,
@@ -15,15 +17,9 @@ import {
   type Broker,
   type Position,
 } from "@/lib/portfolio";
+import { formatCurrency } from "@/lib/formatCurrency";
 import { TopBrand } from "../BrandMark";
 import { Disclaimer } from "../Disclaimer";
-
-const TLOSS_TIP_TEXT =
-  "Selling this position could help offset gains elsewhere. Educational information only — not a recommendation.";
-
-function formatUsd(value: number): string {
-  return "$" + Math.round(value).toLocaleString("en-US");
-}
 
 function formatPct(rate: number): string {
   return Number((rate * 100).toFixed(1)).toString();
@@ -36,10 +32,13 @@ export function TaxInsightsPage({
   onNext: () => void;
   onPrev: () => void;
 }) {
+  const t = useTranslations("taxInsights");
+  const tc = useTranslations("common");
   const brokers = useOnboardingStore((s) => s.brokers) as Broker[];
   const risk = useOnboardingStore((s) => s.risk);
   const residency = useOnboardingStore((s) => s.residency);
   const setResidency = useOnboardingStore((s) => s.setResidency);
+  const language = useOnboardingStore((s) => s.language);
 
   const [openBlocks, setOpenBlocks] = useState({
     tloss: true,
@@ -54,7 +53,7 @@ export function TaxInsightsPage({
       <div className="flex h-full flex-col items-center justify-center px-10 py-9">
         <TopBrand />
         <div className="max-w-xl text-center font-fraunces text-xl font-semibold text-ivory">
-          Complete onboarding to see your tax insights.
+          {t("incomplete")}
         </div>
         <Disclaimer />
       </div>
@@ -68,18 +67,16 @@ export function TaxInsightsPage({
       <div className="absolute inset-0 bottom-16 flex flex-col items-center overflow-y-auto px-10 pt-[58px] pb-9">
         <TopBrand />
         <div className="mb-1 font-mono text-[10px] tracking-[0.12em] text-amber-dim uppercase">
-          Page 8
+          {t("pageLabel")}
         </div>
         <div className="mb-1.5 font-fraunces text-[17px] font-semibold text-ivory">
-          Tax insights for your portfolio
+          {t("title")}
         </div>
         <div
           className="mb-4 max-w-[560px] text-center font-sans text-[9.5px] leading-relaxed text-amber-dim"
           data-testid="tax-footnote"
         >
-          Tax and fee figures are illustrative and based on publicly available
-          data as of June 2026; rates and schedules change — always verify
-          with your broker and tax advisor before acting.
+          {t("footnote")}
         </div>
 
         {residency === null ? (
@@ -92,12 +89,14 @@ export function TaxInsightsPage({
             {openBlocks.tloss && (
               <TaxLossBlock
                 positions={portfolio.positions}
+                language={language}
                 onClose={() => closeBlock("tloss")}
               />
             )}
             {openBlocks.calc && (
               <TaxCalcBlock
                 residency={residency}
+                language={language}
                 onClose={() => closeBlock("calc")}
               />
             )}
@@ -116,7 +115,7 @@ export function TaxInsightsPage({
 
       <button
         type="button"
-        aria-label="Previous page"
+        aria-label={tc("previousPageAria")}
         data-testid="tax-prev-arrow"
         onClick={onPrev}
         className="absolute top-1/2 left-4 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-silver text-[15px] font-bold text-[#151515] shadow-[0_6px_16px_rgba(0,0,0,0.3)] transition hover:scale-[1.06] hover:bg-silver-hi"
@@ -125,7 +124,7 @@ export function TaxInsightsPage({
       </button>
       <button
         type="button"
-        aria-label="Next page"
+        aria-label={tc("nextPageAria")}
         data-testid="tax-next-arrow"
         onClick={onNext}
         className="absolute top-1/2 right-4 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-silver text-[15px] font-bold text-[#151515] shadow-[0_6px_16px_rgba(0,0,0,0.3)] transition hover:scale-[1.06] hover:bg-silver-hi"
@@ -141,13 +140,14 @@ function ResidencyGate({
 }: {
   onSelect: (r: Residency) => void;
 }) {
+  const t = useTranslations("taxInsights");
   return (
     <div
       className="rounded-[14px] border border-panel-border bg-panel px-[26px] py-[22px] text-center backdrop-blur-md"
       data-testid="tax-residency-gate"
     >
       <p className="mb-3 font-fraunces text-[15px] text-ivory">
-        What is your tax residence?
+        {t("residencyPrompt")}
       </p>
       <div className="flex max-w-[360px] flex-wrap justify-center gap-2">
         {RESIDENCIES.map((r) => (
@@ -167,11 +167,14 @@ function ResidencyGate({
 
 function TaxLossBlock({
   positions,
+  language,
   onClose,
 }: {
   positions: Position[];
+  language: Language;
   onClose: () => void;
 }) {
+  const t = useTranslations("taxInsights");
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const toggle = (symbol: string) =>
     setExpanded((prev) => {
@@ -194,7 +197,7 @@ function TaxLossBlock({
         &#10005;
       </span>
       <h4 className="mb-2.5 font-fraunces text-[13.5px] font-semibold text-ivory">
-        Tax-Loss Opportunities
+        {t("tlossTitle")}
       </h4>
       <div>
         {positions.map((p) => {
@@ -221,10 +224,11 @@ function TaxLossBlock({
                     className="font-mono text-[10px] text-red"
                     data-testid={`tax-loss-detail-${p.symbol}`}
                   >
-                    {lossPct.toFixed(1)}% &middot; {formatUsd(p.unrealizedGainLoss)}
+                    {lossPct.toFixed(1)}% &middot;{" "}
+                    {formatCurrency(p.unrealizedGainLoss, language)}
                   </div>
                   <div data-testid={`tax-loss-copy-${p.symbol}`}>
-                    {TLOSS_TIP_TEXT}
+                    {t("tlossTip")}
                   </div>
                 </div>
               )}
@@ -238,19 +242,28 @@ function TaxLossBlock({
 
 function TaxCalcBlock({
   residency,
+  language,
   onClose,
 }: {
   residency: Residency;
+  language: Language;
   onClose: () => void;
 }) {
+  const t = useTranslations("taxInsights");
   const [amount, setAmount] = useState("");
   const amt = parseFloat(amount) || 0;
   const cgt = getCapitalGainsTax(residency);
 
   const resultText =
     amt > 0
-      ? `Estimated CGT range (${residency}): ${formatUsd(amt * cgt.typicalRateLow)} – ${formatUsd(amt * cgt.typicalRateHigh)} (${formatPct(cgt.typicalRateLow)}–${formatPct(cgt.typicalRateHigh)}%)`
-      : "Enter an amount to see the estimated range.";
+      ? t("calcResultTemplate", {
+          residency,
+          low: formatCurrency(amt * cgt.typicalRateLow, language),
+          high: formatCurrency(amt * cgt.typicalRateHigh, language),
+          lowPct: formatPct(cgt.typicalRateLow),
+          highPct: formatPct(cgt.typicalRateHigh),
+        })
+      : t("calcResultEmpty");
 
   return (
     <div
@@ -265,11 +278,11 @@ function TaxCalcBlock({
         &#10005;
       </span>
       <h4 className="mb-2.5 font-fraunces text-[13.5px] font-semibold text-ivory">
-        Tax Impact Before Trades
+        {t("calcTitle")}
       </h4>
       <input
         type="number"
-        placeholder="Hypothetical sale amount, $"
+        placeholder={t("sellAmountPlaceholder")}
         className="mb-2.5 w-full rounded-md border border-panel-border bg-white/5 px-2.5 py-2 font-mono text-xs text-ivory"
         data-testid="tax-sell-amount"
         value={amount}
@@ -294,6 +307,7 @@ function FeeTacticsBlock({
   residency: Residency;
   onClose: () => void;
 }) {
+  const t = useTranslations("taxInsights");
   const [activeBroker, setActiveBroker] = useState<Broker>(brokers[0]);
   const tactic = getFeeReductionTactics(activeBroker);
   const levers = getTaxReductionLevers(residency);
@@ -311,7 +325,7 @@ function FeeTacticsBlock({
         &#10005;
       </span>
       <h4 className="mb-2.5 font-fraunces text-[13.5px] font-semibold text-ivory">
-        Reduce Unnecessary Tax Costs
+        {t("feesTitle")}
       </h4>
       <div className="mb-2.5 flex flex-wrap gap-1.5">
         {brokers.map((b) => {
@@ -336,15 +350,23 @@ function FeeTacticsBlock({
         className="font-sans text-[11px] leading-relaxed text-muted"
         data-testid="tax-tactic-text"
       >
-        <div>What reduces your fees: {tactic.whatReducesYourFees}</div>
-        <div className="mt-1.5">Watch out for: {tactic.watchOutFor}</div>
+        <div>
+          {t("whatReduces")} {tactic.whatReducesYourFees}
+        </div>
+        <div className="mt-1.5">
+          {t("watchOutFor")} {tactic.watchOutFor}
+        </div>
       </div>
       <div
         className="mt-2.5 border-t border-line pt-2.5 font-sans text-[11px] leading-relaxed text-muted"
         data-testid="tax-lever-text"
       >
-        <div>Real, legitimate levers: {levers.realLegitimateLevers}</div>
-        <div className="mt-1.5">What does NOT work: {levers.whatDoesNotWork}</div>
+        <div>
+          {t("realLevers")} {levers.realLegitimateLevers}
+        </div>
+        <div className="mt-1.5">
+          {t("whatDoesNotWork")} {levers.whatDoesNotWork}
+        </div>
       </div>
     </div>
   );

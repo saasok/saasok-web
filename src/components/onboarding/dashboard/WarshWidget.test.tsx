@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { WarshWidget } from "./WarshWidget";
 import warshData from "../../../../data/warsh-speeches.json";
 
@@ -6,7 +7,7 @@ const talks = warshData.talks;
 
 describe("WarshWidget", () => {
   it("shows 10 rows out of the full speech list once expanded", () => {
-    render(<WarshWidget revealed />);
+    renderWithIntl(<WarshWidget revealed />);
     fireEvent.click(screen.getByTestId("widget-warsh-header"));
 
     talks.slice(0, 10).forEach((t) => {
@@ -18,7 +19,7 @@ describe("WarshWidget", () => {
   });
 
   it("exposes date, topic, and location as distinct nodes per row (3-column look)", () => {
-    render(<WarshWidget revealed />);
+    renderWithIntl(<WarshWidget revealed />);
     fireEvent.click(screen.getByTestId("widget-warsh-header"));
 
     const first = talks[0];

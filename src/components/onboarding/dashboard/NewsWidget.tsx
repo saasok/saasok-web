@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { CollapsibleWidget } from "./CollapsibleWidget";
 import newsData from "../../../../data/market-news.json";
 
@@ -39,15 +40,16 @@ export function getSourceColor(source: string): string {
 }
 
 export function NewsWidget({ revealed }: { revealed: boolean }) {
+  const t = useTranslations("widgets");
   return (
     <CollapsibleWidget
       testId="widget-news"
-      title="Market News Feed"
+      title={t("newsTitle")}
       positionClassName="left-1/2 bottom-0 w-[330px] -translate-x-1/2"
       revealed={revealed}
       totalRows={items.length}
       windowSize={5}
-      scrollHintLabel={`↕ scroll for more · showing 5 of ${items.length}`}
+      scrollHintLabel={t("scrollHint", { shown: 5, total: items.length })}
       bodyHeightClassName="max-h-[300px]"
       renderRow={(index) => {
         const n = items[index];

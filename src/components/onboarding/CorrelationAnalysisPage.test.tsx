@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { COMPETITIVE_ASSETS } from "@/lib/competitiveAssets";
 import { CorrelationAnalysisPage } from "./CorrelationAnalysisPage";
 
@@ -6,7 +7,7 @@ const TICKERS = COMPETITIVE_ASSETS.map((a) => a.ticker);
 
 describe("CorrelationAnalysisPage", () => {
   it("renders all 20 assets with none centered and no percentage labels by default", () => {
-    render(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
 
     TICKERS.forEach((ticker) => {
       const node = screen.getByTestId(`corr-node-${ticker}`);
@@ -17,7 +18,7 @@ describe("CorrelationAnalysisPage", () => {
   });
 
   it("splits the default layout into 10 left / 10 right", () => {
-    render(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
 
     const left = TICKERS.filter(
       (t) => screen.getByTestId(`corr-node-${t}`).getAttribute("data-side") === "left",
@@ -30,7 +31,7 @@ describe("CorrelationAnalysisPage", () => {
   });
 
   it("clicking an asset moves it to the center and shows percentage labels on the rest", () => {
-    render(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
 
     fireEvent.click(screen.getByTestId("corr-node-NVDA"));
 
@@ -49,7 +50,7 @@ describe("CorrelationAnalysisPage", () => {
   });
 
   it("clicking a different asset while one is selected re-centers immediately", () => {
-    render(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
 
     fireEvent.click(screen.getByTestId("corr-node-NVDA"));
     fireEvent.click(screen.getByTestId("corr-node-TSLA"));
@@ -66,7 +67,7 @@ describe("CorrelationAnalysisPage", () => {
   });
 
   it("reset returns to the default layout with no center and no percentages", () => {
-    render(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CorrelationAnalysisPage onNext={() => {}} onPrev={() => {}} />);
 
     fireEvent.click(screen.getByTestId("corr-node-NVDA"));
     fireEvent.click(screen.getByTestId("corr-reset"));
@@ -84,7 +85,7 @@ describe("CorrelationAnalysisPage", () => {
   it("calls onPrev and onNext from their respective arrows", () => {
     const onNext = jest.fn();
     const onPrev = jest.fn();
-    render(<CorrelationAnalysisPage onNext={onNext} onPrev={onPrev} />);
+    renderWithIntl(<CorrelationAnalysisPage onNext={onNext} onPrev={onPrev} />);
 
     fireEvent.click(screen.getByTestId("corr-prev-arrow"));
     fireEvent.click(screen.getByTestId("corr-next-arrow"));

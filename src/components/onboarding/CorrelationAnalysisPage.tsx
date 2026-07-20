@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { COMPETITIVE_ASSETS } from "@/lib/competitiveAssets";
 import { getTopCorrelated } from "@/lib/correlation";
 import { TopBrand } from "../BrandMark";
@@ -67,6 +68,8 @@ export function CorrelationAnalysisPage({
   onNext: () => void;
   onPrev: () => void;
 }) {
+  const t = useTranslations("correlation");
+  const tc = useTranslations("common");
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
 
   let nodes: NodePosition[];
@@ -97,10 +100,10 @@ export function CorrelationAnalysisPage({
       <div className="absolute inset-0 bottom-16 flex flex-col items-center overflow-y-auto px-10 pt-[58px] pb-9">
         <TopBrand />
         <div className="mb-1 font-mono text-[10px] tracking-[0.12em] text-amber-dim uppercase">
-          Page 7
+          {t("pageLabel")}
         </div>
         <div className="mb-3.5 font-fraunces text-[17px] font-semibold text-ivory">
-          Correlation Analysis of your investments
+          {t("title")}
         </div>
 
         <div
@@ -117,7 +120,7 @@ export function CorrelationAnalysisPage({
             <button
               type="button"
               data-testid="corr-reset"
-              aria-label="Reset correlation selection"
+              aria-label={t("resetAria")}
               onClick={() => setSelectedTicker(null)}
               className="absolute left-1/2 z-10 flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full bg-black/30 font-sans text-xs font-bold text-red"
               style={{ top: STAGE_HEIGHT / 2 - 115 - 26 }}
@@ -172,7 +175,7 @@ export function CorrelationAnalysisPage({
 
       <button
         type="button"
-        aria-label="Previous page"
+        aria-label={tc("previousPageAria")}
         data-testid="corr-prev-arrow"
         onClick={onPrev}
         className="absolute top-1/2 left-4 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-silver text-[15px] font-bold text-[#151515] shadow-[0_6px_16px_rgba(0,0,0,0.3)] transition hover:scale-[1.06] hover:bg-silver-hi"
@@ -181,7 +184,7 @@ export function CorrelationAnalysisPage({
       </button>
       <button
         type="button"
-        aria-label="Next page"
+        aria-label={tc("nextPageAria")}
         data-testid="corr-next-arrow"
         onClick={onNext}
         className="absolute top-1/2 right-4 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-silver text-[15px] font-bold text-[#151515] shadow-[0_6px_16px_rgba(0,0,0,0.3)] transition hover:scale-[1.06] hover:bg-silver-hi"

@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { COMPETITIVE_ASSETS } from "@/lib/competitiveAssets";
 import { CompetitiveAssetPage } from "./CompetitiveAssetPage";
 
@@ -8,7 +9,7 @@ jest.mock("../../lib/exportCompetitiveAssets", () => ({
 
 describe("CompetitiveAssetPage", () => {
   it("defaults to the first asset selected", () => {
-    render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
 
     expect(
       screen.getByTestId(`asset-item-${COMPETITIVE_ASSETS[0].ticker}`),
@@ -19,7 +20,7 @@ describe("CompetitiveAssetPage", () => {
   });
 
   it("selecting a new asset deselects the previous one", () => {
-    render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
 
     const first = COMPETITIVE_ASSETS[0];
     const third = COMPETITIVE_ASSETS[2];
@@ -40,7 +41,7 @@ describe("CompetitiveAssetPage", () => {
   });
 
   it("selecting the same asset twice is idempotent", () => {
-    render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
 
     const fifth = COMPETITIVE_ASSETS[4];
     fireEvent.click(screen.getByTestId(`asset-item-${fifth.ticker}`));
@@ -63,7 +64,7 @@ describe("CompetitiveAssetPage", () => {
   it("calls onPrev and onNext from their respective arrows", () => {
     const onNext = jest.fn();
     const onPrev = jest.fn();
-    render(<CompetitiveAssetPage onNext={onNext} onPrev={onPrev} />);
+    renderWithIntl(<CompetitiveAssetPage onNext={onNext} onPrev={onPrev} />);
 
     fireEvent.click(screen.getByTestId("competitive-prev-arrow"));
     fireEvent.click(screen.getByTestId("competitive-next-arrow"));
@@ -79,7 +80,7 @@ describe("CompetitiveAssetPage", () => {
 
     it("tracks asset_click with the clicked ticker", () => {
       window.gtag = jest.fn();
-      render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
       const third = COMPETITIVE_ASSETS[2];
 
       fireEvent.click(screen.getByTestId(`asset-item-${third.ticker}`));
@@ -91,7 +92,7 @@ describe("CompetitiveAssetPage", () => {
 
     it("tracks save_results_click when the save button is clicked", () => {
       window.gtag = jest.fn();
-      render(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<CompetitiveAssetPage onNext={() => {}} onPrev={() => {}} />);
 
       fireEvent.click(screen.getByTestId("save-results-button"));
 

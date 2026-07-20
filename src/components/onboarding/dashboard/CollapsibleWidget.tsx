@@ -8,6 +8,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
+import { useTranslations } from "next-intl";
 import { useHoverDuration } from "@/hooks/useHoverDuration";
 import { trackEvent } from "@/lib/analytics";
 
@@ -38,6 +39,7 @@ export function CollapsibleWidget({
   bodyHeightClassName = "max-h-[220px]",
   renderRow,
 }: CollapsibleWidgetProps) {
+  const t = useTranslations("widgets");
   const [open, setOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const { onMouseEnter, onMouseLeave } = useHoverDuration(testId);
@@ -124,7 +126,7 @@ export function CollapsibleWidget({
             <span className="flex flex-col leading-none">
               <button
                 type="button"
-                aria-label="Scroll up"
+                aria-label={t("scrollUpAria")}
                 data-testid={`${testId}-scroll-up`}
                 className="disabled:opacity-30"
                 disabled={startIndex <= 0}
@@ -134,7 +136,7 @@ export function CollapsibleWidget({
               </button>
               <button
                 type="button"
-                aria-label="Scroll down"
+                aria-label={t("scrollDownAria")}
                 data-testid={`${testId}-scroll-down`}
                 className="disabled:opacity-30"
                 disabled={startIndex >= maxStart}

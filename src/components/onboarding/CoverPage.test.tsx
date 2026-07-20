@@ -1,6 +1,18 @@
-import { act, render, screen, fireEvent } from "@testing-library/react";
-import { useOnboardingStore } from "@/store/onboarding";
+import { act, screen, fireEvent } from "@testing-library/react";
+import { LANGUAGES, useOnboardingStore } from "@/store/onboarding";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { CoverPage } from "./CoverPage";
+import enMessages from "@/messages/en.json";
+import deMessages from "@/messages/de.json";
+import frMessages from "@/messages/fr.json";
+import itMessages from "@/messages/it.json";
+
+const MESSAGES_BY_LOCALE = {
+  en: enMessages,
+  de: deMessages,
+  fr: frMessages,
+  it: itMessages,
+} as const;
 
 async function flushMicrotasks() {
   for (let i = 0; i < 6; i++) {
@@ -27,7 +39,7 @@ describe("CoverPage geo/VPN gate", () => {
       json: async () => ({ country: "Germany", isVpn: true }),
     }) as unknown as typeof fetch;
 
-    render(<CoverPage />);
+    renderWithIntl(<CoverPage />);
 
     await act(async () => {
       await flushMicrotasks();
@@ -52,7 +64,7 @@ describe("CoverPage geo/VPN gate", () => {
       json: async () => ({ country: "United States", isVpn: false }),
     }) as unknown as typeof fetch;
 
-    render(<CoverPage />);
+    renderWithIntl(<CoverPage />);
 
     await act(async () => {
       await flushMicrotasks();
@@ -70,7 +82,7 @@ describe("CoverPage geo/VPN gate", () => {
   it("fails open — no gate, normal advance — when the geo fetch errors", async () => {
     global.fetch = jest.fn().mockRejectedValue(new Error("network down"));
 
-    render(<CoverPage />);
+    renderWithIntl(<CoverPage />);
 
     await act(async () => {
       await flushMicrotasks();
@@ -90,7 +102,7 @@ describe("CoverPage geo/VPN gate", () => {
       json: async () => ({ country: null, isVpn: false }),
     }) as unknown as typeof fetch;
 
-    render(<CoverPage />);
+    renderWithIntl(<CoverPage />);
 
     await act(async () => {
       await flushMicrotasks();
@@ -101,4 +113,64 @@ describe("CoverPage geo/VPN gate", () => {
     });
     expect(useOnboardingStore.getState().page).toBe("page1");
   });
+});
+
+describe("CoverPage locale rendering", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    useOnboardingStore.getState().reset();
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue({
+        ok: true,
+        json: async () => ({ country: null, isVpn: false }),
+      }) as unknown as typeof fetch;
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it.each(LANGUAGES.map((l) => l.code))(
+    "renders the cover tagline in %s",
+    (code) => {
+      useOnboardingStore.setState({ language: code });
+      renderWithIntl(<CoverPage />);
+
+      expect(screen.getByTestId("cover-tagline").textContent).toContain(
+        MESSAGES_BY_LOCALE[code].cover.taglinePrefix,
+      );
+    },
+  );
+});
+
+describe("LanguageGate locale rendering", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    useOnboardingStore.getState().reset();
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ country: "Germany", isVpn: true }),
+    }) as unknown as typeof fetch;
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it.each(LANGUAGES.map((l) => l.code))(
+    "renders the language-gate prompt in %s once the gate appears",
+    async (code) => {
+      useOnboardingStore.setState({ language: code });
+      renderWithIntl(<CoverPage />);
+
+      await act(async () => {
+        for (let i = 0; i < 6; i++) await Promise.resolve();
+      });
+
+      expect(screen.getByTestId("language-gate").textContent).toContain(
+        MESSAGES_BY_LOCALE[code].languageGate.prompt,
+      );
+    },
+  );
 });

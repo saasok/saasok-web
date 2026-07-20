@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useOnboardingStore, LANGUAGES, type Language } from "@/store/onboarding";
 import { trackEvent } from "@/lib/analytics";
 import { BrandMark } from "../BrandMark";
@@ -23,6 +24,7 @@ async function fetchGeo(): Promise<GeoResult> {
 export function CoverPage() {
   const goTo = useOnboardingStore((s) => s.goTo);
   const setLanguage = useOnboardingStore((s) => s.setLanguage);
+  const t = useTranslations("cover");
   const [show, setShow] = useState({
     tagline: false,
     brandmark: false,
@@ -71,11 +73,12 @@ export function CoverPage() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-[22px]">
       <div
+        data-testid="cover-tagline"
         className={`font-fraunces text-center text-[25px] font-medium italic transition-all duration-1000 ease-out ${
           show.tagline ? "translate-y-0 opacity-100" : "translate-y-3.5 opacity-0"
         }`}
       >
-        Get your edge up by <span className="not-italic">SaaSok</span>
+        {t("taglinePrefix")} <span className="not-italic">SaaSok</span>
       </div>
       <div
         className={`transition-all duration-700 ${
@@ -100,13 +103,14 @@ function LanguageGate({
 }: {
   onSelect: (language: Language) => void;
 }) {
+  const t = useTranslations("languageGate");
   return (
     <div
       className="flex h-full flex-col items-center justify-center gap-4 px-10"
       data-testid="language-gate"
     >
       <BrandMark />
-      <p className="font-fraunces text-lg text-ivory">Choose your language</p>
+      <p className="font-fraunces text-lg text-ivory">{t("prompt")}</p>
       <div className="flex max-w-[320px] flex-wrap justify-center gap-2">
         {LANGUAGES.map((l) => (
           <button

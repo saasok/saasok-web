@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { NewsWidget, getInitials, getSourceColor } from "./NewsWidget";
 import newsData from "../../../../data/market-news.json";
 
@@ -6,7 +7,7 @@ const items = newsData.items;
 
 describe("NewsWidget", () => {
   it("shows a 5-row window out of the full 50-item feed once expanded, each with a thumbnail, title, description, source and date", () => {
-    render(<NewsWidget revealed />);
+    renderWithIntl(<NewsWidget revealed />);
     fireEvent.click(screen.getByTestId("widget-news-header"));
 
     items.slice(0, 5).forEach((n, index) => {

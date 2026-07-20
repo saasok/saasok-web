@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { BROKERS, useOnboardingStore } from "@/store/onboarding";
 import { TopBrand } from "../BrandMark";
 import { Disclaimer } from "../Disclaimer";
@@ -40,17 +41,19 @@ export function BrokersPage() {
   const brokers = useOnboardingStore((s) => s.brokers);
   const toggleBroker = useOnboardingStore((s) => s.toggleBroker);
   const goTo = useOnboardingStore((s) => s.goTo);
+  const t = useTranslations("brokers");
+  const tc = useTranslations("common");
 
   return (
     <div className="flex h-full flex-col items-center justify-center px-10 py-9">
       <TopBrand />
       <div className="mb-2.5 font-mono text-[10.5px] tracking-[0.14em] text-amber-dim uppercase">
-        Step 1 of 3
+        {t("step")}
       </div>
       <div className="mb-9 max-w-xl text-center font-fraunces text-2xl font-semibold leading-snug">
-        Which broker/s do you use?
+        {t("question")}
         <small className="mt-2 block font-sans text-xs font-normal text-muted">
-          Pick 1–3
+          {t("hint")}
         </small>
       </div>
       <div className="mb-9 grid grid-cols-3 gap-3.5">
@@ -68,7 +71,7 @@ export function BrokersPage() {
         ))}
       </div>
       <NextButton disabled={brokers.length === 0} onClick={() => goTo("page3")}>
-        Next page
+        {tc("nextPageButton")}
       </NextButton>
       <Disclaimer />
     </div>

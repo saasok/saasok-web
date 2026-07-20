@@ -1,9 +1,10 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { MarketCalendar } from "./MarketCalendar";
 
 describe("MarketCalendar", () => {
   it("opens a panel on hover and closes it on mouse-out when not picked", () => {
-    render(<MarketCalendar revealed />);
+    renderWithIntl(<MarketCalendar revealed />);
     const nyse = screen.getByTestId("exchange-NYSE");
 
     fireEvent.mouseEnter(nyse);
@@ -20,7 +21,7 @@ describe("MarketCalendar", () => {
   });
 
   it("keeps the panel open after mouse-out once clicked (picked)", () => {
-    render(<MarketCalendar revealed />);
+    renderWithIntl(<MarketCalendar revealed />);
     const nyse = screen.getByTestId("exchange-NYSE");
 
     fireEvent.mouseEnter(nyse);
@@ -38,7 +39,7 @@ describe("MarketCalendar", () => {
   });
 
   it("supports multi-select: a picked exchange stays open while another opens only on hover", () => {
-    render(<MarketCalendar revealed />);
+    renderWithIntl(<MarketCalendar revealed />);
     const nyse = screen.getByTestId("exchange-NYSE");
     const nasdaq = screen.getByTestId("exchange-NASDAQ");
 
@@ -66,7 +67,7 @@ describe("MarketCalendar", () => {
   });
 
   it("the clear-all button only appears once something is picked, and resets everything", () => {
-    render(<MarketCalendar revealed />);
+    renderWithIntl(<MarketCalendar revealed />);
     expect(screen.queryByTestId("calendar-clear")).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId("exchange-NYSE"));

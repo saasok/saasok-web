@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { CollapsibleWidget } from "./CollapsibleWidget";
 
 function renderWidget(totalRows = 50) {
-  return render(
+  return renderWithIntl(
     <CollapsibleWidget
       testId="widget-test"
       title="Test Widget"

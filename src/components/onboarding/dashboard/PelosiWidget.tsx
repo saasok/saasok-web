@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { CollapsibleWidget } from "./CollapsibleWidget";
 import pelosiData from "../../../../data/pelosi-trades.json";
 
@@ -13,14 +14,15 @@ interface PelosiTrade {
 const trades = (pelosiData as unknown as { trades: PelosiTrade[] }).trades;
 
 export function PelosiWidget({ revealed }: { revealed: boolean }) {
+  const t = useTranslations("widgets");
   return (
     <CollapsibleWidget
       testId="widget-pelosi"
-      title="Nancy Pelosi Trades"
+      title={t("pelosiTitle")}
       positionClassName="left-0 bottom-0 w-[280px]"
       revealed={revealed}
       totalRows={trades.length}
-      scrollHintLabel={`↕ scroll for more · showing 10 of ${trades.length}`}
+      scrollHintLabel={t("scrollHint", { shown: 10, total: trades.length })}
       renderRow={(index) => {
         const t = trades[index];
         return (

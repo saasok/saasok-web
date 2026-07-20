@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { useOnboardingStore } from "@/store/onboarding";
 import { getPortfolio, getCapitalGainsTax, type Broker } from "@/lib/portfolio";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { TaxInsightsPage } from "./TaxInsightsPage";
 
 const BANNED_IMPERATIVE_PATTERNS = [
@@ -38,7 +39,7 @@ describe("TaxInsightsPage", () => {
 
   it("shows the residency gate and no blocks when residency is unset", () => {
     setup({});
-    render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
     expect(screen.getByTestId("tax-residency-gate")).toBeInTheDocument();
     expect(screen.queryByTestId("tax-blocks")).not.toBeInTheDocument();
@@ -46,7 +47,7 @@ describe("TaxInsightsPage", () => {
 
   it("clicking a residency option hides the gate and shows all three blocks", () => {
     setup({});
-    render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
     fireEvent.click(screen.getByTestId("tax-residency-UK"));
 
@@ -58,7 +59,7 @@ describe("TaxInsightsPage", () => {
 
   it("skips the gate entirely when residency is already set (ratchet)", () => {
     setup({ residency: "US" });
-    render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
     expect(screen.queryByTestId("tax-residency-gate")).not.toBeInTheDocument();
     expect(screen.getByTestId("tax-blocks")).toBeInTheDocument();
@@ -66,7 +67,7 @@ describe("TaxInsightsPage", () => {
 
   it("renders the top-of-page tax footnote disclaimer", () => {
     setup({ residency: "US" });
-    render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+    renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
     expect(screen.getByTestId("tax-footnote")).toHaveTextContent(
       /illustrative and based on publicly available data/,
@@ -79,7 +80,7 @@ describe("TaxInsightsPage", () => {
       setup({ brokers, risk: "conservative", residency: "US" });
       const expected = getPortfolio(brokers, "conservative");
 
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       expected.positions.forEach((p) => {
         const row = screen.getByTestId(`tax-loss-row-${p.symbol}`);
@@ -103,7 +104,7 @@ describe("TaxInsightsPage", () => {
 
     it("closes only the tax-loss block when its close-X is clicked", () => {
       setup({ residency: "US" });
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       fireEvent.click(screen.getByTestId("tax-close-tloss"));
 
@@ -119,7 +120,7 @@ describe("TaxInsightsPage", () => {
         const expected = getPortfolio(brokers, "conservative");
         const lossSymbol = expected.positions.find((p) => p.underwater)!.symbol;
 
-        render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+        renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
         fireEvent.click(screen.getByTestId(`tax-loss-row-${lossSymbol}`));
 
         const copy = screen.getByTestId(`tax-loss-copy-${lossSymbol}`)
@@ -138,7 +139,7 @@ describe("TaxInsightsPage", () => {
   describe("Tax Impact Before Trades block", () => {
     it("shows placeholder copy for an empty amount", () => {
       setup({ residency: "UK" });
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       expect(screen.getByTestId("tax-calc-result")).toHaveTextContent(
         "Enter an amount to see the estimated range.",
@@ -147,7 +148,7 @@ describe("TaxInsightsPage", () => {
 
     it("computes the correct CGT range for a fixed residency and amount", () => {
       setup({ residency: "UK" });
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       fireEvent.change(screen.getByTestId("tax-sell-amount"), {
         target: { value: "100000" },
@@ -165,7 +166,7 @@ describe("TaxInsightsPage", () => {
 
     it("closes only the calculator block when its close-X is clicked", () => {
       setup({ residency: "US" });
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       fireEvent.click(screen.getByTestId("tax-close-calc"));
 
@@ -182,7 +183,7 @@ describe("TaxInsightsPage", () => {
       [["INTERACTIVE BROKERS (IBKR)", "SAXO", "XTB"]],
     ])("renders one tab per selected broker for %j", (brokers) => {
       setup({ brokers, residency: "US" });
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       const fees = screen.getByTestId("tax-block-fees");
       const tabs = fees.querySelectorAll(".htab");
@@ -194,7 +195,7 @@ describe("TaxInsightsPage", () => {
         brokers: ["INTERACTIVE BROKERS (IBKR)", "SAXO"],
         residency: "UK",
       });
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       const initialTactic = screen.getByTestId("tax-tactic-text").textContent;
       const leverBefore = screen.getByTestId("tax-lever-text").textContent;
@@ -210,7 +211,7 @@ describe("TaxInsightsPage", () => {
 
     it("closes only the fees block when its close-X is clicked", () => {
       setup({ residency: "US" });
-      render(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
+      renderWithIntl(<TaxInsightsPage onNext={() => {}} onPrev={() => {}} />);
 
       fireEvent.click(screen.getByTestId("tax-close-fees"));
 
@@ -224,7 +225,7 @@ describe("TaxInsightsPage", () => {
     setup({ residency: "US" });
     const onNext = jest.fn();
     const onPrev = jest.fn();
-    render(<TaxInsightsPage onNext={onNext} onPrev={onPrev} />);
+    renderWithIntl(<TaxInsightsPage onNext={onNext} onPrev={onPrev} />);
 
     fireEvent.click(screen.getByTestId("tax-prev-arrow"));
     fireEvent.click(screen.getByTestId("tax-next-arrow"));

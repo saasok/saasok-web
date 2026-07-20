@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { CollapsibleWidget } from "./CollapsibleWidget";
 import warshData from "../../../../data/warsh-speeches.json";
 
@@ -12,14 +13,15 @@ interface WarshTalk {
 const talks = (warshData as unknown as { talks: WarshTalk[] }).talks;
 
 export function WarshWidget({ revealed }: { revealed: boolean }) {
+  const t = useTranslations("widgets");
   return (
     <CollapsibleWidget
       testId="widget-warsh"
-      title="Kevin Warsh speeches"
+      title={t("warshTitle")}
       positionClassName="right-0 bottom-0 w-[280px]"
       revealed={revealed}
       totalRows={talks.length}
-      scrollHintLabel="↕ scroll for more · through mid-2028"
+      scrollHintLabel={t("scrollHintWarsh")}
       renderRow={(index) => {
         const t = talks[index];
         return (

@@ -1,4 +1,5 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { DashboardWidgets } from "./DashboardWidgets";
 
 function expectRevealed(
@@ -21,7 +22,7 @@ describe("DashboardWidgets staggered reveal", () => {
   });
 
   it("reveals nothing immediately on mount", () => {
-    render(<DashboardWidgets />);
+    renderWithIntl(<DashboardWidgets />);
     expectRevealed("calendar-wrap", false);
     expectRevealed("widget-pelosi", false);
     expectRevealed("widget-warsh", false);
@@ -29,7 +30,7 @@ describe("DashboardWidgets staggered reveal", () => {
   });
 
   it("reveals the calendar, then Pelosi, then Warsh, then News in a 500ms stagger starting at 7000ms", () => {
-    render(<DashboardWidgets />);
+    renderWithIntl(<DashboardWidgets />);
 
     act(() => {
       jest.advanceTimersByTime(7000);
@@ -59,7 +60,7 @@ describe("DashboardWidgets staggered reveal", () => {
   });
 
   it("clears its timers on unmount without throwing", () => {
-    const { unmount } = render(<DashboardWidgets />);
+    const { unmount } = renderWithIntl(<DashboardWidgets />);
     unmount();
 
     expect(() => {

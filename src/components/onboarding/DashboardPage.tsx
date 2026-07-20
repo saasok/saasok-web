@@ -1,7 +1,9 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Cell, Pie, PieChart } from "recharts";
 import { useOnboardingStore } from "@/store/onboarding";
+import { formatCurrency } from "@/lib/formatCurrency";
 import {
   getPortfolio,
   getSectorBreakdown,
@@ -23,25 +25,25 @@ const SECTOR_COLORS = [
   "#B98D5E",
 ];
 
-function formatUsd(value: number): string {
-  return "$" + Math.round(value).toLocaleString("en-US");
-}
-
 function formatYears(years: string): string {
-  return years.replace("-", "–") + " years";
+  return years.replace("-", "–");
 }
 
 export function DashboardPage({ onNext }: { onNext: () => void }) {
+  const t = useTranslations("dashboard");
+  const tr = useTranslations("riskLabel");
+  const tc = useTranslations("common");
   const brokers = useOnboardingStore((s) => s.brokers) as Broker[];
   const risk = useOnboardingStore((s) => s.risk);
   const years = useOnboardingStore((s) => s.years);
+  const language = useOnboardingStore((s) => s.language);
 
   if (brokers.length === 0 || !risk) {
     return (
       <div className="flex h-full flex-col items-center justify-center px-10 py-9">
         <TopBrand />
         <div className="max-w-xl text-center font-fraunces text-xl font-semibold text-ivory">
-          Complete onboarding to see your dashboard.
+          {t("incomplete")}
         </div>
         <Disclaimer />
       </div>
@@ -60,11 +62,15 @@ export function DashboardPage({ onNext }: { onNext: () => void }) {
           className="mb-1 font-mono text-[10px] tracking-[0.12em] text-amber-dim uppercase"
           data-testid="dashboard-subtitle"
         >
-          {risk} profile
-          {years ? ` · ${formatYears(years)} experience` : ""}
+          {t("profileLabel", { risk: tr(risk) })}
+          {years
+            ? ` ${t("experienceSuffix", {
+                years: `${formatYears(years)} ${t("yearsSuffix")}`,
+              })}`
+            : ""}
         </div>
         <div className="mb-3.5 font-fraunces text-[17px] font-semibold text-ivory">
-          Unified Portfolio Dashboard
+          {t("title")}
         </div>
 
         <div className="flex w-full max-w-[1020px] flex-wrap items-start justify-center gap-5">
@@ -79,7 +85,7 @@ export function DashboardPage({ onNext }: { onNext: () => void }) {
               className="mb-3 font-mono text-2xl font-semibold text-amber"
               data-testid="dashboard-total"
             >
-              {formatUsd(portfolio.total)}
+              {formatCurrency(portfolio.total, language)}
             </div>
             <div
               className="max-h-[380px] overflow-y-auto pr-1"
@@ -106,7 +112,7 @@ export function DashboardPage({ onNext }: { onNext: () => void }) {
                   <span className="font-sans text-[10.5px] text-muted-dim">
                     {p.type}
                   </span>
-                  <span>{formatUsd(p.value)}</span>
+                  <span>{formatCurrency(p.value, language)}</span>
                 </div>
               ))}
             </div>
@@ -135,7 +141,7 @@ export function DashboardPage({ onNext }: { onNext: () => void }) {
               </Pie>
             </PieChart>
             <div className="font-mono text-[10.5px] tracking-wide text-muted">
-              BY SECTOR
+              {t("bySector")}
             </div>
             <div
               className="flex w-full flex-col gap-1 font-sans text-[10.5px]"
@@ -155,20 +161,20 @@ export function DashboardPage({ onNext }: { onNext: () => void }) {
 
           <div className="w-64 rounded-2xl border border-panel-border bg-panel p-4">
             <h4 className="mb-2.5 font-fraunces text-[13px] font-semibold text-ivory">
-              Fee &amp; Cost Optimization
+              {t("feeTitle")}
             </h4>
             <div className="mb-1.5 flex justify-between font-mono text-[10.5px] text-muted">
-              <span>FX conversion cost</span>
+              <span>{t("fxConversion")}</span>
               <b className="text-ivory" data-testid="dashboard-fx-fee">
                 {feeSummary.fxConversionFeeUsd === null
-                  ? "Not disclosed"
-                  : formatUsd(feeSummary.fxConversionFeeUsd)}
+                  ? t("notDisclosed")
+                  : formatCurrency(feeSummary.fxConversionFeeUsd, language)}
               </b>
             </div>
             <div className="mb-2 flex justify-between font-mono text-[10.5px] text-muted">
-              <span>Custody / platform fees</span>
+              <span>{t("custodyFees")}</span>
               <b className="text-ivory" data-testid="dashboard-custody-fee">
-                {formatUsd(feeSummary.custodyFeeAnnualUsd)}
+                {formatCurrency(feeSummary.custodyFeeAnnualUsd, language)}
               </b>
             </div>
             <div className="flex flex-col gap-1.5 font-sans text-[10px] leading-snug text-muted-dim">
@@ -180,8 +186,7 @@ export function DashboardPage({ onNext }: { onNext: () => void }) {
               ))}
             </div>
             <div className="mt-2 border-t border-line pt-2 font-sans text-[10px] leading-relaxed text-muted-dim">
-              Estimates from published broker rates applied to your portfolio
-              total — illustrative, not investment advice.
+              {t("feeFootnote")}
             </div>
           </div>
         </div>
@@ -193,7 +198,7 @@ export function DashboardPage({ onNext }: { onNext: () => void }) {
 
       <button
         type="button"
-        aria-label="Next page"
+        aria-label={tc("nextPageAria")}
         data-testid="dashboard-next-arrow"
         onClick={onNext}
         className="absolute top-1/2 right-4 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-silver text-[15px] font-bold text-[#151515] shadow-[0_6px_16px_rgba(0,0,0,0.3)] transition hover:scale-[1.06] hover:bg-silver-hi"

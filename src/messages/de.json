@@ -1,0 +1,125 @@
+{
+  "common": {
+    "previousPageAria": "Vorherige Seite",
+    "nextPageAria": "Nächste Seite",
+    "nextPageButton": "Nächste Seite"
+  },
+  "cover": {
+    "taglinePrefix": "Verschaffen Sie sich einen Vorteil mit"
+  },
+  "languageGate": {
+    "prompt": "Wählen Sie Ihre Sprache"
+  },
+  "brokers": {
+    "step": "Schritt 1 von 3",
+    "question": "Welche Broker nutzen Sie?",
+    "hint": "Wählen Sie 1–3"
+  },
+  "risk": {
+    "step": "Schritt 2 von 3",
+    "question": "Wie hoch ist Ihr Portfolio-Risikoniveau?",
+    "conservative": "Konservativ",
+    "conservativeSub": "Anleihen + ETFs",
+    "moderate": "Moderat",
+    "moderateSub": "Aktien + Fonds + FX",
+    "aggressive": "Aggressiv",
+    "aggressiveSub": "Aktien + Futures + Optionen"
+  },
+  "years": {
+    "step": "Schritt 3 von 3",
+    "question": "Wie viele Jahre arbeiten Sie schon mit Brokern?",
+    "1-4": "1–4 Jahre",
+    "5-9": "5–9 Jahre",
+    "10+": "10+ Jahre",
+    "next": "Portfolio konsolidieren"
+  },
+  "loading": {
+    "message": "IHR DEMO-PORTFOLIO WIRD GELADEN…"
+  },
+  "dashboard": {
+    "incomplete": "Schließen Sie das Onboarding ab, um Ihr Dashboard zu sehen.",
+    "profileLabel": "{risk} Profil",
+    "experienceSuffix": "· {years} Erfahrung",
+    "title": "Einheitliches Portfolio-Dashboard",
+    "bySector": "NACH SEKTOR",
+    "feeTitle": "Gebühren- & Kostenoptimierung",
+    "fxConversion": "FX-Umrechnungskosten",
+    "notDisclosed": "Nicht offengelegt",
+    "custodyFees": "Verwahrungs-/Plattformgebühren",
+    "feeFootnote": "Schätzungen auf Basis veröffentlichter Broker-Sätze, angewendet auf Ihr Portfolio-Gesamtvolumen — illustrativ, keine Anlageberatung.",
+    "yearsSuffix": "Jahre"
+  },
+  "riskLabel": {
+    "conservative": "konservatives",
+    "moderate": "moderates",
+    "aggressive": "aggressives"
+  },
+  "competitiveAsset": {
+    "pageLabel": "Seite 6",
+    "title": "Wettbewerbsvergleich",
+    "warning": "Wählen Sie einen von 20 Werten — unbegrenzte Versuche",
+    "marketCapPrefix": "Marktkapitalisierung ≈",
+    "saveResults": "Analyseergebnisse speichern"
+  },
+  "correlation": {
+    "pageLabel": "Seite 7",
+    "title": "Korrelationsanalyse Ihrer Investments",
+    "resetAria": "Korrelationsauswahl zurücksetzen"
+  },
+  "taxInsights": {
+    "pageLabel": "Seite 8",
+    "incomplete": "Schließen Sie das Onboarding ab, um Ihre Steuereinblicke zu sehen.",
+    "title": "Steuereinblicke für Ihr Portfolio",
+    "footnote": "Steuer- und Gebührenangaben sind illustrativ und basieren auf öffentlich verfügbaren Daten (Stand Juni 2026); Sätze und Regelungen ändern sich — prüfen Sie stets mit Ihrem Broker und Steuerberater, bevor Sie handeln.",
+    "residencyPrompt": "Wo liegt Ihr steuerlicher Wohnsitz?",
+    "tlossTitle": "Steuerverlust-Chancen",
+    "tlossTip": "Der Verkauf dieser Position könnte helfen, Gewinne an anderer Stelle auszugleichen. Nur zu Informationszwecken — keine Empfehlung.",
+    "calcTitle": "Steuerauswirkung vor dem Handel",
+    "sellAmountPlaceholder": "Hypothetischer Verkaufsbetrag, $",
+    "calcResultEmpty": "Geben Sie einen Betrag ein, um die geschätzte Spanne zu sehen.",
+    "calcResultTemplate": "Geschätzte Kapitalertragsteuer-Spanne ({residency}): {low} – {high} ({lowPct}–{highPct}%)",
+    "feesTitle": "Unnötige Steuerkosten reduzieren",
+    "whatReduces": "Was Ihre Gebühren reduziert:",
+    "watchOutFor": "Worauf zu achten ist:",
+    "realLevers": "Echte, legitime Hebel:",
+    "whatDoesNotWork": "Was NICHT funktioniert:"
+  },
+  "scenarioStudio": {
+    "pageLabel": "Seite 9",
+    "incomplete": "Schließen Sie das Onboarding ab, um Ihr Szenario-Studio zu sehen.",
+    "title": "Szenario-Studio für Ihr zukünftiges Portfolio",
+    "yearsTab": "{n} Jahre",
+    "reset": "Zurücksetzen",
+    "pickScenario": "Wählen Sie ein Szenario",
+    "pickScenarioHint": "Wählen Sie links eine Karte, um zu sehen, wie sich dieses Szenario über den gewählten Zeithorizont entwickeln könnte.",
+    "detailTitle": "{title} — {horizon} Jahre"
+  },
+  "closing": {
+    "tagline": "Jetzt haben Sie sich mit SaaSok einen Vorteil verschafft!",
+    "thanks": "Vielen Dank für Ihre Teilnahme an unserer Studie! Jede Antwort macht SaaSok besser.",
+    "restart": "Demo neu starten"
+  },
+  "disclaimer": {
+    "body": "SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.",
+    "pendingLegalReview": true
+  },
+  "errorBoundary": {
+    "title": "Etwas ist schiefgelaufen",
+    "reload": "Neu laden"
+  },
+  "widgets": {
+    "newsTitle": "Marktnachrichten-Feed",
+    "pelosiTitle": "Nancy-Pelosi-Trades",
+    "warshTitle": "Kevin-Warsh-Reden",
+    "scrollHint": "↕ zum Scrollen · zeigt {shown} von {total}",
+    "scrollHintWarsh": "↕ zum Scrollen · bis Mitte 2028",
+    "scrollUpAria": "Nach oben scrollen",
+    "scrollDownAria": "Nach unten scrollen",
+    "trading": "Handel:",
+    "preMarket": "Vorbörslich:",
+    "afterMarket": "Nachbörslich:",
+    "daysOff": "Handelsfreie Tage:",
+    "holidays": "Feiertage:",
+    "urgent": "Dringend:"
+  }
+}

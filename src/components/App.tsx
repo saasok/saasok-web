@@ -6,6 +6,7 @@ import { useBackNavigationLock } from "@/hooks/useBackNavigationLock";
 import { useFocusableActivation } from "@/hooks/useFocusableActivation";
 import { trackEvent } from "@/lib/analytics";
 import { parseUtmParams } from "@/lib/utm";
+import { ErrorBoundary } from "./ErrorBoundary";
 import { CoverPage } from "./onboarding/CoverPage";
 import { BrokersPage } from "./onboarding/BrokersPage";
 import { RiskPage } from "./onboarding/RiskPage";
@@ -35,7 +36,7 @@ export function App() {
   const goTo = useOnboardingStore((s) => s.goTo);
   const goBack = useOnboardingStore((s) => s.goBack);
   const reset = useOnboardingStore((s) => s.reset);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   useBackNavigationLock(page);
   useFocusableActivation(containerRef);
@@ -45,7 +46,7 @@ export function App() {
   }, []);
 
   return (
-    <div
+    <main
       ref={containerRef}
       className="relative h-dvh min-h-[660px] w-full overflow-hidden text-ivory"
       style={{
@@ -55,38 +56,74 @@ export function App() {
     >
       {PAGE_NUMBER[page] !== undefined && <ProgressDots current={page} />}
 
-      {page === "page1" && <CoverPage />}
-      {page === "page2" && <BrokersPage />}
-      {page === "page3" && <RiskPage />}
-      {page === "page4" && <YearsPage />}
-      {page === "pageLoad" && <LoadingPage />}
-      {page === "page5" && <DashboardPage onNext={() => goTo("page6")} />}
+      {page === "page1" && (
+        <ErrorBoundary key="page1">
+          <CoverPage />
+        </ErrorBoundary>
+      )}
+      {page === "page2" && (
+        <ErrorBoundary key="page2">
+          <BrokersPage />
+        </ErrorBoundary>
+      )}
+      {page === "page3" && (
+        <ErrorBoundary key="page3">
+          <RiskPage />
+        </ErrorBoundary>
+      )}
+      {page === "page4" && (
+        <ErrorBoundary key="page4">
+          <YearsPage />
+        </ErrorBoundary>
+      )}
+      {page === "pageLoad" && (
+        <ErrorBoundary key="pageLoad">
+          <LoadingPage />
+        </ErrorBoundary>
+      )}
+      {page === "page5" && (
+        <ErrorBoundary key="page5">
+          <DashboardPage onNext={() => goTo("page6")} />
+        </ErrorBoundary>
+      )}
       {page === "page6" && (
-        <CompetitiveAssetPage
-          onNext={() => goTo("page7")}
-          onPrev={() => goBack("page5")}
-        />
+        <ErrorBoundary key="page6">
+          <CompetitiveAssetPage
+            onNext={() => goTo("page7")}
+            onPrev={() => goBack("page5")}
+          />
+        </ErrorBoundary>
       )}
       {page === "page7" && (
-        <CorrelationAnalysisPage
-          onNext={() => goTo("page8")}
-          onPrev={() => goBack("page6")}
-        />
+        <ErrorBoundary key="page7">
+          <CorrelationAnalysisPage
+            onNext={() => goTo("page8")}
+            onPrev={() => goBack("page6")}
+          />
+        </ErrorBoundary>
       )}
       {page === "page8" && (
-        <TaxInsightsPage
-          onNext={() => goTo("page9")}
-          onPrev={() => goBack("page7")}
-        />
+        <ErrorBoundary key="page8">
+          <TaxInsightsPage
+            onNext={() => goTo("page9")}
+            onPrev={() => goBack("page7")}
+          />
+        </ErrorBoundary>
       )}
       {page === "page9" && (
-        <ScenarioStudioPage
-          onNext={() => goTo("page10")}
-          onPrev={() => goBack("page8")}
-        />
+        <ErrorBoundary key="page9">
+          <ScenarioStudioPage
+            onNext={() => goTo("page10")}
+            onPrev={() => goBack("page8")}
+          />
+        </ErrorBoundary>
       )}
-      {page === "page10" && <ClosingPage onRestart={reset} />}
-    </div>
+      {page === "page10" && (
+        <ErrorBoundary key="page10">
+          <ClosingPage onRestart={reset} />
+        </ErrorBoundary>
+      )}
+    </main>
   );
 }
 

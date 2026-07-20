@@ -1,5 +1,6 @@
 import { act } from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { ClosingPage } from "./ClosingPage";
 
 beforeEach(() => {
@@ -12,7 +13,7 @@ afterEach(() => {
 
 describe("staged reveal", () => {
   it("fades in the thanks line at 900ms and the restart button at 2600ms", () => {
-    render(<ClosingPage onRestart={jest.fn()} />);
+    renderWithIntl(<ClosingPage onRestart={jest.fn()} />);
 
     expect(screen.getByTestId("closing-thanks")).toHaveClass("opacity-0");
     expect(screen.getByTestId("closing-restart")).toHaveClass("opacity-0");
@@ -33,7 +34,7 @@ describe("staged reveal", () => {
 describe("restart flow", () => {
   it("collapses before calling onRestart, rather than resetting immediately", () => {
     const onRestart = jest.fn();
-    render(<ClosingPage onRestart={onRestart} />);
+    renderWithIntl(<ClosingPage onRestart={onRestart} />);
 
     fireEvent.click(screen.getByTestId("closing-restart"));
     expect(screen.getByTestId("closing-wrap")).toHaveClass("opacity-0");

@@ -37,15 +37,20 @@ export const RESIDENCIES: Residency[] = ["EU", "UK", "US", "UAE", "CH", "UA"];
 export type Language = "en" | "de" | "fr" | "it";
 export const LANGUAGES: { code: Language; label: string }[] = [
   { code: "en", label: "English" },
-  { code: "de", label: "German" },
-  { code: "fr", label: "French" },
-  { code: "it", label: "Italian" },
+  { code: "de", label: "Deutsch" },
+  { code: "fr", label: "Français" },
+  { code: "it", label: "Italiano" },
 ];
 
 const RESIDENCY_STORAGE_KEY = "saasok:residency";
+const LANGUAGE_STORAGE_KEY = "saasok:language";
 
 function isResidency(v: string | null): v is Residency {
   return v !== null && (RESIDENCIES as readonly string[]).includes(v);
+}
+
+function isLanguage(v: string | null): v is Language {
+  return v !== null && LANGUAGES.some((l) => l.code === v);
 }
 
 // Residency is the one onboarding field that must survive a real browser
@@ -65,6 +70,25 @@ function writeStoredResidency(r: Residency) {
 function clearStoredResidency() {
   if (typeof window !== "undefined") {
     window.sessionStorage.removeItem(RESIDENCY_STORAGE_KEY);
+  }
+}
+
+// language mirrors residency's reload-survives-within-tab persistence, since
+// both are user choices made mid-flow that shouldn't reset on an accidental
+// refresh (unlike page/brokers/risk/years, which are in-memory only).
+function readStoredLanguage(): Language | null {
+  if (typeof window === "undefined") return null;
+  const v = window.sessionStorage.getItem(LANGUAGE_STORAGE_KEY);
+  return isLanguage(v) ? v : null;
+}
+function writeStoredLanguage(l: Language) {
+  if (typeof window !== "undefined") {
+    window.sessionStorage.setItem(LANGUAGE_STORAGE_KEY, l);
+  }
+}
+function clearStoredLanguage() {
+  if (typeof window !== "undefined") {
+    window.sessionStorage.removeItem(LANGUAGE_STORAGE_KEY);
   }
 }
 
@@ -93,7 +117,7 @@ const initial = {
   risk: null as Risk | null,
   years: null as Years | null,
   residency: readStoredResidency(),
-  language: "en" as Language,
+  language: (readStoredLanguage() ?? "en") as Language,
 };
 
 declare global {
@@ -135,7 +159,11 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
     trackEvent("residency_selected", { residency });
   },
 
-  setLanguage: (language) => set({ language }),
+  setLanguage: (language) => {
+    writeStoredLanguage(language);
+    set({ language });
+    trackEvent("language_selected", { language, source: "vpn_gate" });
+  },
 
   goTo: (page) => {
     const targetIndex = PAGE_ORDER.indexOf(page);
@@ -154,7 +182,8 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
   // read once.
   reset: () => {
     clearStoredResidency();
-    set({ ...initial, residency: null });
+    clearStoredLanguage();
+    set({ ...initial, residency: null, language: "en" });
   },
 }));
 

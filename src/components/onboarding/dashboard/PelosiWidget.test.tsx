@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { PelosiWidget } from "./PelosiWidget";
 import pelosiData from "../../../../data/pelosi-trades.json";
 
@@ -6,7 +7,7 @@ const trades = pelosiData.trades;
 
 describe("PelosiWidget", () => {
   it("shows 10 rows out of the full 50-trade dataset once expanded", () => {
-    render(<PelosiWidget revealed />);
+    renderWithIntl(<PelosiWidget revealed />);
     fireEvent.click(screen.getByTestId("widget-pelosi-header"));
 
     trades.slice(0, 10).forEach((t) => {
@@ -20,7 +21,7 @@ describe("PelosiWidget", () => {
   });
 
   it("colors sell trades red and buy trades green", () => {
-    render(<PelosiWidget revealed />);
+    renderWithIntl(<PelosiWidget revealed />);
     fireEvent.click(screen.getByTestId("widget-pelosi-header"));
 
     const visible = trades.slice(0, 10);

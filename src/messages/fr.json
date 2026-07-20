@@ -1,0 +1,125 @@
+{
+  "common": {
+    "previousPageAria": "Page précédente",
+    "nextPageAria": "Page suivante",
+    "nextPageButton": "Page suivante"
+  },
+  "cover": {
+    "taglinePrefix": "Prenez l'avantage avec"
+  },
+  "languageGate": {
+    "prompt": "Choisissez votre langue"
+  },
+  "brokers": {
+    "step": "Étape 1 sur 3",
+    "question": "Quel(s) courtier(s) utilisez-vous ?",
+    "hint": "Choisissez 1 à 3"
+  },
+  "risk": {
+    "step": "Étape 2 sur 3",
+    "question": "Quel est le niveau de risque de votre portefeuille ?",
+    "conservative": "Prudent",
+    "conservativeSub": "Obligations + ETF",
+    "moderate": "Modéré",
+    "moderateSub": "Actions + Fonds + FX",
+    "aggressive": "Dynamique",
+    "aggressiveSub": "Actions + Futures + Options"
+  },
+  "years": {
+    "step": "Étape 3 sur 3",
+    "question": "Depuis combien d'années travaillez-vous avec un courtier ?",
+    "1-4": "1 à 4 ans",
+    "5-9": "5 à 9 ans",
+    "10+": "10 ans ou plus",
+    "next": "Consolider votre portefeuille"
+  },
+  "loading": {
+    "message": "CHARGEMENT DE VOTRE PORTEFEUILLE DE DÉMONSTRATION…"
+  },
+  "dashboard": {
+    "incomplete": "Terminez l'intégration pour voir votre tableau de bord.",
+    "profileLabel": "profil {risk}",
+    "experienceSuffix": "· {years} d'expérience",
+    "title": "Tableau de bord de portefeuille unifié",
+    "bySector": "PAR SECTEUR",
+    "feeTitle": "Optimisation des frais et coûts",
+    "fxConversion": "Coût de conversion de change",
+    "notDisclosed": "Non communiqué",
+    "custodyFees": "Frais de garde / de plateforme",
+    "feeFootnote": "Estimations basées sur les tarifs publiés des courtiers, appliquées au total de votre portefeuille — à titre indicatif, pas un conseil en investissement.",
+    "yearsSuffix": "ans"
+  },
+  "riskLabel": {
+    "conservative": "prudent",
+    "moderate": "modéré",
+    "aggressive": "dynamique"
+  },
+  "competitiveAsset": {
+    "pageLabel": "Page 6",
+    "title": "Analyse comparative des actifs",
+    "warning": "Choisissez l'un des 20 actifs — essais illimités",
+    "marketCapPrefix": "Capitalisation boursière ≈",
+    "saveResults": "Enregistrer les résultats de l'analyse"
+  },
+  "correlation": {
+    "pageLabel": "Page 7",
+    "title": "Analyse de corrélation de vos investissements",
+    "resetAria": "Réinitialiser la sélection de corrélation"
+  },
+  "taxInsights": {
+    "pageLabel": "Page 8",
+    "incomplete": "Terminez l'intégration pour voir vos informations fiscales.",
+    "title": "Informations fiscales pour votre portefeuille",
+    "footnote": "Les chiffres fiscaux et de frais sont indicatifs et basés sur des données publiques de juin 2026 ; les taux et barèmes évoluent — vérifiez toujours auprès de votre courtier et de votre conseiller fiscal avant d'agir.",
+    "residencyPrompt": "Quelle est votre résidence fiscale ?",
+    "tlossTitle": "Opportunités de perte fiscale",
+    "tlossTip": "Vendre cette position pourrait aider à compenser des gains ailleurs. Information à but éducatif uniquement — ce n'est pas une recommandation.",
+    "calcTitle": "Impact fiscal avant transaction",
+    "sellAmountPlaceholder": "Montant de vente hypothétique, $",
+    "calcResultEmpty": "Saisissez un montant pour voir la fourchette estimée.",
+    "calcResultTemplate": "Fourchette estimée d'impôt sur les plus-values ({residency}) : {low} – {high} ({lowPct}–{highPct} %)",
+    "feesTitle": "Réduire les coûts fiscaux inutiles",
+    "whatReduces": "Ce qui réduit vos frais :",
+    "watchOutFor": "À surveiller :",
+    "realLevers": "Leviers réels et légitimes :",
+    "whatDoesNotWork": "Ce qui NE fonctionne PAS :"
+  },
+  "scenarioStudio": {
+    "pageLabel": "Page 9",
+    "incomplete": "Terminez l'intégration pour voir votre studio de scénarios.",
+    "title": "Studio de scénarios pour votre futur portefeuille",
+    "yearsTab": "{n} ans",
+    "reset": "Réinitialiser",
+    "pickScenario": "Choisissez un scénario",
+    "pickScenarioHint": "Sélectionnez une carte à gauche pour voir comment ce scénario pourrait évoluer sur l'horizon choisi.",
+    "detailTitle": "{title} — {horizon} ans"
+  },
+  "closing": {
+    "tagline": "Vous avez maintenant pris l'avantage avec SaaSok !",
+    "thanks": "Merci d'avoir participé à notre étude ! Chaque réponse rend SaaSok meilleur.",
+    "restart": "Recommencer la démo"
+  },
+  "disclaimer": {
+    "body": "SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.",
+    "pendingLegalReview": true
+  },
+  "errorBoundary": {
+    "title": "Un problème est survenu",
+    "reload": "Recharger"
+  },
+  "widgets": {
+    "newsTitle": "Fil d'actualités du marché",
+    "pelosiTitle": "Transactions de Nancy Pelosi",
+    "warshTitle": "Discours de Kevin Warsh",
+    "scrollHint": "↕ faites défiler pour plus · affiche {shown} sur {total}",
+    "scrollHintWarsh": "↕ faites défiler pour plus · jusqu'à mi-2028",
+    "scrollUpAria": "Défiler vers le haut",
+    "scrollDownAria": "Défiler vers le bas",
+    "trading": "Négociation :",
+    "preMarket": "Avant bourse :",
+    "afterMarket": "Après bourse :",
+    "daysOff": "Jours de fermeture :",
+    "holidays": "Jours fériés :",
+    "urgent": "Urgent :"
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useHoverDuration } from "@/hooks/useHoverDuration";
 import exchangesData from "../../../../data/exchanges.json";
 
@@ -18,6 +19,7 @@ const exchanges = (exchangesData as unknown as { exchanges: ExchangeInfo[] })
   .exchanges;
 
 export function MarketCalendar({ revealed }: { revealed: boolean }) {
+  const t = useTranslations("widgets");
   const [pickedSet, setPickedSet] = useState<Set<string>>(new Set());
   const [hoveredName, setHoveredName] = useState<string | null>(null);
   const { onMouseEnter, onMouseLeave } = useHoverDuration("calendar");
@@ -78,17 +80,17 @@ export function MarketCalendar({ revealed }: { revealed: boolean }) {
                 <b className="mb-1 block font-fraunces text-[12px] font-semibold">
                   {ex.name}
                 </b>
-                Trading: {ex.hours}
+                {t("trading")} {ex.hours}
                 <br />
-                Pre-market: {ex.preMarket}
+                {t("preMarket")} {ex.preMarket}
                 <br />
-                After-market: {ex.afterMarket}
+                {t("afterMarket")} {ex.afterMarket}
                 <br />
-                Days off: {ex.daysOff}
+                {t("daysOff")} {ex.daysOff}
                 <br />
-                Holidays: {ex.holidays}
+                {t("holidays")} {ex.holidays}
                 <br />
-                Urgent: {ex.urgentNote}
+                {t("urgent")} {ex.urgentNote}
               </div>
             </div>
           );

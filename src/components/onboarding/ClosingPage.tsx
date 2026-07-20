@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { BrandMark } from "../BrandMark";
 
 // Mirrors docs/mockup.html's playClosing/restartDemo timings exactly.
@@ -9,6 +10,7 @@ const RESTART_DELAY_MS = 2600;
 const COLLAPSE_DURATION_MS = 900;
 
 export function ClosingPage({ onRestart }: { onRestart: () => void }) {
+  const t = useTranslations("closing");
   const [show, setShow] = useState({ thanks: false, restart: false });
   const [collapsing, setCollapsing] = useState(false);
 
@@ -46,7 +48,7 @@ export function ClosingPage({ onRestart }: { onRestart: () => void }) {
           SaaS<em className="text-muted font-medium not-italic italic">ok</em>
         </div>
         <div className="font-fraunces text-xl italic text-ivory">
-          Now you are edged up by SaaSok!
+          {t("tagline")}
         </div>
         <div
           data-testid="closing-thanks"
@@ -54,8 +56,7 @@ export function ClosingPage({ onRestart }: { onRestart: () => void }) {
             show.thanks ? "opacity-100" : "opacity-0"
           }`}
         >
-          Thank you for participating in our research! Every response makes
-          SaaSok better.
+          {t("thanks")}
         </div>
         <button
           type="button"
@@ -65,7 +66,7 @@ export function ClosingPage({ onRestart }: { onRestart: () => void }) {
             show.restart ? "opacity-100" : "opacity-0"
           }`}
         >
-          Restart demo
+          {t("restart")}
         </button>
       </div>
     </div>

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useOnboardingStore } from "@/store/onboarding";
 import { getPortfolio, type Broker } from "@/lib/portfolio";
+import { formatCurrency } from "@/lib/formatCurrency";
 import { trackEvent } from "@/lib/analytics";
 import {
   SCENARIOS,
@@ -24,10 +26,6 @@ const HIGHLIGHT_CLASS: Record<Highlight, string> = {
   none: "text-ivory",
 };
 
-function formatUsd(value: number): string {
-  return "$" + Math.round(value).toLocaleString("en-US");
-}
-
 function highlightFor(
   selectedIndex: number | null,
   horizon: Horizon,
@@ -47,8 +45,11 @@ export function ScenarioStudioPage({
   onNext: () => void;
   onPrev: () => void;
 }) {
+  const t = useTranslations("scenarioStudio");
+  const tc = useTranslations("common");
   const brokers = useOnboardingStore((s) => s.brokers) as Broker[];
   const risk = useOnboardingStore((s) => s.risk);
+  const language = useOnboardingStore((s) => s.language);
   const [horizon, setHorizon] = useState<Horizon>("5");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -57,7 +58,7 @@ export function ScenarioStudioPage({
       <div className="flex h-full flex-col items-center justify-center px-10 py-9">
         <TopBrand />
         <div className="max-w-xl text-center font-fraunces text-xl font-semibold text-ivory">
-          Complete onboarding to see your scenario sandbox.
+          {t("incomplete")}
         </div>
         <Disclaimer />
       </div>
@@ -73,10 +74,10 @@ export function ScenarioStudioPage({
       <div className="absolute inset-0 bottom-16 flex flex-col items-center overflow-y-auto px-10 pt-[58px] pb-9">
         <TopBrand />
         <div className="mb-1 font-mono text-[10px] tracking-[0.12em] text-amber-dim uppercase">
-          Page 9
+          {t("pageLabel")}
         </div>
         <div className="mb-3.5 font-fraunces text-[17px] font-semibold text-ivory">
-          Situational Studio for your future portfolio
+          {t("title")}
         </div>
 
         <div className="flex w-full max-w-[1020px] flex-wrap items-start justify-center gap-4">
@@ -95,7 +96,7 @@ export function ScenarioStudioPage({
                       : "bg-white/[0.06] text-ivory"
                   }`}
                 >
-                  {h} Years
+                  {t("yearsTab", { n: h })}
                 </button>
               ))}
             </div>
@@ -139,7 +140,7 @@ export function ScenarioStudioPage({
                 className="mb-3 font-mono text-2xl font-semibold text-amber"
                 data-testid="scen-total"
               >
-                {formatUsd(portfolio.total)}
+                {formatCurrency(portfolio.total, language)}
               </div>
               <div
                 className="max-h-[380px] overflow-y-auto pr-1"
@@ -166,7 +167,9 @@ export function ScenarioStudioPage({
                       <span className="font-sans text-[10.5px] text-muted-dim">
                         {p.type}
                       </span>
-                      <span className="text-ivory">{formatUsd(p.value)}</span>
+                      <span className="text-ivory">
+                        {formatCurrency(p.value, language)}
+                      </span>
                     </div>
                   );
                 })}
@@ -178,7 +181,7 @@ export function ScenarioStudioPage({
               onClick={() => setSelectedIndex(null)}
               className="rounded-full border border-panel-border px-4 py-2 font-mono text-[10.5px] text-muted transition hover:border-amber-dim hover:text-ivory"
             >
-              Reset
+              {t("reset")}
             </button>
           </div>
 
@@ -192,19 +195,16 @@ export function ScenarioStudioPage({
                   className="mb-2 font-fraunces text-[13px] text-ivory"
                   data-testid="scen-detail-title"
                 >
-                  {selected.title} — {horizon} years
+                  {t("detailTitle", { title: selected.title, horizon })}
                 </h4>
                 <p data-testid="scen-detail-text">{detail.txt}</p>
               </>
             ) : (
               <>
                 <h4 className="mb-2 font-fraunces text-[13px] text-ivory">
-                  Pick a scenario
+                  {t("pickScenario")}
                 </h4>
-                <p>
-                  Select a card on the left to preview how this scenario could
-                  evolve over the chosen horizon.
-                </p>
+                <p>{t("pickScenarioHint")}</p>
               </>
             )}
           </div>
@@ -215,7 +215,7 @@ export function ScenarioStudioPage({
 
       <button
         type="button"
-        aria-label="Previous page"
+        aria-label={tc("previousPageAria")}
         data-testid="scen-prev-arrow"
         onClick={onPrev}
         className="absolute top-1/2 left-4 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-silver text-[15px] font-bold text-[#151515] shadow-[0_6px_16px_rgba(0,0,0,0.3)] transition hover:scale-[1.06] hover:bg-silver-hi"
@@ -224,7 +224,7 @@ export function ScenarioStudioPage({
       </button>
       <button
         type="button"
-        aria-label="Next page"
+        aria-label={tc("nextPageAria")}
         data-testid="scen-next-arrow"
         onClick={onNext}
         className="absolute top-1/2 right-4 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-silver text-[15px] font-bold text-[#151515] shadow-[0_6px_16px_rgba(0,0,0,0.3)] transition hover:scale-[1.06] hover:bg-silver-hi"

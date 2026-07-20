@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { useOnboardingStore } from "@/store/onboarding";
 import { getPortfolio } from "@/lib/portfolio";
+import { renderWithIntl } from "@/test/renderWithIntl";
 import { DashboardPage } from "./DashboardPage";
 
 function formatUsd(value: number): string {
@@ -21,7 +22,7 @@ describe("DashboardPage", () => {
     });
     const expected = getPortfolio([...brokers], "moderate");
 
-    render(<DashboardPage onNext={() => {}} />);
+    renderWithIntl(<DashboardPage onNext={() => {}} />);
 
     expect(screen.getByTestId("dashboard-broker-label")).toHaveTextContent(
       expected.brokerLabel,
@@ -42,7 +43,7 @@ describe("DashboardPage", () => {
     });
     const expected = getPortfolio(["SAXO"], "conservative");
 
-    render(<DashboardPage onNext={() => {}} />);
+    renderWithIntl(<DashboardPage onNext={() => {}} />);
 
     expected.positions.forEach((p) => {
       const dot = screen.queryByTestId(`dashboard-loss-dot-${p.symbol}`);
@@ -55,7 +56,7 @@ describe("DashboardPage", () => {
   });
 
   it("renders an empty state instead of crashing when onboarding state is incomplete", () => {
-    render(<DashboardPage onNext={() => {}} />);
+    renderWithIntl(<DashboardPage onNext={() => {}} />);
     expect(screen.getByText(/Complete onboarding/)).toBeInTheDocument();
   });
 
@@ -66,7 +67,7 @@ describe("DashboardPage", () => {
       years: "10+",
     });
     const onNext = jest.fn();
-    render(<DashboardPage onNext={onNext} />);
+    renderWithIntl(<DashboardPage onNext={onNext} />);
 
     fireEvent.click(screen.getByTestId("dashboard-next-arrow"));
     expect(onNext).toHaveBeenCalledTimes(1);

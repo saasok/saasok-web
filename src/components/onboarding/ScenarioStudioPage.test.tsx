@@ -1,7 +1,8 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { useOnboardingStore } from "@/store/onboarding";
 import { ScenarioStudioPage } from "./ScenarioStudioPage";
 import { SCENARIOS } from "@/lib/scenarios";
+import { renderWithIntl } from "@/test/renderWithIntl";
 
 function setup(overrides: Partial<ReturnType<typeof useOnboardingStore.getState>> = {}) {
   useOnboardingStore.setState({
@@ -11,7 +12,7 @@ function setup(overrides: Partial<ReturnType<typeof useOnboardingStore.getState>
   });
   const onNext = jest.fn();
   const onPrev = jest.fn();
-  render(<ScenarioStudioPage onNext={onNext} onPrev={onPrev} />);
+  renderWithIntl(<ScenarioStudioPage onNext={onNext} onPrev={onPrev} />);
   return { onNext, onPrev };
 }
 
@@ -22,7 +23,7 @@ beforeEach(() => {
 describe("ScenarioStudioPage guard", () => {
   it("shows a completion prompt instead of the sandbox when onboarding is incomplete", () => {
     useOnboardingStore.setState({ brokers: [], risk: null });
-    render(
+    renderWithIntl(
       <ScenarioStudioPage onNext={jest.fn()} onPrev={jest.fn()} />,
     );
     expect(

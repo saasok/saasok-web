@@ -1,0 +1,125 @@
+{
+  "common": {
+    "previousPageAria": "Previous page",
+    "nextPageAria": "Next page",
+    "nextPageButton": "Next page"
+  },
+  "cover": {
+    "taglinePrefix": "Get your edge up by"
+  },
+  "languageGate": {
+    "prompt": "Choose your language"
+  },
+  "brokers": {
+    "step": "Step 1 of 3",
+    "question": "Which broker/s do you use?",
+    "hint": "Pick 1–3"
+  },
+  "risk": {
+    "step": "Step 2 of 3",
+    "question": "What is your portfolio risk level?",
+    "conservative": "Conservative",
+    "conservativeSub": "Bonds + ETFs",
+    "moderate": "Moderate",
+    "moderateSub": "Stocks + Funds + FX",
+    "aggressive": "Aggressive",
+    "aggressiveSub": "Stocks + Futures + Options"
+  },
+  "years": {
+    "step": "Step 3 of 3",
+    "question": "How many years do you work with brokerage?",
+    "1-4": "1–4 years",
+    "5-9": "5–9 years",
+    "10+": "10+ years",
+    "next": "Consolidate your portfolio"
+  },
+  "loading": {
+    "message": "LOADING YOUR DEMO PORTFOLIO…"
+  },
+  "dashboard": {
+    "incomplete": "Complete onboarding to see your dashboard.",
+    "profileLabel": "{risk} profile",
+    "experienceSuffix": "· {years} experience",
+    "title": "Unified Portfolio Dashboard",
+    "bySector": "BY SECTOR",
+    "feeTitle": "Fee & Cost Optimization",
+    "fxConversion": "FX conversion cost",
+    "notDisclosed": "Not disclosed",
+    "custodyFees": "Custody / platform fees",
+    "feeFootnote": "Estimates from published broker rates applied to your portfolio total — illustrative, not investment advice.",
+    "yearsSuffix": "years"
+  },
+  "riskLabel": {
+    "conservative": "conservative",
+    "moderate": "moderate",
+    "aggressive": "aggressive"
+  },
+  "competitiveAsset": {
+    "pageLabel": "Page 6",
+    "title": "Competitive Asset View",
+    "warning": "Pick one of the 20 assets — unlimited attempts",
+    "marketCapPrefix": "Market cap ≈",
+    "saveResults": "Save results of analysis"
+  },
+  "correlation": {
+    "pageLabel": "Page 7",
+    "title": "Correlation Analysis of your investments",
+    "resetAria": "Reset correlation selection"
+  },
+  "taxInsights": {
+    "pageLabel": "Page 8",
+    "incomplete": "Complete onboarding to see your tax insights.",
+    "title": "Tax insights for your portfolio",
+    "footnote": "Tax and fee figures are illustrative and based on publicly available data as of June 2026; rates and schedules change — always verify with your broker and tax advisor before acting.",
+    "residencyPrompt": "What is your tax residence?",
+    "tlossTitle": "Tax-Loss Opportunities",
+    "tlossTip": "Selling this position could help offset gains elsewhere. Educational information only — not a recommendation.",
+    "calcTitle": "Tax Impact Before Trades",
+    "sellAmountPlaceholder": "Hypothetical sale amount, $",
+    "calcResultEmpty": "Enter an amount to see the estimated range.",
+    "calcResultTemplate": "Estimated CGT range ({residency}): {low} – {high} ({lowPct}–{highPct}%)",
+    "feesTitle": "Reduce Unnecessary Tax Costs",
+    "whatReduces": "What reduces your fees:",
+    "watchOutFor": "Watch out for:",
+    "realLevers": "Real, legitimate levers:",
+    "whatDoesNotWork": "What does NOT work:"
+  },
+  "scenarioStudio": {
+    "pageLabel": "Page 9",
+    "incomplete": "Complete onboarding to see your scenario sandbox.",
+    "title": "Situational Studio for your future portfolio",
+    "yearsTab": "{n} Years",
+    "reset": "Reset",
+    "pickScenario": "Pick a scenario",
+    "pickScenarioHint": "Select a card on the left to preview how this scenario could evolve over the chosen horizon.",
+    "detailTitle": "{title} — {horizon} years"
+  },
+  "closing": {
+    "tagline": "Now you are edged up by SaaSok!",
+    "thanks": "Thank you for participating in our research! Every response makes SaaSok better.",
+    "restart": "Restart demo"
+  },
+  "disclaimer": {
+    "body": "SaaSok is a financial technology software company providing Software as a Service (SaaS), financial data analytics, data processing, monitoring and reporting solutions. SaaSok does not provide investment, financial or advisory services and does not manage users' assets or funds. Nothing provided through the platform constitutes advice or a recommendation. Users remain solely responsible for their own decisions.",
+    "pendingLegalReview": false
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "reload": "Reload"
+  },
+  "widgets": {
+    "newsTitle": "Market News Feed",
+    "pelosiTitle": "Nancy Pelosi Trades",
+    "warshTitle": "Kevin Warsh speeches",
+    "scrollHint": "↕ scroll for more · showing {shown} of {total}",
+    "scrollHintWarsh": "↕ scroll for more · through mid-2028",
+    "scrollUpAria": "Scroll up",
+    "scrollDownAria": "Scroll down",
+    "trading": "Trading:",
+    "preMarket": "Pre-market:",
+    "afterMarket": "After-market:",
+    "daysOff": "Days off:",
+    "holidays": "Holidays:",
+    "urgent": "Urgent:"
+  }
+}
